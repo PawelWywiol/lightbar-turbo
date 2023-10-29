@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.16",
+    "eslint-config-custom": "*"
+  },
+  "name": "lightbar-turbo",
+  "packageManager": "npm@8.19.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
