@@ -13,9 +13,12 @@
     "eslint-config-custom": "*"
   },
   "name": "lightbar-turbo",
-  "packageManager": "npm@8.19.3",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "volta": {
+    "node": "18.17.1",
+    "npm": "10.1.0"
+  }
 }

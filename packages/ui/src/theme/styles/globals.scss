@@ -1,17 +1,5 @@
-@import 'normalize.css/normalize.css';
-@import './common.scss';
-
-:root {
-  --default-text-color: #202124;
-  --default-background-color: #fff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --default-text-color: #fff;
-    --default-background-color: #202124;
-  }
-}
+@import '@radix-ui/themes/styles.css';
+@import './radix-theme.scss';
 
 html,
 body {
@@ -40,8 +28,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-size: 1.6rem;
-  font-family: var(--default-font-family);
+  font-family: var(--app-default-font-family);
 }
 
 #__next {
