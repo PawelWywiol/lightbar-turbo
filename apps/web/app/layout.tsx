@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react';
 
+import Link from 'next/link';
+import { GENERAL_APP_CONFIG } from 'config';
 import { Theme, Header } from 'ui';
 import { Tilt_Warp } from 'next/font/google';
-
 import 'ui/src/theme/styles/globals.scss';
 
 const TiltWarpFont = Tilt_Warp({
@@ -17,7 +18,16 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
     <html lang="en" className={TiltWarpFont.variable}>
       <body>
         <Theme appearance="dark">
-          <Header />
+          <Header title={GENERAL_APP_CONFIG.app.name}>
+            <ul>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/editor">Editor</Link>
+              </li>
+            </ul>
+          </Header>
           {children}
         </Theme>
       </body>
