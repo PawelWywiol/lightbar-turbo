@@ -1,8 +1,16 @@
-export const GENERAL_APP_CONFIG = {
-  app: {
-    name: 'Lightbar',
+export const APP_NAME = 'Lightbar';
+
+export const EDITOR_SIZES = [
+  {
+    value: '8',
+    label: '8 leds',
   },
-  editor: {
-    sizes: [8, 16, 64],
+  {
+    value: '16',
+    label: '16 leds',
   },
-} as const;
+  {
+    value: '64',
+    label: '64 leds',
+  },
+];

@@ -1,9 +1,10 @@
 import { Editor } from 'ui';
+import { EDITOR_SIZES } from 'config';
 
 const EditorPage = () => {
   return (
     <main className={'container indent'}>
-      <Editor />
+      <Editor sizes={EDITOR_SIZES} />
     </main>
   );
 };
