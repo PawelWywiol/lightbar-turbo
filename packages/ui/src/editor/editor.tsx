@@ -5,11 +5,11 @@ import { EditorToolBar } from './components/editorToolBar/editorToolBar';
 
 import type { EditorProps } from './editor.types';
 
-export const Editor = ({ sizes, scheme, onChange }: EditorProps) => {
+export const Editor = ({ scheme, setScheme }: EditorProps) => {
   return (
     <Container size={'1'}>
-      <EditorToolBar sizes={sizes} scheme={scheme} onChange={onChange} />
-      <EditorGrid />
+      <EditorToolBar scheme={scheme} setScheme={setScheme} />
+      <EditorGrid scheme={scheme} setScheme={setScheme} />
     </Container>
   );
 };

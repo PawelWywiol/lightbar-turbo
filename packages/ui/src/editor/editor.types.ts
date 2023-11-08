@@ -1,7 +1,6 @@
-import type { LightsScheme, LightsSizeOption } from 'config';
+import type { LightsScheme } from 'config';
 
 export interface EditorProps {
-  sizes: LightsSizeOption[];
   scheme: LightsScheme;
-  onChange: (scheme: LightsScheme) => void;
+  setScheme: (scheme: LightsScheme) => void;
 }

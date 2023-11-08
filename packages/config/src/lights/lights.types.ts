@@ -1,7 +1,13 @@
-export interface LightsSizeOption {
+export interface LightsFrameSizeOption {
   value: number;
   label: string;
+  grid: {
+    rows: number;
+    columns: number;
+  };
 }
+
+export type LightsFrameSizeOptions = [LightsFrameSizeOption, ...LightsFrameSizeOption[]];
 
 export type LightsFrameType = 'step' | 'fade';
 
@@ -13,7 +19,8 @@ export interface LightsFrame {
 }
 
 export interface LightsScheme {
-  size: number;
+  size: LightsFrameSizeOption;
   colors: string[];
   frames: LightsFrame[];
+  frameIndex: number;
 }
