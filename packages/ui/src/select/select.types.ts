@@ -4,7 +4,8 @@ export interface SelectOption {
 }
 
 export interface SelectProps {
-  defaultValue?: string;
+  value: string;
+  onChange: (value: string) => void;
   placeholder?: string;
   options: SelectOption[] | string[] | number[];
 }

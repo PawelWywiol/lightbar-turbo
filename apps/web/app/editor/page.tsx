@@ -1,10 +1,16 @@
+'use client';
+
+import { useState } from 'react';
+
 import { Editor } from 'ui';
-import { EDITOR_SIZES } from 'config';
+import { DEFAULT_LIGHTS_SCHEME, LIGHTS_SIZES } from 'config';
 
 const EditorPage = () => {
+  const [scheme, setScheme] = useState(DEFAULT_LIGHTS_SCHEME);
+
   return (
     <main className={'container indent'}>
-      <Editor sizes={EDITOR_SIZES} />
+      <Editor sizes={LIGHTS_SIZES} scheme={scheme} onChange={setScheme} />
     </main>
   );
 };

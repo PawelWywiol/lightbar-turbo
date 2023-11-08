@@ -1,5 +1,3 @@
 import type { EditorProps } from '../../editor.types';
 
-export interface EditorToolBarProps extends Pick<EditorProps, 'sizes'> {
-  className?: string;
-}
+export type EditorToolBarProps = Pick<EditorProps, 'sizes' | 'scheme' | 'onChange'>;

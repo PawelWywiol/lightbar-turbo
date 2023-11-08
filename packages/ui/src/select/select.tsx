@@ -4,18 +4,18 @@ import { Select as RadixSelect } from '@radix-ui/themes';
 
 import type { SelectProps } from './select.types';
 
-export const Select = ({ options, defaultValue, placeholder }: SelectProps) => (
-  <RadixSelect.Root defaultValue={defaultValue ?? ''}>
+export const Select = ({ options, placeholder, value, onChange }: SelectProps) => (
+  <RadixSelect.Root value={value ?? ''} onValueChange={onChange}>
     <RadixSelect.Trigger placeholder={placeholder} />
     <RadixSelect.Content>
       <RadixSelect.Group>
         {options.map((option) => {
-          const value: string = typeof option === 'object' ? option.value : `${option}`;
-          const label: string = typeof option === 'object' ? option.label : `${option}`;
+          const optionValue: string = typeof option === 'object' ? option.value : `${option}`;
+          const optionLabel: string = typeof option === 'object' ? option.label : `${option}`;
 
           return (
-            <RadixSelect.Item key={`${value}${label}`} value={value}>
-              {label}
+            <RadixSelect.Item key={`${optionValue}${optionLabel}`} value={optionValue}>
+              {optionLabel}
             </RadixSelect.Item>
           );
         })}
