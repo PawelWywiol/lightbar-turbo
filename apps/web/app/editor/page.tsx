@@ -9,7 +9,7 @@ const EditorPage = () => {
   const [scheme, setScheme] = useState(DEFAULT_LIGHTS_SCHEME);
 
   return (
-    <main className={'container indent'}>
+    <main className={'flex-1 flex justify-center align-middle'}>
       <Editor scheme={scheme} setScheme={setScheme} />
     </main>
   );

@@ -5,6 +5,7 @@ import { APP_NAME } from 'config';
 import { Theme, Header } from 'ui';
 import { Tilt_Warp } from 'next/font/google';
 import 'ui/src/theme/styles/globals.scss';
+import { cx } from 'cva';
 
 const TiltWarpFont = Tilt_Warp({
   display: 'swap',
@@ -16,7 +17,7 @@ const TiltWarpFont = Tilt_Warp({
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={TiltWarpFont.variable}>
+      <body className={cx(TiltWarpFont.variable, 'relative')}>
         <Theme appearance="dark">
           <Header title={APP_NAME}>
             <ul>

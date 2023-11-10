@@ -1,4 +1,3 @@
-import { Flex } from '@radix-ui/themes';
 import { LIGHTS_FRAME_SIZES } from 'config';
 
 import { Select } from '../../../select/select';
@@ -6,7 +5,7 @@ import { Select } from '../../../select/select';
 import type { EditorProps } from '../../editor.types';
 
 export const EditorToolBar = ({ scheme, setScheme }: EditorProps) => (
-  <Flex justify="between" align="center" px={'4'}>
+  <div className="flex justify-between content-center px-4">
     <div></div>
     <div>
       <Select
@@ -24,5 +23,5 @@ export const EditorToolBar = ({ scheme, setScheme }: EditorProps) => (
         }}
       />
     </div>
-  </Flex>
+  </div>
 );
