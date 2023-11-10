@@ -23,7 +23,6 @@
   "dependencies": {
     "@radix-ui/themes": "^2.0.0",
     "cva": "npm:class-variance-authority@^0.7.0",
-    "i": "^0.3.7",
     "normalize.css": "^8.0.1",
     "npm": "^10.2.1"
   }
