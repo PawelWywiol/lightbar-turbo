@@ -41,11 +41,32 @@ export const DEFAULT_LIGHTS_FRAME: LightsFrame = {
   colorIndexes: [],
 };
 export const DEFAULT_LIGHTS_SCHEME_SIZE = LIGHTS_FRAME_SIZES[0];
-export const DEFAULT_LIGHTS_SCHEME_COLORS = ['#000000'];
+export const DEFAULT_LIGHTS_SCHEME_COLORS = ['#000000', '#ff0000', '#00ff00', '#0000ff'];
 
 export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
   size: DEFAULT_LIGHTS_SCHEME_SIZE,
   colors: DEFAULT_LIGHTS_SCHEME_COLORS,
-  frames: [DEFAULT_LIGHTS_FRAME],
+  frames: [
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 0,
+      colorIndexes: [0, 1, 2, 3, 0, 1, 2, 3],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 1,
+      colorIndexes: [1, 2, 3, 0, 1, 2, 3, 0],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 2,
+      colorIndexes: [2, 3, 0, 1, 2, 3, 0, 1],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 3,
+      colorIndexes: [3, 0, 1, 2, 3, 0, 1, 2],
+    },
+  ],
   frameIndex: 0,
 };

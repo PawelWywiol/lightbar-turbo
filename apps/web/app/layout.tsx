@@ -18,7 +18,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cx(TiltWarpFont.variable, 'relative')}>
-        <Theme appearance="dark">
+        <Theme appearance='dark'>
           <Header title={APP_NAME}>
             <ul>
               <li>
