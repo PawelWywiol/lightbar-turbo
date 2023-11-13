@@ -15,10 +15,10 @@ export const PaginationItem = ({
   handleChange,
   hrefTemplate,
 }: PaginationItemProps) => {
-  const className = cx('flex items-center justify-center w-4 h-4 p-4', selected ? 'selected' : '');
+  const className = cx('flex items-center justify-center w-full h-full bg-default-bg', selected ? '' : '');
 
   return (
-    <li>
+    <li className='flex-1 aspect-square flex justify-center align-middle'>
       {hrefTemplate && !disabled ? (
         <Link
           className={className}

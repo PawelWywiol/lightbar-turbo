@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-default-text: 255 255 255;
+    --color-default-bg: 0 0 0;
+  }
+}
+
 @layer components {
   .container {
     @apply mx-auto;
