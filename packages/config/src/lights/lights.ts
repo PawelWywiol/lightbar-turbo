@@ -67,6 +67,46 @@ export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
       index: 3,
       colorIndexes: [3, 0, 1, 2, 3, 0, 1, 2],
     },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 4,
+      colorIndexes: [0, 0, 0, 0, 1, 1, 1, 1],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 5,
+      colorIndexes: [1, 1, 1, 1, 2, 2, 2, 2],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 6,
+      colorIndexes: [2, 2, 2, 2, 3, 3, 3, 3],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 7,
+      colorIndexes: [3, 3, 3, 3, 0, 0, 0, 0],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 8,
+      colorIndexes: [0, 0, 0, 0, 0, 0, 0, 0],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 9,
+      colorIndexes: [1, 1, 1, 1, 1, 1, 1, 1],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 10,
+      colorIndexes: [2, 2, 2, 2, 2, 2, 2, 2],
+    },
+    {
+      ...DEFAULT_LIGHTS_FRAME,
+      index: 11,
+      colorIndexes: [3, 3, 3, 3, 3, 3, 3, 3],
+    },
   ],
   frameIndex: 0,
 };
