@@ -1,6 +1,9 @@
 import Link from 'next/link';
 
 import { cx } from 'cva';
+
+import { Button } from '../../button/button';
+
 import type {
   PaginationItemProps,
   PaginationEdgeItemProps,
@@ -15,10 +18,13 @@ export const PaginationItem = ({
   handleChange,
   hrefTemplate,
 }: PaginationItemProps) => {
-  const className = cx('flex items-center justify-center w-full h-full bg-default-bg', selected ? '' : '');
+  const className = cx(
+    'flex items-center justify-center w-full cursor-pointer',
+    selected ? '' : '',
+  );
 
   return (
-    <li className='flex-1 aspect-square flex justify-center align-middle'>
+    <li className="flex-1 flex justify-center align-middle">
       {hrefTemplate && !disabled ? (
         <Link
           className={className}
@@ -30,16 +36,16 @@ export const PaginationItem = ({
           {children}
         </Link>
       ) : (
-        <button
-          type="button"
+        <Button
           className={className}
+          active={selected}
           disabled={disabled}
           onClick={() => {
             handleChange && handleChange(page);
           }}
         >
           {children}
-        </button>
+        </Button>
       )}
     </li>
   );

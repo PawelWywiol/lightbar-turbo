@@ -22,5 +22,4 @@ export interface LightsScheme {
   size: LightsFrameSizeOption;
   colors: string[];
   frames: LightsFrame[];
-  frameIndex: number;
 }

@@ -1,7 +1,7 @@
-import type { EditorProps } from '../../editor.types';
+import type { EditorGridProps } from './editorGrid.types';
 
-export const EditorGrid = ({ scheme }: EditorProps) => {
-  const frame = scheme.frames[scheme.frameIndex];
+export const EditorGrid = ({ scheme, page }: EditorGridProps) => {
+  const frame = scheme.frames[page];
 
   if (!frame) {
     return null;
