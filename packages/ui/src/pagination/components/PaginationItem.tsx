@@ -19,7 +19,7 @@ export const PaginationItem = ({
   hrefTemplate,
 }: PaginationItemProps) => {
   const className = cx(
-    'flex items-center justify-center w-full cursor-pointer',
+    'flex items-center justify-center w-full p-0 cursor-pointer',
     selected ? '' : '',
   );
 

@@ -9,7 +9,7 @@ import { EditorToolBar } from './components/editorToolBar/editorToolBar';
 import type { EditorProps } from './editor.types';
 
 export const Editor = ({ scheme, setScheme }: EditorProps) => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   return (
     <div className="m-auto max-w-md w-full flex flex-col gap-4">
