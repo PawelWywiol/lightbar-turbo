@@ -1,6 +1,7 @@
 import type {
   LightsFrame,
   LightsFrameType,
+  LightsFrameTypeOption,
   LightsScheme,
   LightsFrameSizeOptions,
 } from './lights.types';
@@ -29,6 +30,17 @@ export const LIGHTS_FRAME_SIZES: LightsFrameSizeOptions = [
       rows: 8,
       columns: 8,
     },
+  },
+];
+
+export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
+  {
+    value: 'step',
+    label: 'Step',
+  },
+  {
+    value: 'fade',
+    label: 'Fade',
   },
 ];
 

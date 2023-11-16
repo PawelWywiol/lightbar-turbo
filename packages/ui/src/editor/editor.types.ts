@@ -4,3 +4,7 @@ export interface EditorProps {
   scheme: LightsScheme;
   setScheme: (scheme: LightsScheme) => void;
 }
+
+export interface EditorFrameProps extends EditorProps {
+  frameIndex: number;
+}

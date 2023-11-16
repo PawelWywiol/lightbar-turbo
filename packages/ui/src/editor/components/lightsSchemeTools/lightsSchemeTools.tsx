@@ -4,19 +4,19 @@ import { Select } from '../../../select/select';
 
 import type { EditorProps } from '../../editor.types';
 
-export const EditorToolBar = ({ scheme, setScheme }: EditorProps) => (
+export const LightsSchemeTools = ({ scheme, setScheme }: EditorProps) => (
   <div className="flex justify-between content-center px-4">
     <div></div>
     <div>
       <Select
-        options={LIGHTS_FRAME_SIZES.map((size) => ({
-          value: `${size.value}`,
-          label: size.label,
+        options={LIGHTS_FRAME_SIZES.map((option) => ({
+          value: `${option.value}`,
+          label: option.label,
         }))}
         value={`${scheme.size.value}`}
-        onChange={(sizeValue) => {
+        onChange={(value) => {
           const size = LIGHTS_FRAME_SIZES.find(
-            (sizeOption) => sizeOption.value === Number.parseInt(sizeValue, 10),
+            (option) => option.value === Number.parseInt(value, 10),
           );
 
           size && setScheme({ ...scheme, size });

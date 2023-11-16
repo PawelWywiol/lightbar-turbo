@@ -11,6 +11,11 @@ export type LightsFrameSizeOptions = [LightsFrameSizeOption, ...LightsFrameSizeO
 
 export type LightsFrameType = 'step' | 'fade';
 
+export interface LightsFrameTypeOption {
+  value: LightsFrameType;
+  label: string;
+}
+
 export interface LightsFrame {
   index: number;
   type: LightsFrameType;
