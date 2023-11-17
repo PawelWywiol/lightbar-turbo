@@ -1,4 +1,3 @@
-import { IconButton } from '@radix-ui/themes';
 import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES, LightsScheme } from 'config';
 
 import { Select } from '../../../select/select';
@@ -6,6 +5,7 @@ import { Select } from '../../../select/select';
 import type { EditorFrameProps } from '../../editor.types';
 import { PlusIcon } from '../../../icons';
 import { Button } from '../../../button/button';
+import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 
 export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameProps) => {
   const frame = scheme.frames[frameIndex];
@@ -55,10 +55,22 @@ export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameP
           }}
         />
       </div>
-      <div>
+      <div className="flex gap-2">
         <Button>
           <PlusIcon />
         </Button>
+        <DropDownMenu
+          options={[
+            {
+              label: 'Delete',
+              onClick: () => {
+                const updatedScheme: LightsScheme = { ...scheme };
+                updatedScheme.frames.splice(frameIndex, 1);
+                setScheme(updatedScheme);
+              },
+            },
+          ]}
+        />
       </div>
     </div>
   );
