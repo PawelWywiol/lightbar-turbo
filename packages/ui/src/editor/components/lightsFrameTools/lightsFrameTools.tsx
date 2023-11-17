@@ -1,8 +1,11 @@
-import { LIGHTS_FRAME_TYPES, LightsScheme } from 'config';
+import { IconButton } from '@radix-ui/themes';
+import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES, LightsScheme } from 'config';
 
 import { Select } from '../../../select/select';
 
 import type { EditorFrameProps } from '../../editor.types';
+import { PlusIcon } from '../../../icons';
+import { Button } from '../../../button/button';
 
 export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameProps) => {
   const frame = scheme.frames[frameIndex];
@@ -13,7 +16,7 @@ export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameP
 
   return (
     <div className="flex justify-between content-center px-4">
-      <div>
+      <div className="flex gap-2">
         <Select
           options={LIGHTS_FRAME_TYPES.map((option) => ({
             value: `${option.value}`,
@@ -34,8 +37,29 @@ export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameP
             setScheme(updatedScheme);
           }}
         />
+        <Select
+          options={LIGHTS_FRAME_TEMPO_OPTIONS}
+          value={`${frame.tempo}`}
+          onChange={(value) => {
+            const updatedScheme: LightsScheme = { ...scheme };
+            const updatedSchemeFrame = updatedScheme.frames[frameIndex];
+            const temp = parseInt(value, 10);
+
+            if (!temp || !updatedSchemeFrame) {
+              return;
+            }
+
+            updatedSchemeFrame.tempo = temp;
+
+            setScheme(updatedScheme);
+          }}
+        />
       </div>
-      <div></div>
+      <div>
+        <Button>
+          <PlusIcon />
+        </Button>
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import type {
   LightsFrameTypeOption,
   LightsScheme,
   LightsFrameSizeOptions,
+  LightsFrameTempoOption,
 } from './lights.types';
 
 export const LIGHTS_FRAME_SIZES: LightsFrameSizeOptions = [
@@ -44,6 +45,15 @@ export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
   },
 ];
 
+export const LIGHTS_FRAME_TEMPO_OPTIONS: LightsFrameTempoOption[] = [
+  1, 2, 3, 4, 8, 16, 32, 48, 60, 80, 120, 240,
+]
+  .sort((a, b) => (a > b ? 1 : -1))
+  .map((index) => ({
+    value: `${index}`,
+    label: `${index} bpm - ${Math.round(60000 / index)} ms`,
+  }));
+
 export const DEFAULT_COLOR_PALETTE = `
 #000000 #323232 #646464 #7d7d7d #afafaf #c8c8c8 #e1e1e1 #fafafa
 #640000 #960000 #c80000 #fa0000 #fa3232 #fa6464 #fa9696 #fac8c8
@@ -63,7 +73,7 @@ export const DEFAULT_COLOR_PALETTE = `
   .split(' ')
   .filter(Boolean);
 
-export const DEFAULT_LIGHTS_FRAME_TEMPO = 128;
+export const DEFAULT_LIGHTS_FRAME_TEMPO = 120;
 export const DEFAULT_LIGHTS_FRAME_TYPE: LightsFrameType = 'step';
 export const DEFAULT_LIGHTS_FRAME: LightsFrame = {
   index: 0,

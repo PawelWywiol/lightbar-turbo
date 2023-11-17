@@ -16,6 +16,11 @@ export interface LightsFrameTypeOption {
   label: string;
 }
 
+export interface LightsFrameTempoOption {
+  value: string;
+  label: string;
+}
+
 export interface LightsFrame {
   index: number;
   type: LightsFrameType;
