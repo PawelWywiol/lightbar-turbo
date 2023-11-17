@@ -1,13 +1,19 @@
 import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES, LightsScheme } from 'config';
 
 import { Select } from '../../../select/select';
-
-import type { EditorFrameProps } from '../../editor.types';
 import { PlusIcon } from '../../../icons';
 import { Button } from '../../../button/button';
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 
-export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameProps) => {
+import type { EditorFrameProps } from '../../editor.types';
+
+export const LightsFrameTools = ({
+  scheme,
+  setScheme,
+  frameIndex,
+  nextFrame,
+  previousFrame,
+}: EditorFrameProps) => {
   const frame = scheme.frames[frameIndex];
 
   if (!frame) {
@@ -56,7 +62,15 @@ export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameP
         />
       </div>
       <div className="flex gap-2">
-        <Button>
+        <Button
+          onClick={() => {
+            const newFrame = JSON.parse(JSON.stringify(frame));
+            const updatedScheme: LightsScheme = { ...scheme };
+            updatedScheme.frames.splice(frameIndex, 0, newFrame);
+            setScheme(updatedScheme);
+            nextFrame && nextFrame();
+          }}
+        >
           <PlusIcon />
         </Button>
         <DropDownMenu
@@ -64,9 +78,14 @@ export const LightsFrameTools = ({ scheme, setScheme, frameIndex }: EditorFrameP
             {
               label: 'Delete',
               onClick: () => {
+                if (scheme.frames.length === 1) {
+                  return;
+                }
+
                 const updatedScheme: LightsScheme = { ...scheme };
                 updatedScheme.frames.splice(frameIndex, 1);
                 setScheme(updatedScheme);
+                previousFrame && previousFrame();
               },
             },
           ]}

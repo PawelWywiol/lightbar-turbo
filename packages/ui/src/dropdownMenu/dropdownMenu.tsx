@@ -16,7 +16,7 @@ export const DropDownMenu = ({ trigger, options }: DropDownMenuProps) => (
     <RadixDropdownMenu.Content>
       {options.map((option, optionIndex) => {
         return (
-          <RadixDropdownMenu.Item key={`${optionIndex}${option.label}`}>
+          <RadixDropdownMenu.Item key={`${optionIndex}${option.label}`} onClick={option.onClick}>
             {option.label}
           </RadixDropdownMenu.Item>
         );

@@ -22,7 +22,6 @@ export interface LightsFrameTempoOption {
 }
 
 export interface LightsFrame {
-  index: number;
   type: LightsFrameType;
   tempo: number;
   colorIndexes: number[];

@@ -7,4 +7,6 @@ export interface EditorProps {
 
 export interface EditorFrameProps extends EditorProps {
   frameIndex: number;
+  nextFrame?: () => void;
+  previousFrame?: () => void;
 }
