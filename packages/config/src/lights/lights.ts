@@ -81,6 +81,8 @@ export const DEFAULT_COLOR_PALETTE = `
   .split(' ')
   .filter(Boolean);
 
+export const DEFAULT_COLOR = '#000000';
+
 export const DEFAULT_LIGHTS_FRAME_TEMPO = 120;
 export const DEFAULT_LIGHTS_FRAME_TYPE: LightsFrameType = 'step';
 export const DEFAULT_LIGHTS_FRAME: LightsFrame = {

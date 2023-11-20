@@ -10,16 +10,22 @@ import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools
 import type { EditorProps } from './editor.types';
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 import { EditorTools } from './components/editorTools/editorTools';
+import { DEFAULT_COLOR } from 'config';
 
 export const Editor = ({ scheme, setScheme }: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
+  const [colorIndex, setColorIndex] = useState(0);
 
   return (
     <div className="m-auto max-w-md w-full flex flex-col gap-4">
       <div className="flex justify-between content-center px-4">
         <div className="flex">
-          <EditorTools tool={tool} setTool={setTool} />
+          <EditorTools
+            tool={tool}
+            setTool={setTool}
+            color={scheme.colors[colorIndex] ?? DEFAULT_COLOR}
+          />
         </div>
         <div className="flex">
           <LightsSchemeTools scheme={scheme} setScheme={setScheme} />
