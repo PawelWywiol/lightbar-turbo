@@ -3,14 +3,15 @@ import { DropdownMenu as RadixDropdownMenu } from '@radix-ui/themes';
 import { DotsVerticalIcon } from '../icons';
 
 import type { DropDownMenuProps } from './dropdownMenu.types';
+import { Button } from '../button/button';
 
 export const DropDownMenu = ({ trigger, options }: DropDownMenuProps) => (
   <RadixDropdownMenu.Root>
     <RadixDropdownMenu.Trigger>
       {trigger ?? (
-        <button className="px-2">
+        <Button className="px-2">
           <DotsVerticalIcon />
-        </button>
+        </Button>
       )}
     </RadixDropdownMenu.Trigger>
     <RadixDropdownMenu.Content>

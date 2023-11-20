@@ -8,13 +8,23 @@ import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTo
 import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools';
 
 import type { EditorProps } from './editor.types';
+import { EDITOR_DEFAULT_TOOL } from './editor.config';
+import { EditorTools } from './components/editorTools/editorTools';
 
 export const Editor = ({ scheme, setScheme }: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);
+  const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
 
   return (
     <div className="m-auto max-w-md w-full flex flex-col gap-4">
-      <LightsSchemeTools scheme={scheme} setScheme={setScheme} />
+      <div className="flex justify-between content-center px-4">
+        <div className="flex">
+          <EditorTools tool={tool} setTool={setTool} />
+        </div>
+        <div className="flex">
+          <LightsSchemeTools scheme={scheme} setScheme={setScheme} />
+        </div>
+      </div>
       <LightsFrameGrid frameIndex={frameIndex} scheme={scheme} setScheme={setScheme} />
       <LightsFrameTools
         frameIndex={frameIndex}

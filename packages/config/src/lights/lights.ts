@@ -32,6 +32,14 @@ export const LIGHTS_FRAME_SIZES: LightsFrameSizeOptions = [
       columns: 8,
     },
   },
+  {
+    value: 100,
+    label: '100 leds',
+    grid: {
+      rows: 10,
+      columns: 10,
+    },
+  },
 ];
 
 export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
