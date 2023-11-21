@@ -24,7 +24,8 @@ export const Editor = ({ scheme, setScheme }: EditorProps) => {
           <EditorTools
             tool={tool}
             setTool={setTool}
-            color={scheme.colors[colorIndex] ?? DEFAULT_COLOR}
+            colorIndex={colorIndex}
+            setColorIndex={setColorIndex}
             colors={scheme.colors}
           />
         </div>
