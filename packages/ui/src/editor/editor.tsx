@@ -25,6 +25,7 @@ export const Editor = ({ scheme, setScheme }: EditorProps) => {
             tool={tool}
             setTool={setTool}
             color={scheme.colors[colorIndex] ?? DEFAULT_COLOR}
+            colors={scheme.colors}
           />
         </div>
         <div className="flex">

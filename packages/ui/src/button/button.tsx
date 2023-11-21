@@ -11,7 +11,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <RadixButton
         {...props}
         ref={ref}
-        className={cx(className, 'cursor-pointer px-2')}
+        className={cx(className, 'cursor-pointer')}
         color={active ? undefined : 'gray'}
         disabled={disabled}
         onClick={onClick}
