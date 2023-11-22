@@ -7,10 +7,10 @@ import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
 import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTools';
 import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools';
 
-import type { EditorProps } from './editor.types';
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 import { EditorTools } from './components/editorTools/editorTools';
-import { DEFAULT_COLOR } from 'config';
+
+import type { EditorProps } from './editor.types';
 
 export const Editor = ({ scheme, setScheme }: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);

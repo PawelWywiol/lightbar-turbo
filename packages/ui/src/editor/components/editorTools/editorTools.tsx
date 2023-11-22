@@ -1,8 +1,5 @@
-import Compact from '@uiw/react-color-compact';
-
 import { Button } from '../../../button/button';
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
-import { DotIcon } from '../../../icons/dotIcon';
 import { Dialog } from '../../../dialog/dialog';
 import { EDITOR_TOOLS_LIST, EditorToolType } from '../../editor.config';
 import { DEFAULT_COLOR } from 'config';
@@ -46,24 +43,20 @@ export const EditorTools = ({
           </Button>
         }
       >
-        <Compact
-          color={colors[colorIndex] ?? DEFAULT_COLOR}
-          colors={colors}
-          rectRender={(props) => {
-            console.log(props);
-            return (
-              <span
-                key={props.key}
-                className="w-7 aspect-square m-[2px] rounded cursor-pointer flex justify-center align-middle outline-none"
-                onClick={() => setColorIndex(parseInt(`${props.key}`, 10))}
-                style={{ background: props.color }}
-              >
-                {props.checked && <DotIcon className="w-full h-full" />}
-              </span>
-            );
-          }}
-          style={{ background: 'transparent', width: '265px' }}
-        />
+        <div className="grid grid-cols-8 gap-1">
+          {colors.map((color, index) => (
+            <span
+              key={index}
+              className="w-8 aspect-square rounded cursor-pointer flex justify-center items-center"
+              onClick={() => setColorIndex(index)}
+              style={{ background: color }}
+            >
+              {index === colorIndex && (
+                <span className="flex items-center justify-center w-4 aspect-square rounded-full bg-[white] shadow-md" />
+              )}
+            </span>
+          ))}
+        </div>
       </Dialog>
     </div>
   );
