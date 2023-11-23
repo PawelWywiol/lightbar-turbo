@@ -37,7 +37,7 @@ export const EditorTools = ({
         trigger={
           <Button className="rounded aspect-square px-0 overflow-hidden">
             <span
-              className="rounded w-6 aspect-square"
+              className="rounded w-5 aspect-square"
               style={{ backgroundColor: colors[colorIndex] ?? DEFAULT_COLOR }}
             />
           </Button>
