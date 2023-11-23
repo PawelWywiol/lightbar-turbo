@@ -33,7 +33,12 @@ export const Editor = ({ scheme, setScheme }: EditorProps) => {
           <LightsSchemeTools scheme={scheme} setScheme={setScheme} />
         </div>
       </div>
-      <LightsFrameGrid frameIndex={frameIndex} scheme={scheme} setScheme={setScheme} />
+      <LightsFrameGrid
+        colorIndex={colorIndex}
+        frameIndex={frameIndex}
+        scheme={scheme}
+        setScheme={setScheme}
+      />
       <LightsFrameTools
         frameIndex={frameIndex}
         scheme={scheme}

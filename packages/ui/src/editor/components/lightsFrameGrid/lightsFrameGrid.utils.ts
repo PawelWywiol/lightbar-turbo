@@ -1,4 +1,4 @@
-import { RefObject, MutableRefObject, useCallback, useEffect } from 'react';
+import { RefObject, MutableRefObject, useCallback, useEffect, useRef } from 'react';
 
 export interface GridPainterState {
   offsetStart: number;
@@ -19,7 +19,7 @@ export interface GridPainterState {
   itemIndex: number;
 }
 
-const MINIMUM_DRAG_DISTANCE = 5;
+const MINIMUM_DRAG_DISTANCE = 0;
 
 export const DEFAULT_PAINTER_STATE: GridPainterState = {
   offsetStart: 0,
@@ -68,12 +68,24 @@ const getChildElementFromPoint = (x: number, y: number, parent: HTMLDivElement):
   return children.indexOf(element);
 };
 
+const setChildElementBackgroundColor = (
+  index: number,
+  color: string,
+  parent: HTMLDivElement,
+): void => {
+  const children = Array.from(parent.children);
+  const element = children[index] as HTMLDivElement;
+  element?.style.setProperty('background', color);
+};
+
 export const useGridPainter = (
   containerReference: RefObject<HTMLDivElement>,
-  stateObject: MutableRefObject<GridPainterState>,
-  onUpdateState: (state: GridPainterState) => void,
-  onComplete: () => void,
+  color: string,
+  onUpdateState: (colorIndex: number, colorIndexes: number[]) => void,
+  onComplete: (colorIndexes: number[]) => void,
 ) => {
+  const colorIndexes = useRef<number[]>([]);
+  const stateObject = useRef<GridPainterState>(DEFAULT_PAINTER_STATE);
   const onDragStart = useCallback(
     (event: Event) => {
       const currentReferenceContainer = containerReference.current;
@@ -102,17 +114,27 @@ export const useGridPainter = (
       state.current.dragLastOffsetY = offsetY;
       state.current.offsetStart = state.current.offsetCurrent || 0;
       state.current.animationTime = 0;
+
+      colorIndexes.current = [];
       state.current.itemIndex = getChildElementFromPoint(
         offsetX,
         offsetY,
         currentReferenceContainer,
       );
 
+      if (state.current.itemIndex === -1) {
+        return;
+      }
+
+      colorIndexes.current = [state.current.itemIndex];
+
+      onUpdateState(state.current.itemIndex, colorIndexes.current);
+
       rafTimeout(() => {
-        state.current.itemIndex !== -1 && onUpdateState(state.current);
+        setChildElementBackgroundColor(state.current.itemIndex, color, currentReferenceContainer);
       });
     },
-    [stateObject],
+    [containerReference, stateObject, onUpdateState, color],
   );
 
   const onDragMove = useCallback(
@@ -159,7 +181,6 @@ export const useGridPainter = (
       state.current.offsetCurrent = state.current.offsetStart + state.current.dragDistanceX;
       state.current.offsetTarget = state.current.offsetCurrent;
 
-      const lastItemIndex = state.current.itemIndex;
       state.current.itemIndex = getChildElementFromPoint(
         offsetX,
         offsetY,
@@ -168,13 +189,22 @@ export const useGridPainter = (
 
       event.preventDefault();
 
+      if (
+        state.current.itemIndex === -1 ||
+        colorIndexes.current.includes(state.current.itemIndex)
+      ) {
+        return;
+      }
+
+      colorIndexes.current.push(state.current.itemIndex);
+
+      setChildElementBackgroundColor(state.current.itemIndex, color, currentReferenceContainer);
+
       rafTimeout(() => {
-        state.current.itemIndex !== -1 &&
-          lastItemIndex !== state.current.itemIndex &&
-          onUpdateState(state.current);
+        onUpdateState(state.current.itemIndex, colorIndexes.current);
       });
     },
-    [stateObject, onUpdateState],
+    [containerReference, stateObject, onUpdateState, color],
   );
 
   const onDragEnd = useCallback(
@@ -195,7 +225,7 @@ export const useGridPainter = (
 
       event.preventDefault();
 
-      onComplete();
+      onComplete(colorIndexes.current);
 
       rafTimeout(() => {
         state.current.dragged = false;
@@ -243,14 +273,5 @@ export const useGridPainter = (
       currentReferenceContainer?.removeEventListener('dragstart', preventDragStart);
       currentReferenceContainer?.removeEventListener('click', onClick);
     };
-  }, [
-    containerReference,
-    stateObject,
-    onUpdateState,
-    onComplete,
-    onDragStart,
-    onDragMove,
-    onDragEnd,
-    onClick,
-  ]);
+  }, [containerReference, onDragStart, onDragMove, onDragEnd, onClick]);
 };
