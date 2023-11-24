@@ -15,7 +15,6 @@ export const shiftLightsFrameColorPixel = (
     (_, i) => scheme.frames[frameIndex]?.colorIndexes[i] ?? 0,
   );
   const newFrame: number[] = [];
-  const size = scheme.size.value;
   const rowsCount = scheme.size.grid.rows;
   const columnsCount = scheme.size.grid.columns;
 
@@ -60,10 +59,8 @@ export const shiftLightsFrameColorPixel = (
       break;
   }
 
-  const updatedLightsScheme = {
+  return {
     ...scheme,
     frames: scheme.frames.map((f, i) => (i === frameIndex ? { ...f, colorIndexes: newFrame } : f)),
   };
-
-  return updatedLightsScheme;
 };
