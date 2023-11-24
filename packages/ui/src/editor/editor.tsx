@@ -11,6 +11,7 @@ import { EDITOR_DEFAULT_TOOL } from './editor.config';
 import { EditorTools } from './components/editorTools/editorTools';
 
 import type { EditorProps } from './editor.types';
+import { shiftLightsFrameColorPixel } from './editor.utils';
 
 export const Editor = ({ scheme, setScheme }: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);
@@ -27,6 +28,9 @@ export const Editor = ({ scheme, setScheme }: EditorProps) => {
             colorIndex={colorIndex}
             setColorIndex={setColorIndex}
             colors={scheme.colors}
+            shiftLightsFrameColorPixel={(direction) => {
+              setScheme(shiftLightsFrameColorPixel(scheme, frameIndex, direction));
+            }}
           />
         </div>
         <div className="flex">

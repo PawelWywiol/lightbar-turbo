@@ -13,6 +13,7 @@ export const EditorTools = ({
   colorIndex,
   setColorIndex,
   colors,
+  shiftLightsFrameColorPixel,
 }: EditorToolsProps) => {
   const selectedTool = EDITOR_TOOLS_LIST.find((editorTool) => editorTool.value === tool);
 
@@ -32,7 +33,7 @@ export const EditorTools = ({
       {tool === 'pencil' && (
         <ColorActions colors={colors} colorIndex={colorIndex} setColorIndex={setColorIndex} />
       )}
-      {tool === 'move' && <MoveActions />}
+      {tool === 'move' && <MoveActions shiftLightsFrameColorPixel={shiftLightsFrameColorPixel} />}
     </div>
   );
 };

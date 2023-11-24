@@ -1,4 +1,5 @@
 import type { EditorToolType } from '../../editor.config';
+import type { ShiftDirection } from '../../editor.types';
 
 export interface EditorToolsProps {
   tool: EditorToolType;
@@ -6,4 +7,5 @@ export interface EditorToolsProps {
   colorIndex: number;
   setColorIndex: (colorIndex: number) => void;
   colors: string[];
+  shiftLightsFrameColorPixel: (direction: ShiftDirection) => void;
 }

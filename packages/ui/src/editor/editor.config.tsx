@@ -1,4 +1,4 @@
-import { MoveIcon, PencilIcon, ShuffleIcon } from '../icons';
+import { MoveIcon, PencilIcon } from '../icons';
 
 export const EDITOR_TOOLS = {
   pencil: {
@@ -10,11 +10,6 @@ export const EDITOR_TOOLS = {
     value: 'move',
     label: 'Move',
     icon: <MoveIcon />,
-  },
-  shuffle: {
-    value: 'shuffle',
-    label: 'Shuffle',
-    icon: <ShuffleIcon />,
   },
 } as const;
 
