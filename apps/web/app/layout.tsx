@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { APP_NAME } from 'config';
 import { Theme, Header } from 'ui';
 import { Tilt_Warp } from 'next/font/google';
-import 'ui/src/theme/styles/globals.scss';
 import { cx } from 'cva';
+
+import 'ui/src/theme/styles/globals.scss';
 
 const TiltWarpFont = Tilt_Warp({
   display: 'swap',
