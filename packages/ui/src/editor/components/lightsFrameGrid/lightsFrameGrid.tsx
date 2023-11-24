@@ -20,7 +20,7 @@ export const LightsFrameGrid = ({
   useGridPainter(
     ref,
     scheme.colors[colorIndex] ?? 'transparent',
-    (updatedColorIndex, updatedColorIndexes) => {},
+    () => {},
     (updatedColorIndexes) => {
       const updatedFrame = {
         ...frame,

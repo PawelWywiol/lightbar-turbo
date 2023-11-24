@@ -1,8 +1,10 @@
-export const DotIcon = ({ className }: { className?: string }) => (
+import type { IconProps } from './icons.types';
+
+export const DotIcon = ({ className, size }: IconProps) => (
   <svg
     className={className}
-    width="15"
-    height="15"
+    width={size ?? '15'}
+    height={size ?? '15'}
     viewBox="0 0 15 15"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
