@@ -13,7 +13,14 @@ import { EditorTools } from './components/editorTools/editorTools';
 import type { EditorProps } from './editor.types';
 import { shiftLightsFrameColorPixel } from './editor.utils';
 
-export const Editor = ({ scheme, setScheme }: EditorProps) => {
+export const Editor = ({
+  scheme,
+  handleUpdate,
+  undoAvailable,
+  handleUndo,
+  redoAvailable,
+  handleRedo,
+}: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
   const [colorIndex, setColorIndex] = useState(0);
@@ -29,24 +36,24 @@ export const Editor = ({ scheme, setScheme }: EditorProps) => {
             setColorIndex={setColorIndex}
             colors={scheme.colors}
             shiftLightsFrameColorPixel={(direction) => {
-              setScheme(shiftLightsFrameColorPixel(scheme, frameIndex, direction));
+              handleUpdate(shiftLightsFrameColorPixel(scheme, frameIndex, direction));
             }}
           />
         </div>
         <div className="flex">
-          <LightsSchemeTools scheme={scheme} setScheme={setScheme} />
+          <LightsSchemeTools scheme={scheme} handleUpdate={handleUpdate} />
         </div>
       </div>
       <LightsFrameGrid
         colorIndex={colorIndex}
         frameIndex={frameIndex}
         scheme={scheme}
-        setScheme={setScheme}
+        handleUpdate={handleUpdate}
       />
       <LightsFrameTools
         frameIndex={frameIndex}
         scheme={scheme}
-        setScheme={setScheme}
+        handleUpdate={handleUpdate}
         nextFrame={() =>
           setFrameIndex((prevFrameIndex) =>
             prevFrameIndex + 1 < scheme.frames.length ? prevFrameIndex + 1 : prevFrameIndex,

@@ -6,7 +6,7 @@ import type { LightsFrameGridProps } from './lightsFrameGrid.types';
 
 export const LightsFrameGrid = ({
   scheme,
-  setScheme,
+  handleUpdate,
   frameIndex,
   colorIndex,
 }: LightsFrameGridProps) => {
@@ -31,7 +31,7 @@ export const LightsFrameGrid = ({
         }),
       };
 
-      setScheme({
+      handleUpdate({
         ...scheme,
         frames: scheme.frames.map((frame, index) => (index === frameIndex ? updatedFrame : frame)),
       });

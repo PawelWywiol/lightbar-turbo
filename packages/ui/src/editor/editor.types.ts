@@ -4,10 +4,14 @@ export type ShiftDirection = 'up' | 'down' | 'left' | 'right' | 'prev' | 'next' 
 
 export interface EditorProps {
   scheme: LightsScheme;
-  setScheme: (scheme: LightsScheme) => void;
+  handleUpdate: (scheme: LightsScheme) => void;
+  undoAvailable: boolean;
+  handleUndo: () => void;
+  redoAvailable: boolean;
+  handleRedo: () => void;
 }
 
-export interface EditorFrameProps extends EditorProps {
+export interface EditorFrameProps extends Pick<EditorProps, 'scheme' | 'handleUpdate'> {
   frameIndex: number;
   nextFrame?: () => void;
   previousFrame?: () => void;

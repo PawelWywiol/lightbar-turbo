@@ -9,7 +9,7 @@ import type { EditorFrameProps } from '../../editor.types';
 
 export const LightsFrameTools = ({
   scheme,
-  setScheme,
+  handleUpdate,
   frameIndex,
   nextFrame,
   previousFrame,
@@ -40,7 +40,7 @@ export const LightsFrameTools = ({
 
             updatedSchemeFrame.type = type.value;
 
-            setScheme(updatedScheme);
+            handleUpdate(updatedScheme);
           }}
         />
         <Select
@@ -57,7 +57,7 @@ export const LightsFrameTools = ({
 
             updatedSchemeFrame.tempo = temp;
 
-            setScheme(updatedScheme);
+            handleUpdate(updatedScheme);
           }}
         />
       </div>
@@ -67,7 +67,7 @@ export const LightsFrameTools = ({
             const newFrame = JSON.parse(JSON.stringify(frame));
             const updatedScheme: LightsScheme = { ...scheme };
             updatedScheme.frames.splice(frameIndex, 0, newFrame);
-            setScheme(updatedScheme);
+            handleUpdate(updatedScheme);
             nextFrame && nextFrame();
           }}
         >
@@ -84,7 +84,7 @@ export const LightsFrameTools = ({
 
                 const updatedScheme: LightsScheme = { ...scheme };
                 updatedScheme.frames.splice(frameIndex, 1);
-                setScheme(updatedScheme);
+                handleUpdate(updatedScheme);
                 previousFrame && previousFrame();
               },
             },
