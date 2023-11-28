@@ -8,10 +8,12 @@ import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTo
 import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools';
 
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
-import { EditorTools } from './components/editorTools/editorTools';
+import { EditTools } from './components/editTools/editTools';
+
+import { shiftLightsFrameColorPixel } from './editor.utils';
+import { StateTools } from './components/stateTools/stateTools';
 
 import type { EditorProps } from './editor.types';
-import { shiftLightsFrameColorPixel } from './editor.utils';
 
 export const Editor = ({
   scheme,
@@ -29,7 +31,7 @@ export const Editor = ({
     <div className="m-auto max-w-md w-full flex flex-col gap-4">
       <div className="flex justify-between content-center px-4">
         <div className="flex">
-          <EditorTools
+          <EditTools
             tool={tool}
             setTool={setTool}
             colorIndex={colorIndex}
@@ -69,6 +71,14 @@ export const Editor = ({
         count={scheme.frames.length}
         siblingCount={0}
         boundaryCount={0}
+      />
+      <StateTools
+        scheme={scheme}
+        handleUpdate={handleUpdate}
+        undoAvailable={undoAvailable}
+        handleUndo={handleUndo}
+        redoAvailable={redoAvailable}
+        handleRedo={handleRedo}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { RefObject, MutableRefObject, useCallback, useEffect, useRef } from 'react';
+import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 export interface GridPainterState {
   offsetStart: number;
@@ -170,7 +170,7 @@ export const useGridPainter = (
         !state.current.isDragging &&
         Math.abs(state.current.dragDistanceX) < MINIMUM_DRAG_DISTANCE
       ) {
-        if (Math.abs(state.current.dragDistanceY) > MINIMUM_DRAG_DISTANCE) {
+        if (Math.abs(state.current.dragDistanceY) < MINIMUM_DRAG_DISTANCE) {
           state.current.isDragStarted = false;
         }
         return;
@@ -218,10 +218,6 @@ export const useGridPainter = (
       state.current.isDragStarted = false;
       state.current.animationTime = 0;
       state.current.isDragging = false;
-
-      if (!state.current.dragged) {
-        return;
-      }
 
       event.preventDefault();
 

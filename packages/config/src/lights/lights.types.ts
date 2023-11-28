@@ -28,6 +28,7 @@ export interface LightsFrame {
 }
 
 export interface LightsScheme {
+  name: string;
   size: LightsFrameSizeOption;
   colors: string[];
   frames: LightsFrame[];

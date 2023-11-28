@@ -7,6 +7,8 @@ import type {
   LightsFrameTempoOption,
 } from './lights.types';
 
+export const LIGHTS_SCHEME_NAME_MAX_LENGTH = 16;
+
 export const LIGHTS_FRAME_SIZES: LightsFrameSizeOptions = [
   {
     value: 8,
@@ -94,6 +96,7 @@ export const DEFAULT_LIGHTS_SCHEME_SIZE = LIGHTS_FRAME_SIZES[0];
 export const DEFAULT_LIGHTS_SCHEME_COLORS = DEFAULT_COLOR_PALETTE;
 
 export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
+  name: 'New scheme',
   size: DEFAULT_LIGHTS_SCHEME_SIZE,
   colors: DEFAULT_LIGHTS_SCHEME_COLORS,
   frames: [

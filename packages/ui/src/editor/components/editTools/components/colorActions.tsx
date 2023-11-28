@@ -2,13 +2,13 @@ import { DEFAULT_COLOR } from 'config';
 import { Button } from '../../../../button/button';
 import { Dialog } from '../../../../dialog/dialog';
 
-import type { EditorToolsProps } from '../editorTools.types';
+import type { EditToolsProps } from '../editTools.types';
 
 export const ColorActions = ({
   colors,
   colorIndex,
   setColorIndex,
-}: Pick<EditorToolsProps, 'colors' | 'colorIndex' | 'setColorIndex'>) => (
+}: Pick<EditToolsProps, 'colors' | 'colorIndex' | 'setColorIndex'>) => (
   <Dialog
     className="flex justify-center align-middle max-w-[fit-content]"
     trigger={

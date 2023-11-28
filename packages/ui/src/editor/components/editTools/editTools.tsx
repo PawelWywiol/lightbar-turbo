@@ -2,19 +2,19 @@ import { Button } from '../../../button/button';
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 import { EDITOR_TOOLS_LIST } from '../../editor.config';
 
-import type { EditorToolsProps } from './editorTools.types';
+import type { EditToolsProps } from './editTools.types';
 import { ColorActions } from './components/colorActions';
 
 import { MoveActions } from './components/moveActions';
 
-export const EditorTools = ({
+export const EditTools = ({
   tool,
   setTool,
   colorIndex,
   setColorIndex,
   colors,
   shiftLightsFrameColorPixel,
-}: EditorToolsProps) => {
+}: EditToolsProps) => {
   const selectedTool = EDITOR_TOOLS_LIST.find((editorTool) => editorTool.value === tool);
 
   return (
