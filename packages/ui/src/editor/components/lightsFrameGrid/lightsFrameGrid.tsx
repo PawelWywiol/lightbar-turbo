@@ -9,6 +9,7 @@ export const LightsFrameGrid = ({
   handleUpdate,
   frameIndex,
   colorIndex,
+  device,
 }: LightsFrameGridProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const frame = scheme.frames[frameIndex];
@@ -25,7 +26,7 @@ export const LightsFrameGrid = ({
       const updatedFrame = {
         ...frame,
         colorIndexes: Array.from({
-          length: scheme.size.value,
+          length: device.size.value,
         }).map((_, index) => {
           return updatedColorIndexes.includes(index) ? colorIndex : frame.colorIndexes[index] ?? 0;
         }),
@@ -42,9 +43,9 @@ export const LightsFrameGrid = ({
     <div
       ref={ref}
       className={`px-4 grid gap-1`}
-      style={{ gridTemplateColumns: `repeat(${scheme.size.grid.columns},minmax(0,1fr))` }}
+      style={{ gridTemplateColumns: `repeat(${device.size.grid.columns},minmax(0,1fr))` }}
     >
-      {Array.from({ length: scheme.size.value }).map((_, index) => {
+      {Array.from({ length: device.size.value }).map((_, index) => {
         const color = scheme.colors[frame.colorIndexes[index] ?? 0] ?? 'transparent';
         return (
           <div

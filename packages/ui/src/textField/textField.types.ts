@@ -4,5 +4,4 @@ export interface TextFieldProps {
   placeholder?: string | undefined;
   onChange: (value: string) => void;
   maxLength?: number;
-  removeHtml?: boolean;
 }

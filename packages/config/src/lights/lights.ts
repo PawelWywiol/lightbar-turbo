@@ -3,46 +3,10 @@ import type {
   LightsFrameType,
   LightsFrameTypeOption,
   LightsScheme,
-  LightsFrameSizeOptions,
   LightsFrameTempoOption,
 } from './lights.types';
 
 export const LIGHTS_SCHEME_NAME_MAX_LENGTH = 16;
-
-export const LIGHTS_FRAME_SIZES: LightsFrameSizeOptions = [
-  {
-    value: 8,
-    label: '8 leds',
-    grid: {
-      rows: 1,
-      columns: 8,
-    },
-  },
-  {
-    value: 16,
-    label: '16 leds',
-    grid: {
-      rows: 2,
-      columns: 8,
-    },
-  },
-  {
-    value: 64,
-    label: '64 leds',
-    grid: {
-      rows: 8,
-      columns: 8,
-    },
-  },
-  {
-    value: 100,
-    label: '100 leds',
-    grid: {
-      rows: 10,
-      columns: 10,
-    },
-  },
-];
 
 export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
   {
@@ -92,12 +56,11 @@ export const DEFAULT_LIGHTS_FRAME: LightsFrame = {
   tempo: DEFAULT_LIGHTS_FRAME_TEMPO,
   colorIndexes: [],
 };
-export const DEFAULT_LIGHTS_SCHEME_SIZE = LIGHTS_FRAME_SIZES[0];
+
 export const DEFAULT_LIGHTS_SCHEME_COLORS = DEFAULT_COLOR_PALETTE;
 
 export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
   name: 'New scheme',
-  size: DEFAULT_LIGHTS_SCHEME_SIZE,
   colors: DEFAULT_LIGHTS_SCHEME_COLORS,
   frames: [
     {

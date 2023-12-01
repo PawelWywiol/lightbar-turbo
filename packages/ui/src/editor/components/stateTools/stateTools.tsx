@@ -26,12 +26,12 @@ export const StateTools = ({
         className="w-full"
         value={scheme.name}
         onChange={(name) => {
-          const newScheme = { ...scheme };
-          newScheme.name = name;
-          handleUpdate(newScheme);
+          handleUpdate({
+            ...scheme,
+            name: name.replace(/(<([^>]+)>)/gi, ''),
+          });
         }}
         maxLength={LIGHTS_SCHEME_NAME_MAX_LENGTH}
-        removeHtml
       />
     </div>
     <div className="flex">

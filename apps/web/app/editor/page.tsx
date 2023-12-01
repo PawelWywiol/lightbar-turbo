@@ -3,11 +3,12 @@
 import { useState } from 'react';
 
 import { Editor } from 'ui';
-import { DEFAULT_LIGHTS_SCHEME, LightsScheme } from 'config';
+import { DEFAULT_DEVICE, DEFAULT_LIGHTS_SCHEME, Device, LightsScheme } from 'config';
 
 const MAX_HISTORY = 20;
 
 const EditorPage = () => {
+  const [device, setDevice] = useState<Device>(DEFAULT_DEVICE);
   const [scheme, setScheme] = useState(DEFAULT_LIGHTS_SCHEME);
   const [schemeHistory, setSchemeHistory] = useState([scheme]);
   const [schemeHistoryIndex, setSchemeHistoryIndex] = useState(0);
@@ -53,6 +54,8 @@ const EditorPage = () => {
         handleUndo={handleUndo}
         redoAvailable={schemeHistoryIndex < schemeHistory.length - 1}
         handleRedo={handleRedo}
+        device={device}
+        setDevice={setDevice}
       />
     </main>
   );

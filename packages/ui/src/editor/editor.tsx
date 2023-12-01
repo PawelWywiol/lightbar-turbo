@@ -22,6 +22,8 @@ export const Editor = ({
   handleUndo,
   redoAvailable,
   handleRedo,
+  device,
+  setDevice,
 }: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
@@ -43,7 +45,7 @@ export const Editor = ({
           />
         </div>
         <div className="flex">
-          <LightsSchemeTools scheme={scheme} handleUpdate={handleUpdate} />
+          <LightsSchemeTools device={device} setDevice={setDevice} />
         </div>
       </div>
       <LightsFrameGrid
@@ -51,6 +53,7 @@ export const Editor = ({
         frameIndex={frameIndex}
         scheme={scheme}
         handleUpdate={handleUpdate}
+        device={device}
       />
       <LightsFrameTools
         frameIndex={frameIndex}

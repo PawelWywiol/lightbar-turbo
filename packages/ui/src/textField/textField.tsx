@@ -10,7 +10,6 @@ export const TextField = ({
   placeholder,
   onChange,
   maxLength,
-  removeHtml,
 }: TextFieldProps) => {
   const [internalValue, setInternalValue] = useState(value);
   const handleChange = () => {
@@ -30,12 +29,11 @@ export const TextField = ({
         placeholder={placeholder}
         onChange={(e) => {
           let newValue = e.currentTarget.value;
+
           if (maxLength && newValue.length > maxLength) {
             newValue = newValue.slice(0, maxLength);
           }
-          if (removeHtml) {
-            newValue = newValue.replace(/(<([^>]+)>)/gi, '');
-          }
+
           setInternalValue(newValue);
         }}
         onBlur={handleChange}
