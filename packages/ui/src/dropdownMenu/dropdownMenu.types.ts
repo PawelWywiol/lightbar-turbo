@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 export interface DropDownMenuOption {
-  label: ReactNode;
+  label: string;
   onClick?: () => void;
 }
 

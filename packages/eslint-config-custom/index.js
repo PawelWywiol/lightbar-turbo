@@ -67,7 +67,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-argument': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-namespace': 'off', // We use ES modules anyway, otherwise namespaces can be used for encapsulating types
+    '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-floating-promises': [
       'error',
       {

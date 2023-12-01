@@ -1,3 +1,11 @@
 module.exports = {
+  root: true,
   extends: ['custom/react-internal'],
+  parserOptions: {
+    project: ['./tsconfig.json'],
+    tsconfigRootDir: __dirname,
+  },
+  rules: {},
+  overrides: [],
+  ignorePatterns: ['!**/*'],
 };

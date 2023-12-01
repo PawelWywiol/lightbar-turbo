@@ -1,4 +1,5 @@
-import { RefObject, useCallback, useEffect, useRef } from 'react';
+import type { RefObject } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 export interface GridPainterState {
   offsetStart: number;
@@ -64,7 +65,7 @@ const getChildElementFromPoint = (x: number, y: number, parent: HTMLDivElement):
   if (!element) {
     return -1;
   }
-  const children = Array.from(parent.children);
+  const children = [...parent.children];
   return children.indexOf(element);
 };
 
@@ -73,7 +74,7 @@ const setChildElementBackgroundColor = (
   color: string,
   parent: HTMLDivElement,
 ): void => {
-  const children = Array.from(parent.children);
+  const children = [...parent.children];
   const element = children[index] as HTMLDivElement;
   element?.style.setProperty('background', color);
 };

@@ -1,9 +1,9 @@
 import { DropdownMenu as RadixDropdownMenu } from '@radix-ui/themes';
 
 import { DotsVerticalIcon } from '../icons';
+import { Button } from '../button/button';
 
 import type { DropDownMenuProps } from './dropdownMenu.types';
-import { Button } from '../button/button';
 
 export const DropDownMenu = ({ trigger, options }: DropDownMenuProps) => (
   <RadixDropdownMenu.Root>

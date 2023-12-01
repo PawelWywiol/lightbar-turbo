@@ -3,13 +3,12 @@
 import { useState } from 'react';
 
 import { Pagination } from '../pagination/pagination';
+
 import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
 import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTools';
 import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools';
-
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 import { EditTools } from './components/editTools/editTools';
-
 import { shiftLightsFrameColorPixel } from './editor.utils';
 import { StateTools } from './components/stateTools/stateTools';
 
@@ -60,12 +59,16 @@ export const Editor = ({
         scheme={scheme}
         handleUpdate={handleUpdate}
         nextFrame={() =>
-          setFrameIndex((prevFrameIndex) =>
-            prevFrameIndex + 1 < scheme.frames.length ? prevFrameIndex + 1 : prevFrameIndex,
+          setFrameIndex((previousFrameIndex) =>
+            previousFrameIndex + 1 < scheme.frames.length
+              ? previousFrameIndex + 1
+              : previousFrameIndex,
           )
         }
         previousFrame={() =>
-          setFrameIndex((prevFrameIndex) => (prevFrameIndex > 0 ? prevFrameIndex - 1 : 0))
+          setFrameIndex((previousFrameIndex) =>
+            previousFrameIndex > 0 ? previousFrameIndex - 1 : 0,
+          )
         }
       />
       <Pagination

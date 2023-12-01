@@ -1,7 +1,9 @@
 import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'config';
+
 import { Button } from '../../../button/button';
 import { DoubleArrowLeft, DoubleArrowRight } from '../../../icons';
 import { TextField } from '../../../textField/textField';
+
 import type { StateToolsProps } from './stateTools.types';
 
 export const StateTools = ({
@@ -28,7 +30,7 @@ export const StateTools = ({
         onChange={(name) => {
           handleUpdate({
             ...scheme,
-            name: name.replace(/(<([^>]+)>)/gi, ''),
+            name: name.replaceAll(/(<([^>]+)>)/gi, ''),
           });
         }}
         maxLength={LIGHTS_SCHEME_NAME_MAX_LENGTH}

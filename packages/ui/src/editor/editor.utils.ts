@@ -1,66 +1,76 @@
-import { LightsScheme } from 'config';
-
+import type { Device, LightsScheme } from 'config';
 import type { ShiftDirection } from './editor.types';
 
 const transpose = (matrix: number[][]) =>
-  (matrix[0] ?? []).map((_, i) => matrix.map((row) => row[i] ?? 0));
+  (matrix[0] ?? []).map((_, index) => matrix.map((row) => row[index] ?? 0));
 
 export const shiftLightsFrameColorPixel = (
   scheme: LightsScheme,
   frameIndex: number,
   direction: ShiftDirection,
+  device: Device,
 ): LightsScheme => {
   const frame = Array.from(
-    { length: scheme.size.value },
-    (_, i) => scheme.frames[frameIndex]?.colorIndexes[i] ?? 0,
+    { length: device.size.value },
+    (_, index) => scheme.frames[frameIndex]?.colorIndexes[index] ?? 0,
   );
   const newFrame: number[] = [];
-  const rowsCount = scheme.size.grid.rows;
-  const columnsCount = scheme.size.grid.columns;
+  const rowsCount = device.size.grid.rows;
+  const columnsCount = device.size.grid.columns;
 
-  const frameRows = Array.from({ length: rowsCount }, (_, i) =>
-    frame.slice(i * columnsCount, (i + 1) * columnsCount),
+  const frameRows = Array.from({ length: rowsCount }, (_, index) =>
+    frame.slice(index * columnsCount, (index + 1) * columnsCount),
   );
-  const frameColumns = Array.from({ length: columnsCount }, (_, i) =>
-    frame.filter((_, j) => j % columnsCount === i),
+  const frameColumns = Array.from({ length: columnsCount }, (_, index) =>
+    frame.filter((_, index_) => index_ % columnsCount === index),
   );
 
   switch (direction) {
-    case 'up':
+    case 'up': {
       frameRows.push(frameRows.shift()!);
       newFrame.push(...frameRows.flat());
       break;
-    case 'down':
+    }
+    case 'down': {
       frameRows.unshift(frameRows.pop()!);
       newFrame.push(...frameRows.flat());
       break;
-    case 'left':
+    }
+    case 'left': {
       frameColumns.push(frameColumns.shift()!);
       newFrame.push(...transpose(frameColumns).flat());
       break;
-    case 'right':
+    }
+    case 'right': {
       frameColumns.unshift(frameColumns.pop()!);
       newFrame.push(...transpose(frameColumns).flat());
       break;
-    case 'prev':
+    }
+    case 'prev': {
       frame.push(frame.shift()!);
       newFrame.push(...frame);
       break;
-    case 'next':
+    }
+    case 'next': {
       frame.unshift(frame.pop()!);
       newFrame.push(...frame);
       break;
-    case 'shuffle':
+    }
+    case 'shuffle': {
       frame.sort(() => Math.random() - 0.5);
       newFrame.push(...frame);
       break;
-    default:
+    }
+    default: {
       newFrame.push(...frame);
       break;
+    }
   }
 
   return {
     ...scheme,
-    frames: scheme.frames.map((f, i) => (i === frameIndex ? { ...f, colorIndexes: newFrame } : f)),
+    frames: scheme.frames.map((f, index) =>
+      index === frameIndex ? { ...f, colorIndexes: newFrame } : f,
+    ),
   };
 };

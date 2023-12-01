@@ -1,10 +1,11 @@
-import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES, LightsScheme } from 'config';
+import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'config';
 
 import { Select } from '../../../select/select';
 import { PlusIcon } from '../../../icons';
 import { Button } from '../../../button/button';
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 
+import type { LightsFrame, LightsScheme } from 'config';
 import type { EditorFrameProps } from '../../editor.types';
 
 export const LightsFrameTools = ({
@@ -49,13 +50,13 @@ export const LightsFrameTools = ({
           onChange={(value) => {
             const updatedScheme: LightsScheme = { ...scheme };
             const updatedSchemeFrame = updatedScheme.frames[frameIndex];
-            const temp = parseInt(value, 10);
+            const temporary = Number.parseInt(value, 10);
 
-            if (!temp || !updatedSchemeFrame) {
+            if (!temporary || !updatedSchemeFrame) {
               return;
             }
 
-            updatedSchemeFrame.tempo = temp;
+            updatedSchemeFrame.tempo = temporary;
 
             handleUpdate(updatedScheme);
           }}
@@ -64,7 +65,7 @@ export const LightsFrameTools = ({
       <div className="flex gap-2">
         <Button
           onClick={() => {
-            const newFrame = JSON.parse(JSON.stringify(frame));
+            const newFrame = JSON.parse(JSON.stringify(frame)) as LightsFrame;
             const updatedScheme: LightsScheme = { ...scheme };
             updatedScheme.frames.splice(frameIndex, 0, newFrame);
             handleUpdate(updatedScheme);

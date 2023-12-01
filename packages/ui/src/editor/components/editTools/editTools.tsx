@@ -2,10 +2,10 @@ import { Button } from '../../../button/button';
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 import { EDITOR_TOOLS_LIST } from '../../editor.config';
 
-import type { EditToolsProps } from './editTools.types';
 import { ColorActions } from './components/colorActions';
-
 import { MoveActions } from './components/moveActions';
+
+import type { EditToolsProps } from './editTools.types';
 
 export const EditTools = ({
   tool,

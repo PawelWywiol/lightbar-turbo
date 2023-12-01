@@ -3,7 +3,9 @@
 import { useState } from 'react';
 
 import { Editor } from 'ui';
-import { DEFAULT_DEVICE, DEFAULT_LIGHTS_SCHEME, Device, LightsScheme } from 'config';
+import { DEFAULT_DEVICE, DEFAULT_LIGHTS_SCHEME } from 'config';
+
+import type { Device, LightsScheme } from 'config';
 
 const MAX_HISTORY = 20;
 
@@ -30,10 +32,10 @@ const EditorPage = () => {
   };
 
   const handleUndo = () => {
-    const prevScheme = schemeHistory[schemeHistoryIndex - 1];
-    if (schemeHistoryIndex > 0 && prevScheme) {
+    const previousScheme = schemeHistory[schemeHistoryIndex - 1];
+    if (schemeHistoryIndex > 0 && previousScheme) {
       setSchemeHistoryIndex(schemeHistoryIndex - 1);
-      setScheme(prevScheme);
+      setScheme(previousScheme);
     }
   };
 

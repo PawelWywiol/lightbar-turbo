@@ -1,4 +1,5 @@
 import { DEFAULT_COLOR } from 'config';
+
 import { Button } from '../../../../button/button';
 import { Dialog } from '../../../../dialog/dialog';
 
