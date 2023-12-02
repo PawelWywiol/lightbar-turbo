@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react';
 
 import { usePathname, useSearchParams } from 'next/navigation';
+import { cx } from 'cva';
 
 import {
   getFixedPage,
   getHrefTemplate,
   getPageIndexFromSearchParameters,
 } from './pagination.utils';
-
 import {
   PaginationEdgeItem,
   PaginationSeparatorItem,
@@ -59,8 +59,8 @@ export const Pagination = ({
   const maxPageIndexForSeparator = count - boundaryCount - 1 - siblingCount * 2 - 1;
 
   return (
-    <nav className="relative px-4">
-      <ol className='flex justify-center align-middle gap-1'>
+    <nav className={cx(className, 'relative px-4')}>
+      <ol className="flex justify-center align-middle gap-1">
         {count > Math.max(buttonsCount, minPageIndexForSeparator * 2 - 1)
           ? [
               <PaginationEdgeItem

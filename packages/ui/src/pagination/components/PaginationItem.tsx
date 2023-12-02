@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 import { cx } from 'cva';
 
 import { Button } from '../../button/button';
@@ -18,10 +17,7 @@ export const PaginationItem = ({
   handleChange,
   hrefTemplate,
 }: PaginationItemProps) => {
-  const className = cx(
-    'flex items-center justify-center w-full p-0 cursor-pointer',
-    selected ? '' : '',
-  );
+  const className = cx('flex items-center justify-center w-full p-0 cursor-pointer');
 
   return (
     <li className="flex-1 flex justify-center align-middle">

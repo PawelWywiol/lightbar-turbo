@@ -39,7 +39,7 @@ export const Editor = ({
             setColorIndex={setColorIndex}
             colors={scheme.colors}
             shiftLightsFrameColorPixel={(direction) => {
-              handleUpdate(shiftLightsFrameColorPixel(scheme, frameIndex, direction));
+              handleUpdate(shiftLightsFrameColorPixel(scheme, frameIndex, direction, device));
             }}
           />
         </div>

@@ -1,4 +1,4 @@
-import { IconProps } from './icons.types';
+import type { IconProps } from './icons.types';
 
 export const ShuffleIcon = ({ className, size }: IconProps) => (
   <svg
