@@ -7,5 +7,5 @@ module.exports = {
   },
   rules: {},
   overrides: [],
-  ignorePatterns: ['!**/*'],
+  ignorePatterns: ['!**/*', 'turbo/generators/**/*'],
 };

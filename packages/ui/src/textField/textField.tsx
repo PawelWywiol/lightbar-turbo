@@ -29,8 +29,8 @@ export const TextField = ({
       <RadixTextField.Input
         value={internalValue}
         placeholder={placeholder}
-        onChange={(e) => {
-          let newValue = e.currentTarget.value;
+        onChange={(event) => {
+          let newValue = event.currentTarget.value;
 
           if (maxLength && newValue.length > maxLength) {
             newValue = newValue.slice(0, maxLength);
@@ -39,8 +39,8 @@ export const TextField = ({
           setInternalValue(newValue);
         }}
         onBlur={handleChange}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') {
             handleChange();
           }
         }}

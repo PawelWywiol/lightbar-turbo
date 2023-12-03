@@ -21,8 +21,10 @@ export const shiftLightsFrameColorPixel = (
   const frameRows = Array.from({ length: rowsCount }, (_, index) =>
     frame.slice(index * columnsCount, (index + 1) * columnsCount),
   );
-  const frameColumns = Array.from({ length: columnsCount }, (_, index) =>
-    frame.filter((_, index_) => index_ % columnsCount === index),
+  const frameColumns = Array.from({ length: columnsCount }, (iterationElement, iterationIndex) =>
+    frame.filter(
+      (filteredElement, filteredIndex) => filteredIndex % columnsCount === iterationIndex,
+    ),
   );
 
   switch (direction) {

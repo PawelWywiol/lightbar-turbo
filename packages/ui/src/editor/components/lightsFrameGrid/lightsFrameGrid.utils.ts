@@ -65,6 +65,7 @@ const getChildElementFromPoint = (x: number, y: number, parent: HTMLDivElement):
   if (!element) {
     return -1;
   }
+
   const children = [...parent.children];
   return children.indexOf(element);
 };
@@ -82,7 +83,6 @@ const setChildElementBackgroundColor = (
 export const useGridPainter = (
   containerReference: RefObject<HTMLDivElement>,
   color: string,
-  onUpdateState: (colorIndex: number, colorIndexes: number[]) => void,
   onComplete: (colorIndexes: number[]) => void,
 ) => {
   const colorIndexes = useRef<number[]>([]);
@@ -129,13 +129,11 @@ export const useGridPainter = (
 
       colorIndexes.current = [state.current.itemIndex];
 
-      onUpdateState(state.current.itemIndex, colorIndexes.current);
-
       rafTimeout(() => {
         setChildElementBackgroundColor(state.current.itemIndex, color, currentReferenceContainer);
       });
     },
-    [containerReference, stateObject, onUpdateState, color],
+    [containerReference, stateObject, color],
   );
 
   const onDragMove = useCallback(
@@ -200,12 +198,8 @@ export const useGridPainter = (
       colorIndexes.current.push(state.current.itemIndex);
 
       setChildElementBackgroundColor(state.current.itemIndex, color, currentReferenceContainer);
-
-      rafTimeout(() => {
-        onUpdateState(state.current.itemIndex, colorIndexes.current);
-      });
     },
-    [containerReference, stateObject, onUpdateState, color],
+    [containerReference, stateObject, color],
   );
 
   const onDragEnd = useCallback(

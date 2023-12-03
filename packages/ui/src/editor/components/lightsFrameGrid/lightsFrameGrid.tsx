@@ -12,32 +12,29 @@ export const LightsFrameGrid = ({
   device,
 }: LightsFrameGridProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const frame = scheme.frames[frameIndex];
+  const currentFrame = scheme.frames[frameIndex];
 
-  if (frame === undefined) {
+  if (currentFrame === undefined) {
     return null;
   }
 
-  useGridPainter(
-    ref,
-    scheme.colors[colorIndex] ?? 'transparent',
-    () => {},
-    (updatedColorIndexes) => {
-      const updatedFrame = {
-        ...frame,
-        colorIndexes: Array.from({
-          length: device.size.value,
-        }).map((_, index) => {
-          return updatedColorIndexes.includes(index) ? colorIndex : frame.colorIndexes[index] ?? 0;
-        }),
-      };
+  useGridPainter(ref, scheme.colors[colorIndex] ?? 'transparent', (updatedColorIndexes) => {
+    const updatedFrame = {
+      ...currentFrame,
+      colorIndexes: Array.from({
+        length: device.size.value,
+      }).map((_, index) => {
+        return updatedColorIndexes.includes(index)
+          ? colorIndex
+          : currentFrame.colorIndexes[index] ?? 0;
+      }),
+    };
 
-      handleUpdate({
-        ...scheme,
-        frames: scheme.frames.map((frame, index) => (index === frameIndex ? updatedFrame : frame)),
-      });
-    },
-  );
+    handleUpdate({
+      ...scheme,
+      frames: scheme.frames.map((frame, index) => (index === frameIndex ? updatedFrame : frame)),
+    });
+  });
 
   return (
     <div
@@ -46,7 +43,7 @@ export const LightsFrameGrid = ({
       style={{ gridTemplateColumns: `repeat(${device.size.grid.columns},minmax(0,1fr))` }}
     >
       {Array.from({ length: device.size.value }).map((_, index) => {
-        const color = scheme.colors[frame.colorIndexes[index] ?? 0] ?? 'transparent';
+        const color = scheme.colors[currentFrame.colorIndexes[index] ?? 0] ?? 'transparent';
         return (
           <div
             key={index}
