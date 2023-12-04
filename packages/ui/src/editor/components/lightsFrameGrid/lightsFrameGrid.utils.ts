@@ -60,6 +60,20 @@ const rafTimeout = (callback: () => void, timeout = 0): void => {
   requestAnimationFrame(loop);
 };
 
+const getPositionFromEvent = (event: Event): { offsetX: number; offsetY: number } => {
+  const mouseEvent = event as MouseEvent;
+  const touchEvent = event as TouchEvent;
+
+  const offsetX = touchEvent.touches?.length
+    ? touchEvent.touches[0]?.clientX ?? 0
+    : mouseEvent.clientX || 0;
+  const offsetY = touchEvent.touches?.length
+    ? touchEvent.touches[0]?.clientY ?? 0
+    : mouseEvent.clientY || 0;
+
+  return { offsetX, offsetY };
+};
+
 const getChildElementFromPoint = (x: number, y: number, parent: HTMLDivElement): number => {
   const element = document?.elementFromPoint(x, y);
   if (!element) {
@@ -96,15 +110,7 @@ export const useGridPainter = (
       }
 
       const state = stateObject;
-      const mouseEvent = event as MouseEvent;
-      const touchEvent = event as TouchEvent;
-
-      const offsetX = touchEvent.touches?.length
-        ? touchEvent.touches[0]?.clientX ?? 0
-        : mouseEvent.clientX || 0;
-      const offsetY = touchEvent.touches?.length
-        ? touchEvent.touches[0]?.clientY ?? 0
-        : mouseEvent.clientY || 0;
+      const { offsetX, offsetY } = getPositionFromEvent(event);
 
       state.current.isDragStarted = true;
       state.current.isDragging = false;
@@ -145,19 +151,11 @@ export const useGridPainter = (
       }
 
       const state = stateObject;
-      const mouseEvent = event as MouseEvent;
-      const touchEvent = event as TouchEvent;
+      const { offsetX, offsetY } = getPositionFromEvent(event);
 
       if (!state.current.isDragStarted) {
         return;
       }
-
-      const offsetX = touchEvent.touches?.length
-        ? touchEvent.touches[0]?.clientX ?? 0
-        : mouseEvent.clientX || 0;
-      const offsetY = touchEvent.touches?.length
-        ? touchEvent.touches[0]?.clientY ?? 0
-        : mouseEvent.clientY || 0;
 
       state.current.dragDistanceX = (state.current.dragStartOffsetX || offsetX) - offsetX;
       state.current.dragDistanceY = (state.current.dragStartOffsetY || offsetY) - offsetY;

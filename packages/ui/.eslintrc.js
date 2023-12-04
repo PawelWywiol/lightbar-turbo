@@ -7,5 +7,11 @@ module.exports = {
   },
   rules: {},
   overrides: [],
-  ignorePatterns: ['!**/*', 'turbo/generators/**/*'],
+  ignorePatterns: [
+    '!**/*',
+    'turbo/generators/**/*',
+    'tailwind.config.js',
+    'postcss.config.js',
+    'tsconfig.json',
+  ],
 };
