@@ -17,6 +17,7 @@ export interface LightsFrame {
 }
 
 export interface LightsScheme {
+  uid: string;
   name: string;
   colors: string[];
   frames: LightsFrame[];

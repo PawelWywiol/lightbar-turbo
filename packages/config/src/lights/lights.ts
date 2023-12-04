@@ -25,7 +25,7 @@ export const LIGHTS_FRAME_TEMPO_OPTIONS: LightsFrameTempoOption[] = [
   .sort((a, b) => (a > b ? 1 : -1))
   .map((index) => ({
     value: `${index}`,
-    label: `${index} bpm - ${Math.round(60000 / index)} ms`,
+    label: `${index} bpm - ${Math.round(60_000 / index)} ms`,
   }));
 
 export const DEFAULT_COLOR_PALETTE = `
@@ -42,10 +42,7 @@ export const DEFAULT_COLOR_PALETTE = `
 #320064 #4b0096 #6400c8 #7d00fa #9632fa #af64fa #c896fa #e1c8fa
 #640064 #960096 #c800c8 #fa00fa #fa32fa #fa64fa #fa96fa #fac8fa
 #640032 #96004b #c80064 #fa007d #fa3296 #fa64af #fa96c8 #fac8e1
-`
-  .replace(/\n/g, ' ')
-  .split(' ')
-  .filter(Boolean);
+`;
 
 export const DEFAULT_COLOR = '#000000';
 
@@ -57,9 +54,12 @@ export const DEFAULT_LIGHTS_FRAME: LightsFrame = {
   colorIndexes: [],
 };
 
-export const DEFAULT_LIGHTS_SCHEME_COLORS = DEFAULT_COLOR_PALETTE;
+export const DEFAULT_LIGHTS_SCHEME_COLORS = DEFAULT_COLOR_PALETTE.replaceAll('\n', ' ')
+  .split(' ')
+  .filter(Boolean);
 
 export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
+  uid: '',
   name: 'New scheme',
   colors: DEFAULT_LIGHTS_SCHEME_COLORS,
   frames: [
