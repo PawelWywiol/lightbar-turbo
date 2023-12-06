@@ -59,7 +59,6 @@ export const DEFAULT_LIGHTS_SCHEME_COLORS = DEFAULT_COLOR_PALETTE.replaceAll('\n
   .filter(Boolean);
 
 export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
-  uid: '',
   name: 'New scheme',
   colors: DEFAULT_LIGHTS_SCHEME_COLORS,
   frames: [

@@ -11,6 +11,7 @@ export interface EditorProps {
   handleRedo: () => void;
   device: Device;
   setDevice: (device: Device) => void;
+  handleSave: (scheme: LightsScheme) => void;
 }
 
 export interface EditorFrameProps extends Pick<EditorProps, 'scheme' | 'handleUpdate'> {

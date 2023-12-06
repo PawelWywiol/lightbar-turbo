@@ -21,7 +21,8 @@
     "sass": "^1.69.5",
     "tailwindcss": "^3.3.5",
     "tsconfig": "*",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "utils": "*"
   },
   "dependencies": {
     "@radix-ui/themes": "^2.0.0",

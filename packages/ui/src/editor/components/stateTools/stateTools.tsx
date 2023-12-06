@@ -13,6 +13,7 @@ export const StateTools = ({
   handleUndo,
   redoAvailable,
   handleRedo,
+  handleSave,
 }: StateToolsProps) => (
   <div className="flex justify-center content-center px-4 gap-4">
     <div className="flex justify-center content-center gap-2">
@@ -37,7 +38,7 @@ export const StateTools = ({
       />
     </div>
     <div className="flex">
-      <Button>Save</Button>
+      <Button onClick={() => handleSave(scheme)}>Save</Button>
     </div>
   </div>
 );

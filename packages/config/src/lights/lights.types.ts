@@ -1,4 +1,9 @@
-export type LightsFrameType = 'step' | 'fade';
+export const lightsFrameType = {
+  step: 'step',
+  fade: 'fade',
+} as const;
+
+export type LightsFrameType = (typeof lightsFrameType)[keyof typeof lightsFrameType];
 
 export interface LightsFrameTypeOption {
   value: LightsFrameType;
@@ -17,8 +22,15 @@ export interface LightsFrame {
 }
 
 export interface LightsScheme {
-  uid: string;
   name: string;
   colors: string[];
   frames: LightsFrame[];
 }
+
+export interface LightsSchemeData {
+  uid: string;
+  scheme: LightsScheme;
+  updatedAt: string;
+}
+
+export type LightsSchemeDataArray = LightsSchemeData[];

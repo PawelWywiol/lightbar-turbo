@@ -23,6 +23,7 @@ export const Editor = ({
   handleRedo,
   device,
   setDevice,
+  handleSave,
 }: EditorProps) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
@@ -85,6 +86,7 @@ export const Editor = ({
         handleUndo={handleUndo}
         redoAvailable={redoAvailable}
         handleRedo={handleRedo}
+        handleSave={handleSave}
       />
     </div>
   );
