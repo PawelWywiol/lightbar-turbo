@@ -3,6 +3,16 @@ import { LightsSchemeDataArrayValidationSchema, type LightsSchemeData } from 'co
 
 const LIGHTS_SCHEME_DATA_ARRAY_KEY = 'lightsSchemeDataArray';
 
+export const getLightsSchemeData = (schemeId: string) => {
+  const lightsList = getStorageData(
+    LIGHTS_SCHEME_DATA_ARRAY_KEY,
+    LightsSchemeDataArrayValidationSchema,
+    [],
+  );
+
+  return lightsList.find((item) => item.uid === schemeId);
+};
+
 export const postLightsScheme = (data: LightsSchemeData) => {
   const lightsList = getStorageData(
     LIGHTS_SCHEME_DATA_ARRAY_KEY,

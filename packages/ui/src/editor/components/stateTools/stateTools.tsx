@@ -38,7 +38,7 @@ export const StateTools = ({
       />
     </div>
     <div className="flex">
-      <Button onClick={() => handleSave(scheme)}>Save</Button>
+      <Button onClick={handleSave}>Save</Button>
     </div>
   </div>
 );

@@ -11,20 +11,20 @@ import { EDITOR_DEFAULT_TOOL } from './editor.config';
 import { EditTools } from './components/editTools/editTools';
 import { shiftLightsFrameColorPixel } from './editor.utils';
 import { StateTools } from './components/stateTools/stateTools';
+import { useEditor } from './editor.hooks';
 
 import type { EditorProps } from './editor.types';
 
-export const Editor = ({
-  scheme,
-  handleUpdate,
-  undoAvailable,
-  handleUndo,
-  redoAvailable,
-  handleRedo,
-  device,
-  setDevice,
-  handleSave,
-}: EditorProps) => {
+export const Editor = ({ schemeData, device, setDevice, handleSave }: EditorProps) => {
+  const {
+    updatedSchemeData: { scheme, uid, updatedAt },
+    handleUpdate,
+    undoAvailable,
+    handleUndo,
+    redoAvailable,
+    handleRedo,
+  } = useEditor(schemeData);
+
   const [frameIndex, setFrameIndex] = useState(0);
   const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
   const [colorIndex, setColorIndex] = useState(0);
@@ -86,7 +86,7 @@ export const Editor = ({
         handleUndo={handleUndo}
         redoAvailable={redoAvailable}
         handleRedo={handleRedo}
-        handleSave={handleSave}
+        handleSave={() => handleSave({ scheme, uid, updatedAt })}
       />
     </div>
   );

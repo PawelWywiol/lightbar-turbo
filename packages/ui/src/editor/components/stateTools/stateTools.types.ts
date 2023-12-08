@@ -7,5 +7,5 @@ export interface StateToolsProps {
   handleUndo: () => void;
   redoAvailable: boolean;
   handleRedo: () => void;
-  handleSave: (scheme: LightsScheme) => void;
+  handleSave: () => void;
 }

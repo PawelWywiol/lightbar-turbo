@@ -1,20 +1,17 @@
-import type { Device, LightsScheme } from 'config';
+import type { Device, LightsScheme, LightsSchemeData } from 'config';
 
 export type ShiftDirection = 'up' | 'down' | 'left' | 'right' | 'prev' | 'next' | 'shuffle';
 
 export interface EditorProps {
-  scheme: LightsScheme;
-  handleUpdate: (scheme: LightsScheme) => void;
-  undoAvailable: boolean;
-  handleUndo: () => void;
-  redoAvailable: boolean;
-  handleRedo: () => void;
+  schemeData: LightsSchemeData;
   device: Device;
   setDevice: (device: Device) => void;
-  handleSave: (scheme: LightsScheme) => void;
+  handleSave: (schemeData: LightsSchemeData) => void;
 }
 
-export interface EditorFrameProps extends Pick<EditorProps, 'scheme' | 'handleUpdate'> {
+export interface EditorFrameProps {
+  scheme: LightsScheme;
+  handleUpdate: (newScheme: LightsScheme) => void;
   frameIndex: number;
   nextFrame?: () => void;
   previousFrame?: () => void;
