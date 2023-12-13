@@ -1,0 +1,3 @@
+[submodule "embedded/esp"]
+	path = embedded/esp
+	url = git@github.com:PawelWywiol/lightbar-esp.git
