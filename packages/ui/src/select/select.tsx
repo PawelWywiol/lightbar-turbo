@@ -4,9 +4,9 @@ import { Select as RadixSelect } from '@radix-ui/themes';
 
 import type { SelectProps } from './select.types';
 
-export const Select = ({ options, placeholder, value, onChange }: SelectProps) => (
+export const Select = ({ options, value, onChange }: SelectProps) => (
   <RadixSelect.Root value={value ?? ''} onValueChange={onChange}>
-    <RadixSelect.Trigger placeholder={placeholder} />
+    <RadixSelect.Trigger />
     <RadixSelect.Content>
       <RadixSelect.Group>
         {options.map((option) => {

@@ -1,7 +1,9 @@
-import type { EditorProps } from '../../editor.types';
+import type { Device, LightsScheme } from 'config';
 
-export interface LightsFrameGridProps
-  extends Pick<EditorProps, 'scheme' | 'handleUpdate' | 'device'> {
+export interface LightsFrameGridProps {
+  scheme: LightsScheme;
+  handleUpdate: (scheme: LightsScheme) => void;
+  device: Device;
   frameIndex: number;
   colorIndex: number;
 }

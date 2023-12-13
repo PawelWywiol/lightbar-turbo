@@ -8,9 +8,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint": "^8.53.0",
-    "prettier": "^3.0.3",
-    "turbo": "^1.10.16",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "turbo": "^1.11.2",
     "eslint-config-custom": "*"
   },
   "name": "lightbar-turbo",
