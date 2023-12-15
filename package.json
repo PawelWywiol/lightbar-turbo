@@ -3,9 +3,9 @@
   "scripts": {
     "start": "turbo run start",
     "build": "turbo run build",
-    "build:app:esp": "turbo run build --filter esp",
+    "build:esp": "turbo run build --filter esp",
     "dev": "turbo run dev",
-    "dev:app:esp": "turbo run dev --filter esp",
+    "dev:esp": "turbo run dev --filter esp",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

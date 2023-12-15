@@ -6,6 +6,8 @@ import { Theme, Header } from 'ui';
 import { Tilt_Warp } from 'next/font/google';
 import { cx } from 'cva';
 
+import 'ui/src/theme/styles/tailwind-theme.scss';
+import 'ui/src/theme/styles/radix-theme.scss';
 import 'ui/src/theme/styles/globals.scss';
 
 const TiltWarpFont = Tilt_Warp({
