@@ -5,6 +5,6 @@ module.exports = {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-  ignorePatterns: ['.next/**/*', 'next*.config.js'],
+  ignorePatterns: ['vite.config.mjs'],
   overrides: [],
 };
