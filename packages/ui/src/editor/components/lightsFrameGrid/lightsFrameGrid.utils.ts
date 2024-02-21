@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import type { RefObject } from 'react';
 
-import { rafTimeout } from 'utils';
+import { rafTimeout } from 'utils/rafTimeout';
 
 export interface GridPainterState {
   offsetStart: number;

@@ -1,14 +1,15 @@
 import type { ReactNode } from 'react';
 
 import Link from 'next/link';
-import { APP_NAME } from 'config';
-import { Theme, Header } from 'ui';
 import { Tilt_Warp } from 'next/font/google';
 import { cx } from 'cva';
+import { Header } from 'ui/header';
+import { Theme } from 'ui/theme';
+import { APP_NAME } from 'config/app';
 
-import 'ui/src/theme/styles/tailwind-theme.scss';
-import 'ui/src/theme/styles/radix-theme.scss';
-import 'ui/src/theme/styles/globals.scss';
+import 'ui/theme/styles/tailwindTheme.ts';
+import 'ui/theme/styles/radixTheme.ts';
+import 'ui/theme/styles/globals.ts';
 
 const TiltWarpFont = Tilt_Warp({
   display: 'swap',

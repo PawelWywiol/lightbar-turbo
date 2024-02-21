@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react';
 
-import type { LightsScheme, LightsSchemeData } from 'config';
+import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
 
 const MAX_HISTORY = 50;
 

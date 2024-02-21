@@ -6,7 +6,13 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "target": "es2017"
-  }
+    "module": "NodeNext",
+    "target": "ESNext",
+    "declaration": true,
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "dist"],
+  "rootDir": ["./src"]
 }

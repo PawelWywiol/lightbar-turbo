@@ -10,5 +10,11 @@
   "license": "MIT",
   "dependencies": {
     "zod": "^3.22.4"
+  },
+  "exports": {
+    "./uid": "./src/uid/uid.ts",
+    "./storage": "./src/storage/storage.ts",
+    "./storage.types": "./src/storage/storage.types.ts",
+    "./rafTimeout": "./src/rafTimeout/rafTimeout.ts"
   }
 }

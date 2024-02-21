@@ -1,4 +1,4 @@
-import { DEVICE_SIZES } from 'config';
+import { DEVICE_SIZES } from 'config/devices';
 
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 

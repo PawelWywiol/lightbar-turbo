@@ -1,4 +1,4 @@
-import { MoveIcon, PencilIcon } from '../icons';
+import { MoveIcon, PencilIcon } from '../icons/icons';
 
 export const EDITOR_TOOLS = {
   pencil: {

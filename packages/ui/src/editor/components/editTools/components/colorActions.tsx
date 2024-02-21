@@ -1,4 +1,4 @@
-import { DEFAULT_COLOR } from 'config';
+import { DEFAULT_COLOR } from 'config/lights';
 
 import { Button } from '../../../../button/button';
 import { Dialog } from '../../../../dialog/dialog';

@@ -1,4 +1,4 @@
-import type { LightsScheme } from 'config';
+import type { LightsScheme } from 'config/lights.types';
 
 export interface StateToolsProps {
   scheme: LightsScheme;

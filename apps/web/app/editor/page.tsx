@@ -3,13 +3,15 @@
 import { useCallback, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
-import { Editor } from 'ui';
-import { DEFAULT_DEVICE, DEFAULT_LIGHTS_SCHEME } from 'config';
-import { uid } from 'utils';
+import { DEFAULT_LIGHTS_SCHEME } from 'config/lights';
+import { Editor } from 'ui/editor';
+import { DEFAULT_DEVICE } from 'config/devices';
+import { uid } from 'utils/uid';
 
 import { postLightsScheme } from '../../services/lights/lights';
 
-import type { Device, LightsSchemeData } from 'config';
+import type { Device } from 'config/devices.types';
+import type { LightsSchemeData } from 'config/lights.types';
 
 const EditorPage = () => {
   const router = useRouter();

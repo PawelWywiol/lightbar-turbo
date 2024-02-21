@@ -1,4 +1,4 @@
-import { APP_NAME } from 'config/src/app/app';
+import { APP_NAME } from 'config/app';
 import { cx } from 'cva';
 
 export const App = () => {

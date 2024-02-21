@@ -1,6 +1,6 @@
 import { DropdownMenu as RadixDropdownMenu } from '@radix-ui/themes';
 
-import { DotsVerticalIcon } from '../icons';
+import { DotsVerticalIcon } from '../icons/icons';
 import { Button } from '../button/button';
 
 import type { DropDownMenuProps } from './dropdownMenu.types';

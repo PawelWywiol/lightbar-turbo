@@ -1,5 +1,7 @@
-import { getStorageData, setStorageData } from 'utils';
-import { LightsSchemeDataArrayValidationSchema, type LightsSchemeData } from 'config';
+import { getStorageData, setStorageData } from 'utils/storage';
+import { LightsSchemeDataArrayValidationSchema } from 'config/lights.scheme';
+
+import type { LightsSchemeData } from 'config/lights.types';
 
 const LIGHTS_SCHEME_DATA_ARRAY_KEY = 'lightsSchemeDataArray';
 

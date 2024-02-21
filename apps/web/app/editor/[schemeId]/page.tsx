@@ -2,13 +2,15 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { Editor } from 'ui';
-import { DEFAULT_DEVICE, MESSAGES } from 'config';
 import Link from 'next/link';
+import { DEFAULT_DEVICE } from 'config/devices';
+import { MESSAGES } from 'config/messages';
+import { Editor } from 'ui/editor';
 
 import { getLightsSchemeData, postLightsScheme } from '../../../services/lights/lights';
 
-import type { Device, LightsSchemeData } from 'config';
+import type { Device } from 'config/devices.types';
+import type { LightsSchemeData } from 'config/lights.types';
 
 const EditorPage = ({ params: { schemeId } }: { params: { schemeId: string } }) => {
   const [statusMessage, setStatusMessage] = useState<string>(MESSAGES.scheme.loading);

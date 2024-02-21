@@ -7,7 +7,7 @@ import {
   PinLeftIcon,
   PinRightIcon,
   ShuffleIcon,
-} from '../../../../icons';
+} from '../../../../icons/icons';
 
 import type { ShiftDirection } from '../../../editor.types';
 

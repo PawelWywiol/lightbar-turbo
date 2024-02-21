@@ -1,7 +1,7 @@
-import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'config';
+import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'config/lights';
 
 import { Button } from '../../../button/button';
-import { DoubleArrowLeft, DoubleArrowRight } from '../../../icons';
+import { DoubleArrowLeft, DoubleArrowRight } from '../../../icons/icons';
 import { TextField } from '../../../textField/textField';
 
 import type { StateToolsProps } from './stateTools.types';

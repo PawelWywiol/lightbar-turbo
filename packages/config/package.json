@@ -2,11 +2,19 @@
   "name": "config",
   "version": "1.0.0",
   "description": "general config",
-  "main": "./src/index.ts",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "exports": {
+    "./app": "./src/app/app.ts",
+    "./devices": "./src/devices/devices.ts",
+    "./devices.types": "./src/devices/devices.types.ts",
+    "./lights": "./src/lights/lights.ts",
+    "./lights.scheme": "./src/lights/lights.scheme.ts",
+    "./lights.types": "./src/lights/lights.types.ts",
+    "./messages": "./src/messages/messages.ts"
+  }
 }

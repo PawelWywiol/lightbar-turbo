@@ -1,11 +1,11 @@
-import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'config';
+import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'config/lights';
 
 import { Select } from '../../../select/select';
-import { PlusIcon } from '../../../icons';
+import { PlusIcon } from '../../../icons/icons';
 import { Button } from '../../../button/button';
 import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
 
-import type { LightsFrame, LightsScheme } from 'config';
+import type { LightsFrame, LightsScheme } from 'config/lights.types';
 import type { EditorFrameProps } from '../../editor.types';
 
 export const LightsFrameTools = ({
