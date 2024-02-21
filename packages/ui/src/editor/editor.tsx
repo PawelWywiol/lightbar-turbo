@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import { Pagination } from '../pagination/pagination';
 
@@ -72,13 +72,15 @@ export const Editor = ({ schemeData, device, setDevice, handleSave }: EditorProp
           )
         }
       />
-      <Pagination
-        page={frameIndex + 1}
-        handleChange={(selectedFrameIndex) => setFrameIndex(selectedFrameIndex - 1)}
-        count={scheme.frames.length}
-        siblingCount={0}
-        boundaryCount={0}
-      />
+      <Suspense>
+        <Pagination
+          page={frameIndex + 1}
+          handleChange={(selectedFrameIndex) => setFrameIndex(selectedFrameIndex - 1)}
+          count={scheme.frames.length}
+          siblingCount={0}
+          boundaryCount={0}
+        />
+      </Suspense>
       <StateTools
         scheme={scheme}
         handleUpdate={handleUpdate}
