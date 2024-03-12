@@ -29,5 +29,11 @@
   "volta": {
     "node": "18.17.1",
     "npm": "10.1.0"
+  },
+  "dependencies": {
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.344.0",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

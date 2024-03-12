@@ -1,24 +1,64 @@
+import type { ButtonHTMLAttributes } from 'react';
 import { forwardRef } from 'react';
 
-import { cx } from 'cva';
-import { Button as RadixButton } from '@radix-ui/themes';
+import { Slot } from '@radix-ui/react-slot';
+import { cva, cx, type VariantProps } from 'cva';
 
-import type { ButtonProps } from './button.types';
+const buttonVariants = cva(
+  cx(
+    'inline-flex items-center justify-center',
+    'whitespace-nowrap',
+    'rounded',
+    'text-sm font-small uppercase',
+    'ring-offset-background transition-colors',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+    'disabled:pointer-events-none disabled:opacity-50',
+  ),
+  {
+    variants: {
+      variant: {
+        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+      size: {
+        default: 'px-3 min-h-8',
+        sm: 'h-9 rounded-md px-3',
+        lg: 'h-11 rounded-md px-8',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  },
+);
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, children, onClick, active, disabled, ...props }, ref) => {
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  active?: boolean;
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, active = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button';
     return (
-      <RadixButton
-        {...props}
+      <Comp
+        className={cx(
+          buttonVariants({ variant: variant ?? (active ? 'default' : 'outline'), size, className }),
+        )}
         ref={ref}
-        className={cx(className, 'cursor-pointer')}
-        color={active ? undefined : 'gray'}
-        disabled={disabled}
-        onClick={onClick}
-        variant={active ? 'surface' : 'outline'}
-      >
-        {children}
-      </RadixButton>
+        {...props}
+      />
     );
   },
 );
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };

@@ -15,6 +15,8 @@
     "./lights": "./src/lights/lights.ts",
     "./lights.scheme": "./src/lights/lights.scheme.ts",
     "./lights.types": "./src/lights/lights.types.ts",
-    "./messages": "./src/messages/messages.ts"
+    "./messages": "./src/messages/messages.ts",
+    "./messages.types": "./src/messages/messages.types.ts",
+    "./connections.types": "./src/connections/connections.types.ts"
   }
 }

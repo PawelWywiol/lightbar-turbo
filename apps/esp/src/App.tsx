@@ -1,12 +1,14 @@
-import { APP_NAME } from 'config/app';
-import { cx } from 'cva';
+import useDevice from './hooks/useDevice';
+import { WifiSection } from './components/wifiSection';
+import { TitleSection } from './components/titleSection';
 
 export const App = () => {
+  useDevice();
+
   return (
-    <main className={cx('relative')}>
-      <section className="m-auto max-w-md w-full flex flex-col gap-4">
-        <h1>{APP_NAME}</h1>
-      </section>
+    <main className={'relative flex flex-col gap-4 text-center'}>
+      <TitleSection />
+      <WifiSection />
     </main>
   );
 };

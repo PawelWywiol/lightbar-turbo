@@ -20,6 +20,11 @@ export const insecureHash = (input: string): string => {
   return input;
 };
 
+export const insecureObjectHash = (input: object = {}): string => {
+  const stringified = JSON.stringify(input);
+  return insecureHash(stringified);
+};
+
 const cachedElementsUid = new WeakMap<object, string>();
 
 export const getNodeUid = (element: ReactNode | object): string => {
@@ -41,7 +46,7 @@ export const getNodeUid = (element: ReactNode | object): string => {
     return cachedElementsUid.get(element) ?? '';
   }
 
-  const elementUid = uid();
+  const elementUid = uid4();
   cachedElementsUid.set(element, elementUid);
 
   return elementUid;
