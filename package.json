@@ -11,7 +11,8 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "type-check": "turbo run type-check",
-    "madge": "turbo run madge"
+    "madge": "turbo run madge",
+    "deploy:apps:esp": "npm run build:esp && rm -rf embedded/esp/data/public_html/assets/* && cp -r apps/esp/dist/* embedded/esp/data/public_html"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.11.0",
