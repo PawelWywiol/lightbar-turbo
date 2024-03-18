@@ -1,25 +1,28 @@
 import { useEffect, useState } from 'preact/hooks';
+import { parseSafeConnectionResponseData } from 'config/connections';
 
 import { useWebSocket } from './useWebSocket';
 
 import type { ConnectionResponseData } from 'config/connections.types';
 
 export const useDevice = () => {
-  const { status, data, message } = useWebSocket();
+  const { status, data, message, send } = useWebSocket();
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
 
+  const setWiFi = (ssid: string, password: string) => {
+    send(
+      JSON.stringify({
+        type: 'WIFI',
+        data: { ssid, password },
+      }),
+    );
+  };
+
   useEffect(() => {
-    if (data) {
-      setInfo(data as ConnectionResponseData);
-    }
+    setInfo(parseSafeConnectionResponseData(typeof data === 'string' ? data : ''));
   }, [data]);
 
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('websocket status', { status, data, message });
-  }, [status]);
-
-  return { status, info, message };
+  return { status, info, message, setWiFi };
 };
 
 export default useDevice;

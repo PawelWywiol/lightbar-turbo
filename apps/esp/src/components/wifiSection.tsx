@@ -2,7 +2,7 @@ import { useState } from 'preact/hooks';
 import { Button } from 'ui/button';
 import { Input } from 'ui/input';
 
-export const WifiSection = () => {
+export const WifiSection = ({ setWiFi }: { setWiFi: (ssid: string, password: string) => void }) => {
   const [ssid, setSsid] = useState('');
   const [password, setPassword] = useState('');
 
@@ -20,7 +20,7 @@ export const WifiSection = () => {
         value={password}
         onChange={(event) => setPassword(event.currentTarget.value.slice(0, 64))}
       />
-      <Button>Save</Button>
+      <Button onClick={() => setWiFi(ssid, password)}>Save</Button>
     </section>
   );
 };
