@@ -22,7 +22,7 @@ export interface ConnectionRequestData {
   type: 'WIFI';
   data: {
     ssid: string;
-    password: string;
+    pass: string;
   };
 }
 

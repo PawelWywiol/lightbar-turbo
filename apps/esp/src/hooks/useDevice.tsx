@@ -3,19 +3,19 @@ import { parseSafeConnectionResponseData } from 'config/connections';
 
 import { useWebSocket } from './useWebSocket';
 
-import type { ConnectionResponseData } from 'config/connections.types';
+import type { ConnectionRequestData, ConnectionResponseData } from 'config/connections.types';
 
 export const useDevice = () => {
   const { status, data, message, send } = useWebSocket();
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
 
-  const setWiFi = (ssid: string, password: string) => {
-    send(
-      JSON.stringify({
-        type: 'WIFI',
-        data: { ssid, password },
-      }),
-    );
+  const setWiFi = (ssid: string, pass: string) => {
+    const requestData: ConnectionRequestData = {
+      type: 'WIFI',
+      data: { ssid, pass },
+    };
+
+    send(JSON.stringify(requestData));
   };
 
   useEffect(() => {
