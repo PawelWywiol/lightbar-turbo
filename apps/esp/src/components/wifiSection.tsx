@@ -20,7 +20,16 @@ export const WifiSection = ({ setWiFi }: { setWiFi: (ssid: string, password: str
         value={password}
         onChange={(event) => setPassword(event.currentTarget.value.slice(0, 64))}
       />
-      <Button onClick={() => setWiFi(ssid, password)}>Save</Button>
+      <Button
+        onClick={() => {
+          setWiFi(ssid, password);
+          setSsid('');
+          setPassword('');
+        }}
+        disabled={ssid.length === 0 || password.length === 0}
+      >
+        Save
+      </Button>
     </section>
   );
 };

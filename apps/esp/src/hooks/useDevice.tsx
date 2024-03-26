@@ -6,7 +6,9 @@ import { useWebSocket } from './useWebSocket';
 import type { ConnectionRequestData, ConnectionResponseData } from 'config/connections.types';
 
 export const useDevice = () => {
-  const { status, data, message, send } = useWebSocket();
+  const { status, data, message, send } = useWebSocket({
+    url: 'ws://192.168.0.131/ws',
+  });
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
 
   const setWiFi = (ssid: string, pass: string) => {

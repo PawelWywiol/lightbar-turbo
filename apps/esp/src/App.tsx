@@ -8,7 +8,7 @@ export const App = () => {
 
   return (
     <main className={'relative flex flex-col gap-4 text-center'}>
-      <TitleSection message={message} />
+      <TitleSection message={info?.msg ?? message?.message} />
       {status === 'CONNECTED' && <WifiSection setWiFi={setWiFi} />}
       <InfoSection info={info} />
     </main>

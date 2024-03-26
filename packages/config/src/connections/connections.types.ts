@@ -28,17 +28,12 @@ export interface ConnectionRequestData {
 
 export interface ConnectionResponseData {
   type: 'INFO';
+  msg?: string | undefined;
   data: {
-    msg: string;
-    ap: string;
-    ip: string;
-    app: string;
     ver: string;
-    rev: string;
     sdk: string;
     uid: string;
-    free: string;
-    ssid: string;
-    leds: string;
+    free: number;
+    leds: number;
   };
 }
