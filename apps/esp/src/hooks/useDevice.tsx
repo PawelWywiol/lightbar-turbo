@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'preact/hooks';
 import { parseSafeConnectionResponseData } from 'config/connections';
 
+import { env } from '../../env.mjs';
+
 import { useWebSocket } from './useWebSocket';
 
 import type { ConnectionRequestData, ConnectionResponseData } from 'config/connections.types';
 
 export const useDevice = () => {
   const { status, data, message, send } = useWebSocket({
-    url: 'ws://192.168.0.131/ws',
+    url: env['DEFAULT_WS_URL'],
   });
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
 

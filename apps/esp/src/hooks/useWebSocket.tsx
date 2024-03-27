@@ -7,7 +7,7 @@ import type { ConnectionType } from 'config/connections.types';
 export const useWebSocket = ({
   url,
 }: {
-  url?: string;
+  url?: string | undefined;
 } = {}) => {
   const socket = useRef<WebSocket | null>(null);
   const [status, setStatus] = useState<ConnectionType>('CONNECTING');

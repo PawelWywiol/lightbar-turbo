@@ -4,11 +4,13 @@
   "pipeline": {
     "start": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": ["DEFAULT_WS_URL"]
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": ["DEFAULT_WS_URL"]
     },
     "lint": {},
     "dev": {
