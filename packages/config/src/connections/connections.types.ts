@@ -1,6 +1,11 @@
 import type { Message } from '../messages/messages.types';
 
 export type ConnectionType = 'CLOSED' | 'CONNECTING' | 'CONNECTED';
+export enum NetworkType {
+  Unknown = 0,
+  STA = 1,
+  AP = 2,
+}
 
 export type ConnectionCustomEventDispatch =
   | {
@@ -28,7 +33,8 @@ export interface ConnectionRequestData {
 
 export interface ConnectionResponseData {
   type: 'INFO';
-  msg?: string | undefined;
+  msg: string;
+  net: NetworkType;
   data: {
     ver: string;
     sdk: string;

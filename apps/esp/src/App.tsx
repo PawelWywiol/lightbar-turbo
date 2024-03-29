@@ -1,3 +1,5 @@
+import { NetworkType } from 'config/connections.types';
+
 import useDevice from './hooks/useDevice';
 import { WifiSection } from './components/wifiSection';
 import { TitleSection } from './components/titleSection';
@@ -9,7 +11,9 @@ export const App = () => {
   return (
     <main className={'relative flex flex-col gap-4 text-center'}>
       <TitleSection message={info?.msg ?? message?.message} />
-      {status === 'CONNECTED' && <WifiSection setWiFi={setWiFi} />}
+      {status === 'CONNECTED' && (info?.net ?? NetworkType.Unknown) === NetworkType.AP && (
+        <WifiSection setWiFi={setWiFi} />
+      )}
       <InfoSection info={info} />
     </main>
   );
