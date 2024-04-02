@@ -15,12 +15,12 @@
     "deploy:apps:esp": "npm run build:esp && node scripts/deployAppsEsp.js"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.11.0",
-    "eslint": "^8.56.0",
+    "@parcel/transformer-sass": "^2.12.0",
+    "eslint": "^8.57.0",
     "eslint-config-custom": "*",
     "madge": "^6.1.0",
     "prettier": "^3.2.5",
-    "turbo": "^1.12.4"
+    "turbo": "^1.13.1"
   },
   "name": "lightbar-turbo",
   "workspaces": [
@@ -28,13 +28,13 @@
     "packages/*"
   ],
   "volta": {
-    "node": "18.17.1",
+    "node": "20.10.0",
     "npm": "10.1.0"
   },
   "dependencies": {
     "clsx": "^2.1.0",
-    "lucide-react": "^0.344.0",
-    "tailwind-merge": "^2.2.1",
+    "lucide-react": "^0.364.0",
+    "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   }

@@ -25,26 +25,25 @@ export const TextField = ({
   }, [value]);
 
   return (
-    <RadixTextField.Root className={className}>
-      <RadixTextField.Input
-        value={internalValue}
-        placeholder={placeholder}
-        onChange={(event) => {
-          let newValue = event.currentTarget.value;
+    <RadixTextField.Root
+      className={className}
+      value={internalValue}
+      placeholder={placeholder}
+      onChange={(event) => {
+        let newValue = event.currentTarget.value;
 
-          if (maxLength && newValue.length > maxLength) {
-            newValue = newValue.slice(0, maxLength);
-          }
+        if (maxLength && newValue.length > maxLength) {
+          newValue = newValue.slice(0, maxLength);
+        }
 
-          setInternalValue(newValue);
-        }}
-        onBlur={handleChange}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            handleChange();
-          }
-        }}
-      />
-    </RadixTextField.Root>
+        setInternalValue(newValue);
+      }}
+      onBlur={handleChange}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter') {
+          handleChange();
+        }
+      }}
+    />
   );
 };
