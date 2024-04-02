@@ -26,9 +26,6 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           <Header title={APP_NAME}>
             <ul>
               <li>
-                <Link href="/">Home</Link>
-              </li>
-              <li>
                 <Link href="/editor">Editor</Link>
               </li>
             </ul>
