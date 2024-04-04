@@ -1,9 +1,7 @@
 {
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
-    "types": ["vite/client"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "types": ["vite/client"]
   },
   "include": ["src", "vite.config.mjs", "**/*.ts", "**/*.tsx", "env.mjs"],
   "exclude": ["node_modules"]

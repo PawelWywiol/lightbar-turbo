@@ -12,7 +12,6 @@ import { useConnectedDevices } from './connectedDevices.hooks';
 
 import type { ConnectedDeviceValidationSchema } from './connectedDevices.schema';
 
-
 export const ConnectedDevicesDialog = () => {
   const { devices, updateDevice } = useConnectedDevices();
   const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema>({

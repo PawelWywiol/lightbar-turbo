@@ -2,7 +2,7 @@
   "extends": "tsconfig/nextjs.json",
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
-    "types": ["node"],
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",
