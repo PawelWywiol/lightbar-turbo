@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['custom/react-internal'],
+  extends: ['custom-react'],
   parserOptions: {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
@@ -10,8 +10,9 @@ module.exports = {
   ignorePatterns: [
     '!**/*',
     'turbo/generators/**/*',
-    'tailwind.config.js',
-    'postcss.config.js',
+    'tailwind.config.cjs',
+    'postcss.config.cjs',
     'tsconfig.json',
+    'node_modules/**/*',
   ],
 };

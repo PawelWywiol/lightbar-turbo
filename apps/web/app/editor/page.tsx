@@ -17,10 +17,13 @@ const EditorPage = () => {
   const router = useRouter();
   const [device, setDevice] = useState<Device>(DEFAULT_DEVICE);
 
-  const handleSave = useCallback((updatedSchemeData: LightsSchemeData) => {
-    postLightsScheme(updatedSchemeData);
-    router.push(`/editor/${updatedSchemeData.uid}`);
-  }, []);
+  const handleSave = useCallback(
+    (updatedSchemeData: LightsSchemeData) => {
+      postLightsScheme(updatedSchemeData);
+      router.push(`/editor/${updatedSchemeData.uid}`);
+    },
+    [router],
+  );
 
   return (
     <main className={'flex-1 flex justify-center align-middle'}>

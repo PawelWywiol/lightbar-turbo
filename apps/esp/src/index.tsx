@@ -1,6 +1,6 @@
 import { render } from 'preact';
 
-import { App } from './App';
+import { App } from './App.js';
 
 import 'ui/theme/styles/tailwindTheme.ts';
 import 'ui/theme/styles/globals.ts';

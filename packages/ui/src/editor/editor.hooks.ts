@@ -40,7 +40,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
       setSchemeHistoryIndex(schemeHistoryIndex - 1);
       setUpdatedSchemeData({ ...updatedSchemeData, scheme: previousScheme });
     }
-  }, [schemeHistory, schemeHistoryIndex]);
+  }, [schemeHistory, schemeHistoryIndex, updatedSchemeData]);
 
   const handleRedo = useCallback(() => {
     const nextScheme = schemeHistory[schemeHistoryIndex + 1];
@@ -48,7 +48,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
       setSchemeHistoryIndex(schemeHistoryIndex + 1);
       setUpdatedSchemeData({ ...updatedSchemeData, scheme: nextScheme });
     }
-  }, [schemeHistory, schemeHistoryIndex]);
+  }, [schemeHistory, schemeHistoryIndex, updatedSchemeData]);
 
   return {
     updatedSchemeData,

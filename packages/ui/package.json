@@ -13,7 +13,7 @@
     "@types/react-dom": "^18.2.23",
     "autoprefixer": "^10.4.19",
     "config": "*",
-    "eslint-config-custom": "*",
+    "eslint-config-custom-react": "*",
     "postcss": "^8.4.38",
     "react": "^18.2.0",
     "sass": "^1.72.0",
@@ -23,11 +23,12 @@
     "utils": "*"
   },
   "dependencies": {
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/themes": "^3.0.1",
     "cva": "npm:class-variance-authority@^0.7.0"
   },
   "exports": {
-    "./tailwind.config.js": "./tailwind.config.js",
+    "./tailwind.config.cjs": "./tailwind.config.cjs",
     "./button.types": "./src/button/button.types.ts",
     "./button": "./src/button/button.tsx",
     "./dialog.types": "./src/dialog/dialog.types.ts",

@@ -8,17 +8,14 @@
     "declarationMap": false,
     "incremental": true,
     "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "ESNext",
+    "lib": ["dom", "dom.iterable", "ES2017"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noEmit": true,
     "resolveJsonModule": true,
     "strict": true,
     "target": "es2017",
-    "strictNullChecks": true,
-    "baseUrl": ".",
-    "paths": {
-      "@ui/*": ["../../packages/ui/src/*"],
-    }
+    "strictNullChecks": true
   },
   "include": ["src", "next-env.d.ts"],
   "exclude": ["node_modules"]

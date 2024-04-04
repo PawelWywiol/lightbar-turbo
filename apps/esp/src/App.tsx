@@ -1,9 +1,9 @@
 import { NetworkType } from 'config/connections.types';
 
-import useDevice from './hooks/useDevice';
-import { WifiSection } from './components/wifiSection';
-import { TitleSection } from './components/titleSection';
-import { InfoSection } from './components/infoSection';
+import { useDevice } from './hooks/useDevice.js';
+import { WifiSection } from './components/wifiSection.js';
+import { TitleSection } from './components/titleSection.js';
+import { InfoSection } from './components/infoSection.js';
 
 export const App = () => {
   const { status, info, message, setWiFi } = useDevice();

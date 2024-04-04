@@ -7,7 +7,7 @@ module.exports = {
     'plugin:unicorn/recommended',
     'prettier',
   ],
-  plugins: ['@typescript-eslint', 'sonarjs', 'unicorn', 'import', 'jest'],
+  plugins: ['@typescript-eslint', 'sonarjs', 'unicorn', 'import'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -74,6 +74,14 @@ module.exports = {
         ignoreIIFE: true,
       },
     ],
+    '@typescript-eslint/prefer-nullish-coalescing': [
+      'error',
+      {
+        ignorePrimitives: {
+          string: true,
+        },
+      },
+    ],
     'no-restricted-imports': [
       'error',
       {
@@ -81,10 +89,6 @@ module.exports = {
           {
             name: 'lodash',
             message: 'Import [module] from lodash/[module] instead.',
-          },
-          {
-            name: 'date-fns',
-            message: 'Import [module] from date-fns/[module] instead.',
           },
         ],
       },
@@ -133,4 +137,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['**/*.{spec,test}.{ts,tsx}'],
+      rules: {
+        'sonarjs/no-duplicate-string': 0,
+      },
+    },
+  ],
 };

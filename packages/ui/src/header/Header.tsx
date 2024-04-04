@@ -1,5 +1,7 @@
-import Link from 'next/link';
 import type { ReactNode } from 'react';
+
+import Link from 'next/link';
+
 import { headerStyles } from './header.styles';
 
 export const Header = ({ title, children }: { title: string; children: ReactNode }) => (

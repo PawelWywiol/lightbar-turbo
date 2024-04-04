@@ -9,7 +9,7 @@ const buttonVariants = cva(
     'inline-flex items-center justify-center',
     'whitespace-nowrap',
     'rounded',
-    'text-sm font-small uppercase',
+    'text-sm font-small',
     'ring-offset-background transition-colors',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
     'disabled:pointer-events-none disabled:opacity-50',
@@ -22,7 +22,7 @@ const buttonVariants = cva(
         outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
+        link: 'text-primary',
       },
       size: {
         default: 'px-3 min-h-8',
@@ -41,8 +41,8 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-  active?: boolean;
+  asChild?: boolean | undefined;
+  active?: boolean | undefined;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(

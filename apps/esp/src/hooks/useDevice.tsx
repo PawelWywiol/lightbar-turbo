@@ -3,7 +3,7 @@ import { parseSafeConnectionResponseData } from 'config/connections';
 
 import { env } from '../../env.mjs';
 
-import { useWebSocket } from './useWebSocket';
+import { useWebSocket } from './useWebSocket.js';
 
 import type { ConnectionRequestData, ConnectionResponseData } from 'config/connections.types';
 
@@ -28,5 +28,3 @@ export const useDevice = () => {
 
   return { status, info, message, setWiFi };
 };
-
-export default useDevice;

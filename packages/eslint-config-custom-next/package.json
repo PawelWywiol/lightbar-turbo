@@ -1,0 +1,19 @@
+{
+  "name": "eslint-config-custom-next",
+  "license": "MIT",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.cjs",
+  "dependencies": {
+    "@next/eslint-plugin-next": "^14.1.4",
+    "@tanstack/eslint-plugin-query": "^5.28.6",
+    "eslint-config-custom-react": "*",
+    "eslint-config-next": "14.1.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-jest-dom": "^5.2.0",
+    "eslint-plugin-testing-library": "^6.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

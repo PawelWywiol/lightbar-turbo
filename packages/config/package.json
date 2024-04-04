@@ -2,7 +2,9 @@
   "name": "config",
   "version": "1.0.0",
   "description": "general config",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-config-custom-react": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

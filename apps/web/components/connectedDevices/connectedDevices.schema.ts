@@ -1,0 +1,10 @@
+import { z } from 'zod';
+
+export const ConnectedDeviceValidationSchema = z.object({
+  url: z.string().url(),
+  label: z.string(),
+});
+
+export const ConnectedDevicesValidationSchema = z.array(ConnectedDeviceValidationSchema);
+
+export type ConnectedDeviceValidationSchema = z.infer<typeof ConnectedDeviceValidationSchema>;

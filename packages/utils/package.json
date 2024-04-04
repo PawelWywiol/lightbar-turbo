@@ -11,6 +11,9 @@
   "dependencies": {
     "zod": "^3.22.4"
   },
+  "devDependencies": {
+    "eslint-config-custom-react": "*"
+  },
   "exports": {
     "./uid": "./src/uid/uid.ts",
     "./storage": "./src/storage/storage.ts",

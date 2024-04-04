@@ -23,16 +23,16 @@ export const ColorActions = ({
   >
     <div className="grid grid-cols-8 gap-1">
       {colors.map((color, index) => (
-        <span
+        <button
           key={index}
-          className="w-8 aspect-square rounded cursor-pointer flex justify-center items-center"
+          className="w-8 aspect-square rounded cursor-pointer flex justify-center items-center outline-none"
           onClick={() => setColorIndex(index)}
           style={{ background: color }}
         >
           {index === colorIndex && (
             <span className="flex items-center justify-center w-4 aspect-square rounded-full bg-[white] shadow-md" />
           )}
-        </span>
+        </button>
       ))}
     </div>
   </Dialog>

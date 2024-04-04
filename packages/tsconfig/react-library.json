@@ -3,14 +3,14 @@
   "display": "React Library",
   "extends": "./base.json",
   "compilerOptions": {
-    "noEmit": false,
+    "noEmit": true,
     "jsx": "react-jsx",
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "module": "NodeNext",
     "target": "ESNext",
     "declaration": true,
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "dist"],

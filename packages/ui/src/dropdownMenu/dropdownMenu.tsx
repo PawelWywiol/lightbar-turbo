@@ -15,13 +15,11 @@ export const DropDownMenu = ({ trigger, options }: DropDownMenuProps) => (
       )}
     </RadixDropdownMenu.Trigger>
     <RadixDropdownMenu.Content>
-      {options.map((option, optionIndex) => {
-        return (
-          <RadixDropdownMenu.Item key={`${optionIndex}${option.label}`} onClick={option.onClick}>
-            {option.label}
-          </RadixDropdownMenu.Item>
-        );
-      })}
+      {options.map((option, optionIndex) => (
+        <RadixDropdownMenu.Item key={`${optionIndex}${option.label}`} onClick={option.onClick}>
+          {option.label}
+        </RadixDropdownMenu.Item>
+      ))}
     </RadixDropdownMenu.Content>
   </RadixDropdownMenu.Root>
 );
