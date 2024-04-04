@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['plugin:@next/next/recommended', 'custom-next'],
+  extends: ['custom-next'],
   parserOptions: {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
