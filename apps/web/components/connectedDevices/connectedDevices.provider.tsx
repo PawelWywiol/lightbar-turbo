@@ -3,7 +3,12 @@
 import type { ReactNode } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
-import { loadConnectedDevices, saveConnectedDevices } from './connectedDevices.utils';
+import {
+  loadConnectedDevices,
+  saveConnectedDevices,
+  updateDevicesList,
+} from './connectedDevices.utils';
+import { ConnectedDeviceWebSocket } from './connectedDevices';
 
 import type { ConnectedDevice } from './connectedDevices.types';
 
@@ -26,30 +31,9 @@ export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
 export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<ConnectedDevice[]>([]);
 
-  useEffect(() => {
-    setDevices(loadConnectedDevices());
-  }, []);
-
   const updateDevice = (device: ConnectedDevice) => {
-    if (!device.url || !device.label) {
-      return;
-    }
-
     setDevices((previousDevices) => {
-      let deviceExists = false;
-
-      const updatedDevices = previousDevices.map((d) => {
-        if (d.url === device.url) {
-          deviceExists = true;
-          return { ...d, ...device };
-        }
-
-        return d;
-      });
-
-      if (!deviceExists) {
-        updatedDevices.push(device);
-      }
+      const updatedDevices = updateDevicesList(previousDevices, device);
 
       saveConnectedDevices(updatedDevices);
 
@@ -60,15 +44,25 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
   const removeDevice = (device: ConnectedDevice) => {
     setDevices((previousDevices) => {
       const updatedDevices = previousDevices.filter((d) => d.url !== device.url);
+
       saveConnectedDevices(updatedDevices);
 
       return updatedDevices;
     });
   };
 
+  useEffect(() => {
+    setDevices(loadConnectedDevices());
+  }, []);
+
   return (
-    <ConnectedDevicesContext.Provider value={{ devices, updateDevice, removeDevice }}>
-      {children}
-    </ConnectedDevicesContext.Provider>
+    <>
+      {devices.map((device) => (
+        <ConnectedDeviceWebSocket key={device.url} device={device} onChange={updateDevice} />
+      ))}
+      <ConnectedDevicesContext.Provider value={{ devices, updateDevice, removeDevice }}>
+        {children}
+      </ConnectedDevicesContext.Provider>
+    </>
   );
 };

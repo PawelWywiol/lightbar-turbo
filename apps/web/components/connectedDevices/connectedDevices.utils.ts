@@ -21,3 +21,22 @@ export const saveConnectedDevices = (devices: ConnectedDevice[]) => {
     devices.map(({ url, label }) => ({ url, label })),
   );
 };
+
+export const updateDevicesList = (devices: ConnectedDevice[], device: ConnectedDevice) => {
+  let deviceExists = false;
+
+  const updatedDevices = devices.map((d) => {
+    if (d.url === device.url) {
+      deviceExists = true;
+      return { ...d, ...device };
+    }
+
+    return d;
+  });
+
+  if (!deviceExists) {
+    updatedDevices.push(device);
+  }
+
+  return updatedDevices;
+};

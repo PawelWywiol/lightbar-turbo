@@ -9,6 +9,7 @@ import { TextField } from 'ui/textField';
 import { DropDownMenu } from 'ui/dropdownMenu';
 
 import { useConnectedDevices } from './connectedDevices.hooks';
+import { ConnectedDeviceInfo } from './connectedDevices';
 
 import type { ConnectedDeviceValidationSchema } from './connectedDevices.schema';
 
@@ -26,19 +27,21 @@ export const ConnectedDevicesDialog = () => {
     >
       <h2>{MESSAGES.device.dialogHeader}</h2>
       <div className="flex flex-col gap-2">
-        {devices.map(({ url, label }) => (
-          <div key={url} className="flex justify-center align-middle gap-2">
-            <div className="flex flex-1 justify-stretch">{label}</div>
+        {devices.map((device) => (
+          <div key={device.url} className="flex justify-center align-middle gap-4">
+            <div className="flex flex-1 justify-stretch">
+              <ConnectedDeviceInfo device={device} />
+            </div>
             <div className="flex gap-2 justify-center align-middle">
               <DropDownMenu
                 options={[
                   {
                     label: MESSAGES.common.edit,
-                    onClick: () => setDeviceInfo({ url, label }),
+                    onClick: () => setDeviceInfo(device),
                   },
                   {
                     label: MESSAGES.common.delete,
-                    onClick: () => updateDevice({ url, label }),
+                    onClick: () => updateDevice(device),
                   },
                 ]}
               />
