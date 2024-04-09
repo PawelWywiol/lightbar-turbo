@@ -1,9 +1,15 @@
 import { getStorageData, setStorageData } from 'utils/storage';
 
-import { CONNECTED_DEVICES_STORAGE_KEY } from './connectedDevices.config';
+import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_WS_URL } from './connectedDevices.config';
 import { ConnectedDevicesValidationSchema } from './connectedDevices.schema';
 
 import type { ConnectedDevice } from './connectedDevices.types';
+
+export const isIPAddress = (value: string) => {
+  const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/;
+
+  return ipRegex.test(value);
+};
 
 export const loadConnectedDevices = (): ConnectedDevice[] => {
   const devices: ConnectedDevice[] = getStorageData(
@@ -22,8 +28,12 @@ export const saveConnectedDevices = (devices: ConnectedDevice[]) => {
   );
 };
 
-export const updateDevicesList = (devices: ConnectedDevice[], device: ConnectedDevice) => {
+export const updateConnectedDevicesList = (devices: ConnectedDevice[], device: ConnectedDevice) => {
   let deviceExists = false;
+
+  if (isIPAddress(device.url)) {
+    device.url = CONNECTED_DEVICE_WS_URL(device.url);
+  }
 
   const updatedDevices = devices.map((d) => {
     if (d.url === device.url) {

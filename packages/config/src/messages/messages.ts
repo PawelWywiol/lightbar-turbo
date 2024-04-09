@@ -22,5 +22,7 @@ export const MESSAGES = {
     urlInputPlaceholder: 'Device url',
     labelInputPlaceholder: 'Device label',
     ledsCount: 'leds',
+    noDevicesFound: 'No devices found',
+    scanForDevices: 'Scan for devices',
   },
 } as const;

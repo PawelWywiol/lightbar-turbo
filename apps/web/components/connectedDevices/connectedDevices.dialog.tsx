@@ -14,7 +14,7 @@ import { ConnectedDeviceInfo } from './connectedDevices';
 import type { ConnectedDeviceValidationSchema } from './connectedDevices.schema';
 
 export const ConnectedDevicesDialog = () => {
-  const { devices, updateDevice } = useConnectedDevices();
+  const { devices, updateDevice, removeDevice, findDevices } = useConnectedDevices();
   const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema>({
     url: '',
     label: '',
@@ -41,13 +41,19 @@ export const ConnectedDevicesDialog = () => {
                   },
                   {
                     label: MESSAGES.common.delete,
-                    onClick: () => updateDevice(device),
+                    onClick: () => removeDevice(device),
                   },
                 ]}
               />
             </div>
           </div>
         ))}
+        {devices.length === 0 && (
+          <>
+            <span>{MESSAGES.device.noDevicesFound}</span>
+            <Button onClick={() => findDevices()}>{MESSAGES.device.scanForDevices}</Button>
+          </>
+        )}
       </div>
       <div className="flex justify-center align-middle gap-2">
         <div className="flex flex-1 justify-stretch">

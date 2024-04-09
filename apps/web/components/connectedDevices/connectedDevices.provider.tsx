@@ -6,9 +6,11 @@ import { createContext, useEffect, useState } from 'react';
 import {
   loadConnectedDevices,
   saveConnectedDevices,
-  updateDevicesList,
+  updateConnectedDevicesList,
 } from './connectedDevices.utils';
 import { ConnectedDeviceWebSocket } from './connectedDevices';
+import { findLocalNetworkConnectedDevices } from './connectedDevices.scan';
+import { MAX_CONNECTED_DEVICES } from './connectedDevices.config';
 
 import type { ConnectedDevice } from './connectedDevices.types';
 
@@ -16,6 +18,7 @@ interface ConnectedDevicesContext {
   devices: ConnectedDevice[];
   updateDevice: (device: ConnectedDevice) => void;
   removeDevice: (device: ConnectedDevice) => void;
+  findDevices: () => void;
 }
 
 export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
@@ -26,6 +29,9 @@ export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
   removeDevice: () => {
     // void
   },
+  findDevices: () => {
+    // void
+  },
 });
 
 export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) => {
@@ -33,11 +39,11 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
 
   const updateDevice = (device: ConnectedDevice) => {
     setDevices((previousDevices) => {
-      const updatedDevices = updateDevicesList(previousDevices, device);
+      const updatedDevices = updateConnectedDevicesList(previousDevices, device);
 
       saveConnectedDevices(updatedDevices);
 
-      return updatedDevices;
+      return updatedDevices.slice(-1 * MAX_CONNECTED_DEVICES);
     });
   };
 
@@ -51,6 +57,14 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     });
   };
 
+  const findDevices = () => {
+    void findLocalNetworkConnectedDevices().then((urls) => {
+      for (const url of urls) {
+        updateDevice({ url, label: url });
+      }
+    });
+  };
+
   useEffect(() => {
     setDevices(loadConnectedDevices());
   }, []);
@@ -60,7 +74,9 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
       {devices.map((device) => (
         <ConnectedDeviceWebSocket key={device.url} device={device} onChange={updateDevice} />
       ))}
-      <ConnectedDevicesContext.Provider value={{ devices, updateDevice, removeDevice }}>
+      <ConnectedDevicesContext.Provider
+        value={{ devices, updateDevice, removeDevice, findDevices }}
+      >
         {children}
       </ConnectedDevicesContext.Provider>
     </>
