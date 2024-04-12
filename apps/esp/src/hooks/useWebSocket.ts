@@ -21,7 +21,7 @@ export const useWebSocket = ({
     socket.current && status === 'CONNECTED' && socket.current.send(d);
 
   useEffect(() => {
-    const fixedUrl = url ?? `ws://${window.location.host}/ws`;
+    const fixedUrl = url ?? `ws://${window.location.host}`;
 
     const onOpen = () => {
       setStatus('CONNECTED');
