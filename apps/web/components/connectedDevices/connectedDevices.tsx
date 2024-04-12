@@ -26,7 +26,7 @@ export const ConnectedDeviceWebSocket = ({
 };
 
 export const ConnectedDeviceInfo = ({
-  device: { status, label, info },
+  device: { status, label, info, url },
 }: {
   device: ConnectedDevice;
 }) => {
@@ -34,7 +34,7 @@ export const ConnectedDeviceInfo = ({
     <div className="flex gap-4 flex-1 align-middle items-center">
       <span className={connectedDeviceInfoStatus({ status })} />
       <span className="flex-1 flex flex-col gap-1">
-        <span>{label}</span>
+        <span>{label ?? url}</span>
         <span className="text-xs">
           {info?.msg ??
             MESSAGES.connection[

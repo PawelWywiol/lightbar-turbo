@@ -50,3 +50,6 @@ export const updateConnectedDevicesList = (devices: ConnectedDevice[], device: C
 
   return updatedDevices;
 };
+
+export const progressPercentage = (index: number, current: number, max: number) =>
+  Math.ceil((100 * (current + index + 1)) / (max || 1));

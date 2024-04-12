@@ -1,9 +1,18 @@
-import { APP_NAME } from 'config/app';
+import { CONNECTED_DEVICE_PING_PATH, SUBNETS_IPS } from './connectedDevices.config';
+import { isIPAddress, progressPercentage } from './connectedDevices.utils';
 
-import { SUBNETS_IPS } from './connectedDevices.config';
-import { isIPAddress } from './connectedDevices.utils';
-
-const checkIPConnection = async (ip: string, search?: string | undefined) => {
+const checkIPConnection = async (
+  ip: string,
+  {
+    path = '/',
+    timeout = 120,
+    method = 'GET',
+  }: {
+    path?: string | undefined;
+    timeout?: number | undefined;
+    method?: string | undefined;
+  } = {},
+) => {
   if (!isIPAddress(ip)) {
     return null;
   }
@@ -13,35 +22,30 @@ const checkIPConnection = async (ip: string, search?: string | undefined) => {
 
   const config: RequestInit = {
     signal: signal,
-    method: 'GET',
-    mode: 'cors',
-    cache: 'no-cache',
+    method: method,
+    mode: 'no-cors',
+    headers: {
+      'cache-control': 'cache',
+      pragma: 'cache',
+    },
+    credentials: 'omit',
   };
 
   let checkResult: string | null = ip;
 
   try {
-    const response = await Promise.race([
-      fetch(`http://${ip}`, config),
+    await Promise.race([
+      fetch(`http://${ip}${path}`, config),
       new Promise((_, reject) =>
         setTimeout(() => {
           controller.abort();
           checkResult = null;
           reject();
-        }, 500),
+        }, timeout),
       ),
     ]);
-    console.log({ ip, response });
-    if (search) {
-      if (response instanceof Response && response.ok) {
-        const html = await response.text();
-        checkResult = html.includes(search) ? ip : null;
-      } else {
-        checkResult = null;
-      }
-    }
   } catch {
-    if (search) {
+    if (path.length > 1) {
       checkResult = null;
     }
   }
@@ -49,24 +53,56 @@ const checkIPConnection = async (ip: string, search?: string | undefined) => {
   return checkResult;
 };
 
-const scanSubnetForConnectedDevices = async (subnet: string) => {
+const scanSubnetForConnectedDevices = async (
+  subnet: string,
+  currentProgress: number,
+  maxProgress: number,
+  setScanProgress: (number: number) => void,
+) => {
   const ipParts = subnet.split('.');
   const subnetIps = Array.from(
     { length: 256 },
     (_, index) => `${ipParts[0]}.${ipParts[1]}.${ipParts[2]}.${index}`,
   );
 
-  return await Promise.all(subnetIps.map(async (ip) => checkIPConnection(ip, APP_NAME)));
+  const ips = [];
+
+  for (const [index, ip] of subnetIps.entries()) {
+    ips.push(
+      await checkIPConnection(ip === subnet ? '' : ip, {
+        path: CONNECTED_DEVICE_PING_PATH,
+      }),
+
+      setScanProgress(progressPercentage(index, currentProgress, maxProgress)),
+    );
+  }
+
+  return ips;
 };
 
-export const findLocalNetworkConnectedDevices = async () => {
+export const findLocalNetworkConnectedDevices = async (
+  setScanProgress: (number: number) => void,
+) => {
+  setScanProgress(0);
+
   const activeSubnets = await Promise.all(SUBNETS_IPS.map(async (ip) => checkIPConnection(ip)));
 
-  const activeIps = await Promise.all(
-    activeSubnets.map(async (ip) => scanSubnetForConnectedDevices(ip ?? '')),
-  );
+  const maxProgress = activeSubnets.filter(Boolean).length * 256;
 
-  console.log({ activeSubnets, activeIps });
+  const activeIps = [];
+
+  for (const [index, activeSubnet] of activeSubnets.filter(Boolean).entries()) {
+    activeIps.push(
+      await scanSubnetForConnectedDevices(
+        activeSubnet ?? '',
+        index * 256,
+        maxProgress,
+        setScanProgress,
+      ),
+    );
+  }
+
+  setScanProgress(100);
 
   return activeIps.flat().filter(Boolean) as string[];
 };

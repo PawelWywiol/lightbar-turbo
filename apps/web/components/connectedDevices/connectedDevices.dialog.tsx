@@ -14,7 +14,7 @@ import { ConnectedDeviceInfo } from './connectedDevices';
 import type { ConnectedDeviceValidationSchema } from './connectedDevices.schema';
 
 export const ConnectedDevicesDialog = () => {
-  const { devices, updateDevice, removeDevice, findDevices } = useConnectedDevices();
+  const { devices, updateDevice, removeDevice, findDevices, scanProgress } = useConnectedDevices();
   const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema>({
     url: '',
     label: '',
@@ -51,7 +51,11 @@ export const ConnectedDevicesDialog = () => {
         {devices.length === 0 && (
           <>
             <span>{MESSAGES.device.noDevicesFound}</span>
-            <Button onClick={() => findDevices()}>{MESSAGES.device.scanForDevices}</Button>
+            <Button onClick={() => findDevices()} disabled={scanProgress !== 100}>
+              {scanProgress === 100
+                ? MESSAGES.device.scanForDevices
+                : `${MESSAGES.device.scanning} ${scanProgress}%`}
+            </Button>
           </>
         )}
       </div>
@@ -67,14 +71,14 @@ export const ConnectedDevicesDialog = () => {
         <div className="flex flex-1 justify-stretch">
           <TextField
             className="w-full"
-            value={deviceInfo.label}
+            value={deviceInfo.label ?? deviceInfo.url}
             onChange={(label) => setDeviceInfo({ ...deviceInfo, label })}
             placeholder={MESSAGES.device.labelInputPlaceholder}
           />
         </div>
         <div className="flex">
           <Button
-            disabled={deviceInfo.url.length === 0 || deviceInfo.label.length === 0}
+            disabled={deviceInfo.url.length === 0}
             onClick={() => {
               updateDevice(deviceInfo);
               setDeviceInfo({ url: '', label: '' });

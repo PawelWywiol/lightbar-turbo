@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const ConnectedDeviceValidationSchema = z.object({
   url: z.string().url(),
-  label: z.string(),
+  label: z.string().optional(),
 });
 
 export const ConnectedDevicesValidationSchema = z.array(ConnectedDeviceValidationSchema);

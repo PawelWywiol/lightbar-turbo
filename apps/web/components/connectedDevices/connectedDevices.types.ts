@@ -2,7 +2,7 @@ import type { ConnectionResponseData, ConnectionType } from 'config/connections.
 
 export interface ConnectedDevice {
   url: string;
-  label: string;
+  label?: string | undefined;
   status?: ConnectionType | undefined;
   info?: ConnectionResponseData | undefined;
 }

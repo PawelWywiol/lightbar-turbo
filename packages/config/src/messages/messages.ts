@@ -24,5 +24,6 @@ export const MESSAGES = {
     ledsCount: 'leds',
     noDevicesFound: 'No devices found',
     scanForDevices: 'Scan for devices',
+    scanning: 'Scanning...',
   },
 } as const;
