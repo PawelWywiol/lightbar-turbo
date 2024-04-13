@@ -31,10 +31,10 @@ export const ConnectedDeviceInfo = ({
   device: ConnectedDevice;
 }) => {
   return (
-    <div className="flex gap-4 flex-1 align-middle items-center">
+    <div className="flex gap-4 flex-1 align-middle items-center text-left">
       <span className={connectedDeviceInfoStatus({ status })} />
       <span className="flex-1 flex flex-col gap-1">
-        <span>{label ?? url}</span>
+        <span>{label ?? info?.data.ssid ?? url}</span>
         <span className="text-xs">
           {info?.msg ??
             MESSAGES.connection[

@@ -14,7 +14,8 @@ import { ConnectedDeviceInfo } from './connectedDevices';
 import type { ConnectedDeviceValidationSchema } from './connectedDevices.schema';
 
 export const ConnectedDevicesDialog = () => {
-  const { devices, updateDevice, removeDevice, findDevices, scanProgress } = useConnectedDevices();
+  const { devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select } =
+    useConnectedDevices();
   const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema>({
     url: '',
     label: '',
@@ -28,13 +29,21 @@ export const ConnectedDevicesDialog = () => {
       <h2>{MESSAGES.device.dialogHeader}</h2>
       <div className="flex flex-col gap-2">
         {devices.map((device) => (
-          <div key={device.url} className="flex justify-center align-middle gap-4">
-            <div className="flex flex-1 justify-stretch">
+          <div key={device.url} className="flex justify-center align-middle text-left gap-4">
+            <Button
+              className="flex flex-1 justify-stretch p-2"
+              variant={selected === device.url ? 'outline' : 'ghost'}
+              onClick={() => select(device.url)}
+            >
               <ConnectedDeviceInfo device={device} />
-            </div>
+            </Button>
             <div className="flex gap-2 justify-center align-middle">
               <DropDownMenu
                 options={[
+                  {
+                    label: MESSAGES.common.select,
+                    onClick: () => select(device.url),
+                  },
                   {
                     label: MESSAGES.common.edit,
                     onClick: () => setDeviceInfo(device),
@@ -71,7 +80,7 @@ export const ConnectedDevicesDialog = () => {
         <div className="flex flex-1 justify-stretch">
           <TextField
             className="w-full"
-            value={deviceInfo.label ?? deviceInfo.url}
+            value={deviceInfo.label ?? ''}
             onChange={(label) => setDeviceInfo({ ...deviceInfo, label })}
             placeholder={MESSAGES.device.labelInputPlaceholder}
           />

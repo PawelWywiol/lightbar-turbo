@@ -4,6 +4,7 @@ export const MESSAGES = {
     edit: 'Edit',
     save: 'Save',
     delete: 'Delete',
+    select: 'Select',
   },
   scheme: {
     loading: 'Loading scheme data. Please wait...',

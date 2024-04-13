@@ -20,6 +20,8 @@ interface ConnectedDevicesContext {
   removeDevice: (device: ConnectedDevice) => void;
   findDevices: () => void;
   scanProgress: number;
+  selected?: string | undefined;
+  select: (url: string) => void;
 }
 
 export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
@@ -34,11 +36,16 @@ export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
     // void
   },
   scanProgress: 100,
+  selected: undefined,
+  select: () => {
+    // void
+  },
 });
 
 export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<ConnectedDevice[]>([]);
   const [scanProgress, setScanProgress] = useState(100);
+  const [selected, select] = useState<string | undefined>();
 
   const updateDevice = (device: ConnectedDevice) => {
     setDevices((previousDevices) => {
@@ -78,7 +85,7 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
         <ConnectedDeviceWebSocket key={device.url} device={device} onChange={updateDevice} />
       ))}
       <ConnectedDevicesContext.Provider
-        value={{ devices, updateDevice, removeDevice, findDevices, scanProgress }}
+        value={{ devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select }}
       >
         {children}
       </ConnectedDevicesContext.Provider>

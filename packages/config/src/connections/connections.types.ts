@@ -39,6 +39,7 @@ export interface ConnectionResponseData {
     ver: string;
     sdk: string;
     uid: string;
+    ssid: string;
     free: number;
     leds: number;
   };
