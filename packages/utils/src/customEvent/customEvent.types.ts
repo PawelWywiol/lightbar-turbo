@@ -1,9 +1,9 @@
-export interface CustomEventCallback {
+export interface CustomEventDispatch<T = unknown> {
   name: string;
-  callback: (event: CustomEvent<unknown>) => void;
+  detail: T;
 }
 
-export interface CustomEventDispatch {
-  name: string;
-  detail: unknown;
+export interface CustomEventCallback<T extends CustomEventDispatch> {
+  name: T['name'];
+  callback: (event: CustomEvent<T['detail']>) => void;
 }

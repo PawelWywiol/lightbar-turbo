@@ -3,6 +3,8 @@
 import type { ReactNode } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
+import { dispatchCustomEvent } from 'utils/customEvent';
+
 import {
   loadConnectedDevices,
   saveConnectedDevices,
@@ -12,6 +14,7 @@ import { ConnectedDeviceWebSocket } from './connectedDevices';
 import { findLocalNetworkConnectedDevices } from './connectedDevices.scan';
 import { MAX_CONNECTED_DEVICES } from './connectedDevices.config';
 
+import type { DeviceCustomEventDispatch } from 'config/devices.types';
 import type { ConnectedDevice } from './connectedDevices.types';
 
 interface ConnectedDevicesContext {
@@ -78,6 +81,13 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
   useEffect(() => {
     setDevices(loadConnectedDevices());
   }, []);
+
+  useEffect(() => {
+    dispatchCustomEvent<DeviceCustomEventDispatch>({
+      name: 'app:device:selected',
+      detail: selected ?? '',
+    });
+  }, [selected]);
 
   return (
     <>
