@@ -1,5 +1,6 @@
-import { Button } from '../../../button/button';
-import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
+import { Button } from 'ui/button';
+import { DropDownMenu } from 'ui/dropdownMenu';
+
 import { EDITOR_TOOLS_LIST } from '../../editor.config';
 
 import { ColorActions } from './components/colorActions';

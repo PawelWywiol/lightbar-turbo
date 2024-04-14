@@ -2,7 +2,7 @@
 
 import { Suspense } from 'react';
 
-import { Pagination } from '../pagination/pagination';
+import { Pagination } from 'ui/pagination';
 
 import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
 import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTools';

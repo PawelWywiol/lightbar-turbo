@@ -1,6 +1,5 @@
 import { DEVICE_SIZES } from 'config/devices';
-
-import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
+import { DropDownMenu } from 'ui/dropdownMenu';
 
 import type { EditorProps } from '../../editor.types';
 

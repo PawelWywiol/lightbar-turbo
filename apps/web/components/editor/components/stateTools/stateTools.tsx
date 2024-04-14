@@ -1,8 +1,8 @@
 import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'config/lights';
+import { Button } from 'ui/button';
+import { TextField } from 'ui/textField';
 
-import { Button } from '../../../button/button';
-import { DoubleArrowLeft, DoubleArrowRight } from '../../../icons/icons';
-import { TextField } from '../../../textField/textField';
+import { DoubleArrowLeft, DoubleArrowRight } from '../../../../../../packages/ui/src/icons/icons';
 
 import type { StateToolsProps } from './stateTools.types';
 

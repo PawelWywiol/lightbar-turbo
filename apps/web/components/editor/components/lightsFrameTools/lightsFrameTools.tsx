@@ -1,9 +1,9 @@
 import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'config/lights';
+import { Select } from 'ui/select';
+import { Button } from 'ui/button';
+import { DropDownMenu } from 'ui/dropdownMenu';
 
-import { Select } from '../../../select/select';
-import { PlusIcon } from '../../../icons/icons';
-import { Button } from '../../../button/button';
-import { DropDownMenu } from '../../../dropdownMenu/dropdownMenu';
+import { PlusIcon } from '../../../../../../packages/ui/src/icons/icons';
 
 import type { LightsFrame, LightsScheme } from 'config/lights.types';
 import type { EditorFrameProps } from '../../editor.types';

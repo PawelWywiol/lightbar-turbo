@@ -1,7 +1,6 @@
 import { DEFAULT_COLOR } from 'config/lights';
-
-import { Button } from '../../../../button/button';
-import { Dialog } from '../../../../dialog/dialog';
+import { Button } from 'ui/button';
+import { Dialog } from 'ui/dialog';
 
 import type { EditToolsProps } from '../editTools.types';
 

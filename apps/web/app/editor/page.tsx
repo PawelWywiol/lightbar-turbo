@@ -4,11 +4,11 @@ import { useCallback, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 import { DEFAULT_LIGHTS_SCHEME } from 'config/lights';
-import { Editor } from 'ui/editor';
 import { DEFAULT_DEVICE } from 'config/devices';
 import { uid } from 'utils/uid';
 
 import { postLightsScheme } from '../../services/lights/lights';
+import { Editor } from '../../components/editor/editor';
 
 import type { Device } from 'config/devices.types';
 import type { LightsSchemeData } from 'config/lights.types';

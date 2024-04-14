@@ -1,4 +1,5 @@
-import { Button } from '../../../../button/button';
+import { Button } from 'ui/button';
+
 import {
   DoubleArrowDownIcon,
   DoubleArrowLeft,
@@ -7,7 +8,7 @@ import {
   PinLeftIcon,
   PinRightIcon,
   ShuffleIcon,
-} from '../../../../icons/icons';
+} from '../../../../../../../packages/ui/src/icons/icons';
 
 import type { ShiftDirection } from '../../../editor.types';
 
