@@ -1,13 +1,12 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 
 import { Pagination } from '../pagination/pagination';
 
 import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
 import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTools';
 import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools';
-import { EDITOR_DEFAULT_TOOL } from './editor.config';
 import { EditTools } from './components/editTools/editTools';
 import { shiftLightsFrameColorPixel } from './editor.utils';
 import { StateTools } from './components/stateTools/stateTools';
@@ -23,11 +22,13 @@ export const Editor = ({ schemeData, device, setDevice, handleSave }: EditorProp
     handleUndo,
     redoAvailable,
     handleRedo,
+    frameIndex,
+    setFrameIndex,
+    tool,
+    setTool,
+    colorIndex,
+    setColorIndex,
   } = useEditor(schemeData);
-
-  const [frameIndex, setFrameIndex] = useState(0);
-  const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
-  const [colorIndex, setColorIndex] = useState(0);
 
   return (
     <div className="m-auto max-w-md w-full flex flex-col gap-4">

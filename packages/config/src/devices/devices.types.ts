@@ -13,14 +13,12 @@ export interface Device {
   size: DeviceSizeOption;
 }
 
-export type DeviceCustomEventName = 'app:device:selected' | 'app:device:updated';
-
 export type DeviceCustomEventDispatch =
   | {
-      name:  'app:device:selected';
+      name: 'app:device:selected';
       detail: string;
     }
   | {
-      name:  'app:device:updated';
+      name: 'app:device:updated';
       detail: Device;
     };

@@ -17,3 +17,16 @@ export interface EditorFrameProps {
   nextFrame?: () => void;
   previousFrame?: () => void;
 }
+
+export type EditorCustomEventDispatch =
+  | {
+      name: 'app:editor:scheme:updated';
+      detail: {
+        scheme: LightsScheme;
+        frameIndex: number;
+      };
+    }
+  | {
+      name: 'app:editor:color:updated';
+      detail: string | undefined;
+    };

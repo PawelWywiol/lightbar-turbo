@@ -1,7 +1,12 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import { dispatchCustomEvent } from 'utils/customEvent';
+
+import { EDITOR_DEFAULT_TOOL } from './editor.config';
+
+import type { EditorCustomEventDispatch } from './editor.types';
 import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
 
 const MAX_HISTORY = 50;
@@ -10,6 +15,9 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   const [updatedSchemeData, setUpdatedSchemeData] = useState<LightsSchemeData>(schemeData);
   const [schemeHistory, setSchemeHistory] = useState<LightsScheme[]>([]);
   const [schemeHistoryIndex, setSchemeHistoryIndex] = useState(0);
+  const [frameIndex, setFrameIndex] = useState(0);
+  const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
+  const [colorIndex, setColorIndex] = useState(0);
 
   const handleUpdate = useCallback(
     (newScheme: LightsScheme) => {
@@ -50,6 +58,23 @@ export const useEditor = (schemeData: LightsSchemeData) => {
     }
   }, [schemeHistory, schemeHistoryIndex, updatedSchemeData]);
 
+  useEffect(() => {
+    dispatchCustomEvent<EditorCustomEventDispatch>({
+      name: 'app:editor:scheme:updated',
+      detail: {
+        scheme: updatedSchemeData.scheme,
+        frameIndex,
+      },
+    });
+  }, [updatedSchemeData.scheme, frameIndex]);
+
+  useEffect(() => {
+    dispatchCustomEvent<EditorCustomEventDispatch>({
+      name: 'app:editor:color:updated',
+      detail: updatedSchemeData.scheme.colors[colorIndex],
+    });
+  }, [colorIndex, updatedSchemeData.scheme.colors]);
+
   return {
     updatedSchemeData,
     handleUpdate,
@@ -57,5 +82,11 @@ export const useEditor = (schemeData: LightsSchemeData) => {
     handleRedo,
     undoAvailable: schemeHistoryIndex > 0,
     redoAvailable: schemeHistoryIndex < schemeHistory.length - 1,
+    frameIndex,
+    setFrameIndex,
+    tool,
+    setTool,
+    colorIndex,
+    setColorIndex,
   };
 };
