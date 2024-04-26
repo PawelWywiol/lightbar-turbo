@@ -6,7 +6,7 @@ import { dispatchCustomEvent } from 'utils/customEvent';
 
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 
-import type { EditorCustomEventDispatch } from './editor.types';
+import type { EditorColorUpdatedEvent, EditorSchemeUpdatedEvent } from './editor.types';
 import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
 
 const MAX_HISTORY = 50;
@@ -59,7 +59,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   }, [schemeHistory, schemeHistoryIndex, updatedSchemeData]);
 
   useEffect(() => {
-    dispatchCustomEvent<EditorCustomEventDispatch>({
+    dispatchCustomEvent<EditorSchemeUpdatedEvent>({
       name: 'app:editor:scheme:updated',
       detail: {
         scheme: updatedSchemeData.scheme,
@@ -69,7 +69,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   }, [updatedSchemeData.scheme, frameIndex]);
 
   useEffect(() => {
-    dispatchCustomEvent<EditorCustomEventDispatch>({
+    dispatchCustomEvent<EditorColorUpdatedEvent>({
       name: 'app:editor:color:updated',
       detail: updatedSchemeData.scheme.colors[colorIndex],
     });

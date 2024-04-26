@@ -33,7 +33,7 @@ export const LightsFrameTools = ({
           onChange={(value) => {
             const updatedScheme: LightsScheme = { ...scheme };
             const updatedSchemeFrame = updatedScheme.frames[frameIndex];
-            const type = LIGHTS_FRAME_TYPES.find((option) => option.value === value);
+            const type = LIGHTS_FRAME_TYPES.find((option) => `${option.value}` === value);
 
             if (!type || !updatedSchemeFrame) {
               return;

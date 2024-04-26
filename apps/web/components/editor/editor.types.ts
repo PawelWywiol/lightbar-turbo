@@ -18,15 +18,14 @@ export interface EditorFrameProps {
   previousFrame?: () => void;
 }
 
-export type EditorCustomEventDispatch =
-  | {
-      name: 'app:editor:scheme:updated';
-      detail: {
-        scheme: LightsScheme;
-        frameIndex: number;
-      };
-    }
-  | {
-      name: 'app:editor:color:updated';
-      detail: string | undefined;
-    };
+export interface EditorSchemeUpdatedEvent {
+  name: 'app:editor:scheme:updated';
+  detail: {
+    scheme: LightsScheme;
+    frameIndex: number;
+  };
+}
+export interface EditorColorUpdatedEvent {
+  name: 'app:editor:color:updated';
+  detail: string | undefined;
+}

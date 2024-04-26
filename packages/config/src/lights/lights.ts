@@ -10,11 +10,11 @@ export const LIGHTS_SCHEME_NAME_MAX_LENGTH = 16;
 
 export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
   {
-    value: 'step',
+    value: 0,
     label: 'Step',
   },
   {
-    value: 'fade',
+    value: 1,
     label: 'Fade',
   },
 ];
@@ -47,7 +47,7 @@ export const DEFAULT_COLOR_PALETTE = `
 export const DEFAULT_COLOR = '#000000';
 
 export const DEFAULT_LIGHTS_FRAME_TEMPO = 120;
-export const DEFAULT_LIGHTS_FRAME_TYPE: LightsFrameType = 'step';
+export const DEFAULT_LIGHTS_FRAME_TYPE: LightsFrameType = 0;
 export const DEFAULT_LIGHTS_FRAME: LightsFrame = {
   type: DEFAULT_LIGHTS_FRAME_TYPE,
   tempo: DEFAULT_LIGHTS_FRAME_TEMPO,

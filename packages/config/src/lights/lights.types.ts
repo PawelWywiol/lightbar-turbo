@@ -1,6 +1,6 @@
 export const lightsFrameType = {
-  step: 'step',
-  fade: 'fade',
+  step: 0,
+  fade: 1,
 } as const;
 
 export type LightsFrameType = (typeof lightsFrameType)[keyof typeof lightsFrameType];
