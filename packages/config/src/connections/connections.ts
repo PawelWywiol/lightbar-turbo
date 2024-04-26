@@ -4,13 +4,13 @@ const isConnectionResponseData = (data: unknown): data is ConnectionResponseData
   if (typeof data === 'object' && data !== null) {
     const { type, data: responseData } = data as ConnectionResponseData;
     if (type === 'INFO' && typeof responseData === 'object' && responseData !== null) {
-      const { ver, sdk, uid, free, leds } = responseData;
+      const { leds, colors, space, heap, ap } = responseData;
       if (
-        typeof ver === 'string' &&
-        typeof sdk === 'string' &&
-        typeof uid === 'string' &&
-        typeof free === 'number' &&
-        typeof leds === 'number'
+        typeof leds === 'number' &&
+        typeof colors === 'number' &&
+        typeof ap === 'string' &&
+        typeof space === 'number' &&
+        typeof heap === 'number'
       ) {
         return true;
       }

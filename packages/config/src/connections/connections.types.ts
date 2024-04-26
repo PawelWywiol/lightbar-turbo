@@ -33,14 +33,13 @@ export interface ConnectionRequestData {
 
 export interface ConnectionResponseData {
   type: 'INFO';
-  msg: string;
-  net: NetworkType;
+  message: string;
+  network: NetworkType;
   data: {
-    ver: string;
-    sdk: string;
-    uid: string;
-    ssid: string;
-    free: number;
     leds: number;
+    colors: number;
+    ap: string;
+    space: number;
+    heap: number;
   };
 }

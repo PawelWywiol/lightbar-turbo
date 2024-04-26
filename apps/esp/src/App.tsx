@@ -10,8 +10,8 @@ export const App = () => {
 
   return (
     <main className={'relative flex flex-col gap-4 text-center'}>
-      <TitleSection message={info?.msg ?? message?.message} />
-      {status === 'CONNECTED' && (info?.net ?? NetworkType.Unknown) === NetworkType.AP && (
+      <TitleSection message={info?.message ?? message?.message} />
+      {status === 'CONNECTED' && (info?.network ?? NetworkType.Unknown) === NetworkType.AP && (
         <WifiSection setWiFi={setWiFi} />
       )}
       <InfoSection info={info} />
