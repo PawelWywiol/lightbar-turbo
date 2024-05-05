@@ -8,7 +8,8 @@ export const ColorActions = ({
   colors,
   colorIndex,
   setColorIndex,
-}: Pick<EditToolsProps, 'colors' | 'colorIndex' | 'setColorIndex'>) => (
+  setColorDialogOpen,
+}: Pick<EditToolsProps, 'colors' | 'colorIndex' | 'setColorIndex' | 'setColorDialogOpen'>) => (
   <Dialog
     className="flex justify-center align-middle max-w-[fit-content]"
     trigger={
@@ -19,6 +20,7 @@ export const ColorActions = ({
         />
       </Button>
     }
+    onOpenChange={setColorDialogOpen}
   >
     <div className="grid grid-cols-8 gap-1">
       {colors.map((color, index) => (

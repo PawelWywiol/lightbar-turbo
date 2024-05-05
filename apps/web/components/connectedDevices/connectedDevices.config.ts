@@ -1,6 +1,9 @@
 export const CONNECTED_DEVICES_STORAGE_KEY = 'connectedDevices';
-export const CONNECTED_DEVICE_WS_URL = (url: string) => `ws://${url}`;
-export const CONNECTED_DEVICE_PING_PATH = '/ping';
+export const CONNECTED_DEVICE_WS_URL = (url: string) => `ws://${url.replaceAll('http://', '')}`;
+export const CONNECTED_DEVICE_API_PATH = '/api';
+export const CONNECTED_DEVICE_API_URL = (url: string) =>
+  `http://${url.replaceAll('ws://', '')}${CONNECTED_DEVICE_API_PATH}`;
+export const CONNECTED_DEVICE_GET_STATE_INTERVAL = 60_000;
 export const MAX_CONNECTED_DEVICES = 255;
 
 export const SUBNETS_IPS = [

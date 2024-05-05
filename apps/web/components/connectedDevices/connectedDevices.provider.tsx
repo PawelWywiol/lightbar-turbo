@@ -3,11 +3,7 @@
 import type { ReactNode } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
-import {
-  dispatchCustomEvent,
-  subscribeCustomEvent,
-  unsubscribeCustomEvent,
-} from 'utils/customEvent';
+import { dispatchCustomEvent } from 'utils/customEvent';
 
 import {
   loadConnectedDevices,
@@ -18,8 +14,6 @@ import { ConnectedDeviceWebSocket } from './connectedDevices';
 import { findLocalNetworkConnectedDevices } from './connectedDevices.scan';
 import { MAX_CONNECTED_DEVICES } from './connectedDevices.config';
 
-import type { CustomEventCallback } from 'utils/customEvent.types';
-import type { EditorColorUpdatedEvent, EditorSchemeUpdatedEvent } from '../editor/editor.types';
 import type { DeviceCustomEventDispatch } from 'config/devices.types';
 import type { ConnectedDevice } from './connectedDevices.types';
 
@@ -85,31 +79,6 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
   };
 
   useEffect(() => {
-    const editorSchemeUpdatedEvent: CustomEventCallback<EditorSchemeUpdatedEvent> = {
-      name: 'app:editor:scheme:updated',
-      callback: ({ detail }) => {
-        // eslint-disable-next-line no-console
-        console.log('scheme updated', detail, JSON.stringify(detail).length);
-      },
-    };
-    const editorColorUpdatedEvent: CustomEventCallback<EditorColorUpdatedEvent> = {
-      name: 'app:editor:color:updated',
-      callback: ({ detail }) => {
-        // eslint-disable-next-line no-console
-        console.log('color updated', detail);
-      },
-    };
-
-    subscribeCustomEvent<EditorSchemeUpdatedEvent>(editorSchemeUpdatedEvent);
-    subscribeCustomEvent<EditorColorUpdatedEvent>(editorColorUpdatedEvent);
-
-    return () => {
-      unsubscribeCustomEvent<EditorSchemeUpdatedEvent>(editorSchemeUpdatedEvent);
-      unsubscribeCustomEvent<EditorColorUpdatedEvent>(editorColorUpdatedEvent);
-    };
-  }, []);
-
-  useEffect(() => {
     setDevices(loadConnectedDevices());
   }, []);
 
@@ -123,7 +92,12 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
   return (
     <>
       {devices.map((device) => (
-        <ConnectedDeviceWebSocket key={device.url} device={device} onChange={updateDevice} />
+        <ConnectedDeviceWebSocket
+          key={device.url}
+          device={device}
+          onChange={updateDevice}
+          selected={selected === device.url}
+        />
       ))}
       <ConnectedDevicesContext.Provider
         value={{ devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select }}

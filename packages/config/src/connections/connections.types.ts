@@ -1,3 +1,4 @@
+import type { LightsFrame } from '../lights/lights.types';
 import type { Message } from '../messages/messages.types';
 
 export type ConnectionType = 'CLOSED' | 'CONNECTING' | 'CONNECTED';
@@ -37,9 +38,24 @@ export interface ConnectionResponseData {
   network: NetworkType;
   data: {
     leds: number;
-    colors: number;
     ap: string;
     space: number;
     heap: number;
   };
 }
+
+export type ConnectionRequestLightsSchemeData =
+  | {
+      type: 'COLORS';
+      data: {
+        colors: number[];
+      };
+    }
+  | {
+      type: 'FRAME';
+      data: {
+        type: LightsFrame['type'];
+        tempo: LightsFrame['tempo'];
+        colors: LightsFrame['colorIndexes'];
+      };
+    };

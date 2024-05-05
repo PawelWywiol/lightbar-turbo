@@ -1,4 +1,4 @@
-import { CONNECTED_DEVICE_PING_PATH, SUBNETS_IPS } from './connectedDevices.config';
+import { CONNECTED_DEVICE_API_PATH, SUBNETS_IPS } from './connectedDevices.config';
 import { isIPAddress, progressPercentage } from './connectedDevices.utils';
 
 const checkIPConnection = async (
@@ -70,7 +70,7 @@ const scanSubnetForConnectedDevices = async (
   for (const [index, ip] of subnetIps.entries()) {
     ips.push(
       await checkIPConnection(ip === subnet ? '' : ip, {
-        path: CONNECTED_DEVICE_PING_PATH,
+        path: CONNECTED_DEVICE_API_PATH,
       }),
 
       setScanProgress(progressPercentage(index, currentProgress, maxProgress)),

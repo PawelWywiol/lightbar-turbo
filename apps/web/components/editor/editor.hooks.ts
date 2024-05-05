@@ -18,6 +18,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   const [frameIndex, setFrameIndex] = useState(0);
   const [tool, setTool] = useState(EDITOR_DEFAULT_TOOL);
   const [colorIndex, setColorIndex] = useState(0);
+  const [colorDialogOpen, setColorDialogOpen] = useState(false);
 
   const handleUpdate = useCallback(
     (newScheme: LightsScheme) => {
@@ -59,21 +60,25 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   }, [schemeHistory, schemeHistoryIndex, updatedSchemeData]);
 
   useEffect(() => {
-    dispatchCustomEvent<EditorSchemeUpdatedEvent>({
-      name: 'app:editor:scheme:updated',
-      detail: {
-        scheme: updatedSchemeData.scheme,
-        frameIndex,
-      },
-    });
-  }, [updatedSchemeData.scheme, frameIndex]);
+    !colorDialogOpen &&
+      updatedSchemeData.scheme.frames[frameIndex] &&
+      dispatchCustomEvent<EditorSchemeUpdatedEvent>({
+        name: 'app:editor:scheme:updated',
+        detail: {
+          scheme: updatedSchemeData.scheme,
+          frameIndex,
+        },
+      });
+  }, [colorDialogOpen, updatedSchemeData.scheme, frameIndex]);
 
   useEffect(() => {
-    dispatchCustomEvent<EditorColorUpdatedEvent>({
-      name: 'app:editor:color:updated',
-      detail: updatedSchemeData.scheme.colors[colorIndex],
-    });
-  }, [colorIndex, updatedSchemeData.scheme.colors]);
+    colorDialogOpen &&
+      updatedSchemeData.scheme.colors[colorIndex] &&
+      dispatchCustomEvent<EditorColorUpdatedEvent>({
+        name: 'app:editor:color:updated',
+        detail: updatedSchemeData.scheme.colors[colorIndex],
+      });
+  }, [colorDialogOpen, colorIndex, updatedSchemeData.scheme.colors]);
 
   return {
     updatedSchemeData,
@@ -88,5 +93,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
     setTool,
     colorIndex,
     setColorIndex,
+    colorDialogOpen,
+    setColorDialogOpen,
   };
 };

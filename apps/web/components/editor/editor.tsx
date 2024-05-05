@@ -28,6 +28,7 @@ export const Editor = ({ schemeData, device, setDevice, handleSave }: EditorProp
     setTool,
     colorIndex,
     setColorIndex,
+    setColorDialogOpen,
   } = useEditor(schemeData);
 
   return (
@@ -43,6 +44,7 @@ export const Editor = ({ schemeData, device, setDevice, handleSave }: EditorProp
             shiftLightsFrameColorPixel={(direction) => {
               handleUpdate(shiftLightsFrameColorPixel(scheme, frameIndex, direction, device));
             }}
+            setColorDialogOpen={setColorDialogOpen}
           />
         </div>
         <div className="flex">

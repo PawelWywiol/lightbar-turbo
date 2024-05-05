@@ -1,8 +1,10 @@
 import { getStorageData, setStorageData } from 'utils/storage';
+import { parseSafeConnectionResponseData } from 'config/connections';
 
-import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_WS_URL } from './connectedDevices.config';
+import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_API_URL } from './connectedDevices.config';
 import { ConnectedDevicesValidationSchema } from './connectedDevices.schema';
 
+import type { ConnectionResponseData } from 'config/connections.types';
 import type { ConnectedDevice } from './connectedDevices.types';
 
 export const isIPAddress = (value: string) => {
@@ -31,10 +33,6 @@ export const saveConnectedDevices = (devices: ConnectedDevice[]) => {
 export const updateConnectedDevicesList = (devices: ConnectedDevice[], device: ConnectedDevice) => {
   let deviceExists = false;
 
-  if (isIPAddress(device.url)) {
-    device.url = CONNECTED_DEVICE_WS_URL(device.url);
-  }
-
   const updatedDevices = devices.map((d) => {
     if (d.url === device.url) {
       deviceExists = true;
@@ -53,3 +51,40 @@ export const updateConnectedDevicesList = (devices: ConnectedDevice[], device: C
 
 export const progressPercentage = (index: number, current: number, max: number) =>
   Math.ceil((100 * (current + index + 1)) / (max || 1));
+
+export const postConnectedDeviceData = async (
+  url: string,
+  body: string,
+): Promise<ConnectionResponseData | undefined> => {
+  try {
+    const responseData = await fetch(CONNECTED_DEVICE_API_URL(url), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body,
+    });
+
+    const data = await responseData.text();
+    return parseSafeConnectionResponseData(data);
+  } catch {}
+
+  return undefined;
+};
+
+export const getConnectedDeviceData = async (
+  url: string,
+): Promise<ConnectionResponseData | undefined> => {
+  try {
+    const responseData = await fetch(CONNECTED_DEVICE_API_URL(url), {
+      method: 'GET',
+    });
+
+    const data = await responseData.text();
+    return parseSafeConnectionResponseData(data);
+  } catch {}
+
+  return undefined;
+};
