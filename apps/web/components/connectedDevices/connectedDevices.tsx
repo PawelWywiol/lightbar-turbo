@@ -36,6 +36,10 @@ export const ConnectedDeviceWebSocket = ({
     const editorSchemeUpdatedEvent: CustomEventCallback<EditorSchemeUpdatedEvent> = {
       name: 'app:editor:scheme:updated',
       callback: ({ detail }) => {
+        if (!info) {
+          return;
+        }
+
         const frame = detail.scheme.frames[detail.frameIndex];
         if (!frame) {
           return;
@@ -43,7 +47,7 @@ export const ConnectedDeviceWebSocket = ({
 
         const jsonl = [
           lightsSchemeColorsToConnectionRequest(detail.scheme.colors),
-          lightsSchemeFrameToConnectionRequest(frame),
+          lightsSchemeFrameToConnectionRequest(frame, info),
         ].join('\n');
 
         void send(jsonl);
@@ -52,11 +56,11 @@ export const ConnectedDeviceWebSocket = ({
     const editorColorUpdatedEvent: CustomEventCallback<EditorColorUpdatedEvent> = {
       name: 'app:editor:color:updated',
       callback: ({ detail }) => {
-        if (!detail) {
+        if (!detail || !info) {
           return;
         }
 
-        const jsonl = editorColorUpdatedToConnectionRequest(detail);
+        const jsonl = editorColorUpdatedToConnectionRequest(detail, info);
 
         void send(jsonl);
       },
@@ -71,7 +75,7 @@ export const ConnectedDeviceWebSocket = ({
       unsubscribeCustomEvent<EditorSchemeUpdatedEvent>(editorSchemeUpdatedEvent);
       unsubscribeCustomEvent<EditorColorUpdatedEvent>(editorColorUpdatedEvent);
     };
-  }, [selected]);
+  }, [info, selected, send]);
 
   return null;
 };
