@@ -26,16 +26,12 @@ export const lightsSchemeFrameToConnectionRequest = (
   frame: LightsScheme['frames'][0],
   deviceInfo: ConnectionResponseData,
 ) => {
-  const maxColors = Math.max(deviceInfo.data.leds, frame.colorIndexes.length);
   const request: ConnectionRequestLightsSchemeData = {
     type: 'FRAME',
     data: {
       type: frame.type,
       tempo: frame.tempo,
-      colors: [
-        ...frame.colorIndexes,
-        ...(Array.from({ length: maxColors - frame.colorIndexes.length }).fill(0) as number[]),
-      ],
+      colors: frame.colorIndexes.slice(0, deviceInfo.data.leds),
     },
   };
 

@@ -4,6 +4,7 @@ import { parseSafeConnectionResponseData } from 'config/connections';
 import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_API_URL } from './connectedDevices.config';
 import { ConnectedDevicesValidationSchema } from './connectedDevices.schema';
 
+import type { LightsFrame, LightsScheme } from 'config/lights.types';
 import type { ConnectionResponseData } from 'config/connections.types';
 import type { ConnectedDevice } from './connectedDevices.types';
 
@@ -83,3 +84,19 @@ export const getConnectedDeviceData = async (
 
   return undefined;
 };
+
+export const resolveFrameColorIndexes = (frame: LightsFrame, size: number): LightsFrame => ({
+  ...frame,
+  colorIndexes: [
+    ...frame.colorIndexes,
+    ...(Array.from({ length: size - frame.colorIndexes.length }).fill(0) as number[]),
+  ].slice(0, size),
+});
+
+export const resolveLightsSchemeColorIndexes = (
+  scheme: LightsScheme,
+  size: number,
+): LightsScheme => ({
+  ...scheme,
+  frames: scheme.frames.map((frame) => resolveFrameColorIndexes(frame, size)),
+});
