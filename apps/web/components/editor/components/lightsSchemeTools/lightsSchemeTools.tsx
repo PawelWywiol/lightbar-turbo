@@ -1,12 +1,15 @@
 import { DEVICE_SIZES } from 'config/devices';
 import { DropDownMenu } from 'ui/dropdownMenu';
 
-import type { EditorProps } from '../../editor.types';
+import type { Device } from 'config/devices.types';
 
 export const LightsSchemeTools = ({
   device,
   setDevice,
-}: Pick<EditorProps, 'device' | 'setDevice'>) => (
+}: {
+  device: Device;
+  setDevice: (device: Device) => void;
+}) => (
   <div className="flex">
     <DropDownMenu
       options={DEVICE_SIZES.map((size) => ({

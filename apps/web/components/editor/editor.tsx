@@ -14,8 +14,10 @@ import { useEditor } from './editor.hooks';
 
 import type { EditorProps } from './editor.types';
 
-export const Editor = ({ schemeData, device, setDevice, handleSave }: EditorProps) => {
+export const Editor = ({ schemeData, handleSave }: EditorProps) => {
   const {
+    device,
+    setDevice,
     updatedSchemeData: { scheme, uid, updatedAt },
     handleUpdate,
     undoAvailable,

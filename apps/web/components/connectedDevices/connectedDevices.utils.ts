@@ -59,11 +59,6 @@ export const postConnectedDeviceData = async (
   try {
     const responseData = await fetch(CONNECTED_DEVICE_API_URL(url), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache',
-        'Access-Control-Allow-Origin': '*',
-      },
       body,
     });
 

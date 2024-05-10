@@ -3,15 +3,18 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { dispatchCustomEvent } from 'utils/customEvent';
+import { DEFAULT_DEVICE } from 'config/devices';
 
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 
+import type { Device } from 'config/devices.types';
 import type { EditorColorUpdatedEvent, EditorSchemeUpdatedEvent } from './editor.types';
 import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
 
 const MAX_HISTORY = 50;
 
 export const useEditor = (schemeData: LightsSchemeData) => {
+  const [device, setDevice] = useState<Device>(DEFAULT_DEVICE);
   const [updatedSchemeData, setUpdatedSchemeData] = useState<LightsSchemeData>(schemeData);
   const [schemeHistory, setSchemeHistory] = useState<LightsScheme[]>([]);
   const [schemeHistoryIndex, setSchemeHistoryIndex] = useState(0);
@@ -81,6 +84,8 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   }, [colorDialogOpen, colorIndex, updatedSchemeData.scheme.colors]);
 
   return {
+    device,
+    setDevice,
     updatedSchemeData,
     handleUpdate,
     handleUndo,
