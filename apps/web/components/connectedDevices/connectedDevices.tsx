@@ -14,7 +14,11 @@ import {
 
 import type { CustomEventCallback } from 'utils/customEvent.types';
 import type { ConnectedDevice } from './connectedDevices.types';
-import type { EditorColorUpdatedEvent, EditorSchemeUpdatedEvent } from '../editor/editor.types';
+import type {
+  EditorColorUpdateEvent,
+  EditorSchemeSaveEvent,
+  EditorSchemeUpdateEvent,
+} from '../editor/editor.types';
 
 export const ConnectedDeviceWebSocket = ({
   device,
@@ -33,13 +37,9 @@ export const ConnectedDeviceWebSocket = ({
   }, [info, status]);
 
   useEffect(() => {
-    const editorSchemeUpdatedEvent: CustomEventCallback<EditorSchemeUpdatedEvent> = {
-      name: 'app:editor:scheme:updated',
+    const editorSchemeUpdateEvent: CustomEventCallback<EditorSchemeUpdateEvent> = {
+      name: 'app:editor:scheme:update',
       callback: ({ detail }) => {
-        if (!info) {
-          return;
-        }
-
         const frame = detail.scheme.frames[detail.frameIndex];
         if (!frame) {
           return;
@@ -47,33 +47,48 @@ export const ConnectedDeviceWebSocket = ({
 
         const jsonl = [
           lightsSchemeColorsToConnectionRequest(detail.scheme.colors),
-          lightsSchemeFrameToConnectionRequest(frame, info),
+          lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
         ].join('\n');
 
         void send(jsonl);
       },
     };
-    const editorColorUpdatedEvent: CustomEventCallback<EditorColorUpdatedEvent> = {
-      name: 'app:editor:color:updated',
+    const editorColorUpdateEvent: CustomEventCallback<EditorColorUpdateEvent> = {
+      name: 'app:editor:color:update',
       callback: ({ detail }) => {
-        if (!detail || !info) {
+        if (!detail) {
           return;
         }
 
-        const jsonl = editorColorUpdatedToConnectionRequest(detail, info);
+        const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
+
+        void send(jsonl);
+      },
+    };
+    const editorSchemeSaveEvent: CustomEventCallback<EditorSchemeSaveEvent> = {
+      name: 'app:editor:scheme:save',
+      callback: ({ detail: { scheme } }) => {
+        const jsonl = [
+          lightsSchemeColorsToConnectionRequest(scheme.colors),
+          ...scheme.frames.map((frame) =>
+            lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
+          ),
+        ].join('\n');
 
         void send(jsonl);
       },
     };
 
     if (selected) {
-      subscribeCustomEvent<EditorSchemeUpdatedEvent>(editorSchemeUpdatedEvent);
-      subscribeCustomEvent<EditorColorUpdatedEvent>(editorColorUpdatedEvent);
+      subscribeCustomEvent<EditorSchemeUpdateEvent>(editorSchemeUpdateEvent);
+      subscribeCustomEvent<EditorColorUpdateEvent>(editorColorUpdateEvent);
+      subscribeCustomEvent<EditorSchemeSaveEvent>(editorSchemeSaveEvent);
     }
 
     return () => {
-      unsubscribeCustomEvent<EditorSchemeUpdatedEvent>(editorSchemeUpdatedEvent);
-      unsubscribeCustomEvent<EditorColorUpdatedEvent>(editorColorUpdatedEvent);
+      unsubscribeCustomEvent<EditorSchemeUpdateEvent>(editorSchemeUpdateEvent);
+      unsubscribeCustomEvent<EditorColorUpdateEvent>(editorColorUpdateEvent);
+      unsubscribeCustomEvent<EditorSchemeSaveEvent>(editorSchemeSaveEvent);
     };
   }, [info, selected, send]);
 

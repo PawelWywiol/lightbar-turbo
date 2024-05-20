@@ -4,7 +4,7 @@ export type ShiftDirection = 'up' | 'down' | 'left' | 'right' | 'prev' | 'next' 
 
 export interface EditorProps {
   schemeData: LightsSchemeData;
-  handleSave: (schemeData: LightsSchemeData) => void;
+  onSave: (schemeData: LightsSchemeData) => void;
 }
 
 export interface EditorFrameProps {
@@ -15,14 +15,23 @@ export interface EditorFrameProps {
   previousFrame?: () => void;
 }
 
-export interface EditorSchemeUpdatedEvent {
-  name: 'app:editor:scheme:updated';
+export interface EditorSchemeUpdateEvent {
+  name: 'app:editor:scheme:update';
   detail: {
     scheme: LightsScheme;
     frameIndex: number;
   };
 }
-export interface EditorColorUpdatedEvent {
-  name: 'app:editor:color:updated';
+
+export interface EditorColorUpdateEvent {
+  name: 'app:editor:color:update';
   detail: string | undefined;
+}
+
+export interface EditorSchemeSaveEvent {
+  name: 'app:editor:scheme:save';
+  detail: {
+    uid: string;
+    scheme: LightsScheme;
+  };
 }

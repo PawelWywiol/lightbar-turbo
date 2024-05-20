@@ -3,18 +3,15 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { DEFAULT_DEVICE } from 'config/devices';
 import { MESSAGES } from 'config/messages';
-import { Editor } from 'ui/editor';
 
 import { getLightsSchemeData, postLightsScheme } from '../../../services/lights/lights';
+import { Editor } from '../../../components/editor/editor';
 
-import type { Device } from 'config/devices.types';
 import type { LightsSchemeData } from 'config/lights.types';
 
 const EditorPage = ({ params: { schemeId } }: { params: { schemeId: string } }) => {
   const [statusMessage, setStatusMessage] = useState<string>(MESSAGES.scheme.loading);
-  const [device, setDevice] = useState<Device>(DEFAULT_DEVICE);
   const [schemeData, setSchemeData] = useState<LightsSchemeData | undefined>();
 
   useEffect(() => {
@@ -27,19 +24,14 @@ const EditorPage = ({ params: { schemeId } }: { params: { schemeId: string } }) 
     setSchemeData(getLightsSchemeData(schemeId));
   }, [schemeId]);
 
-  const handleSave = useCallback((updatedSchemeData: LightsSchemeData) => {
+  const onSave = useCallback((updatedSchemeData: LightsSchemeData) => {
     postLightsScheme(updatedSchemeData);
   }, []);
 
   return (
     <main className={'flex-1 flex justify-center align-middle'}>
       {schemeData ? (
-        <Editor
-          schemeData={schemeData}
-          device={device}
-          setDevice={setDevice}
-          handleSave={handleSave}
-        />
+        <Editor schemeData={schemeData} onSave={onSave} />
       ) : (
         <Link href={'/'}>{statusMessage}</Link>
       )}

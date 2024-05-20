@@ -20,12 +20,12 @@ export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
 ];
 
 export const LIGHTS_FRAME_TEMPO_OPTIONS: LightsFrameTempoOption[] = [
-  1, 2, 3, 4, 8, 16, 32, 48, 60, 80, 120, 240,
+  1, 2, 3, 4, 8, 16, 32, 48, 60, 80, 120, 240, 255,
 ]
   .sort((a, b) => (a > b ? 1 : -1))
   .map((index) => ({
     value: `${index}`,
-    label: `${index} bpm - ${Math.round(60_000 / index)} ms`,
+    label: `${index === 255 ? 720 : index} bpm - ${Math.round(60_000 / (index === 255 ? 720 : index))} ms`,
   }));
 
 export const DEFAULT_COLOR_PALETTE = `

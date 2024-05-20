@@ -10,12 +10,19 @@ import { resolveLightsSchemeColorIndexes } from '../connectedDevices/connectedDe
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 
 import type { Device } from 'config/devices.types';
-import type { EditorColorUpdatedEvent, EditorSchemeUpdatedEvent } from './editor.types';
+import type {
+  EditorColorUpdateEvent,
+  EditorSchemeSaveEvent,
+  EditorSchemeUpdateEvent,
+} from './editor.types';
 import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
 
 const MAX_HISTORY = 50;
 
-export const useEditor = (schemeData: LightsSchemeData) => {
+export const useEditor = (
+  schemeData: LightsSchemeData,
+  onSave: (schemeData: LightsSchemeData) => void,
+) => {
   const [device, setDevice] = useState<Device>(DEFAULT_DEVICE);
   const [updatedSchemeData, setUpdatedSchemeData] = useState<LightsSchemeData>(schemeData);
   const [schemeHistory, setSchemeHistory] = useState<LightsScheme[]>([]);
@@ -64,11 +71,23 @@ export const useEditor = (schemeData: LightsSchemeData) => {
     }
   }, [schemeHistory, schemeHistoryIndex, updatedSchemeData]);
 
+  const handleSave = useCallback(() => {
+    onSave(updatedSchemeData);
+
+    dispatchCustomEvent<EditorSchemeSaveEvent>({
+      name: 'app:editor:scheme:save',
+      detail: {
+        uid: updatedSchemeData.uid,
+        scheme: resolveLightsSchemeColorIndexes(updatedSchemeData.scheme, device.size.value),
+      },
+    });
+  }, [onSave, updatedSchemeData, device.size.value]);
+
   useEffect(() => {
     !colorDialogOpen &&
       updatedSchemeData.scheme.frames[frameIndex] &&
-      dispatchCustomEvent<EditorSchemeUpdatedEvent>({
-        name: 'app:editor:scheme:updated',
+      dispatchCustomEvent<EditorSchemeUpdateEvent>({
+        name: 'app:editor:scheme:update',
         detail: {
           scheme: resolveLightsSchemeColorIndexes(updatedSchemeData.scheme, device.size.value),
           frameIndex,
@@ -79,8 +98,8 @@ export const useEditor = (schemeData: LightsSchemeData) => {
   useEffect(() => {
     colorDialogOpen &&
       updatedSchemeData.scheme.colors[colorIndex] &&
-      dispatchCustomEvent<EditorColorUpdatedEvent>({
-        name: 'app:editor:color:updated',
+      dispatchCustomEvent<EditorColorUpdateEvent>({
+        name: 'app:editor:color:update',
         detail: updatedSchemeData.scheme.colors[colorIndex],
       });
   }, [colorDialogOpen, colorIndex, updatedSchemeData.scheme.colors]);
@@ -92,6 +111,7 @@ export const useEditor = (schemeData: LightsSchemeData) => {
     handleUpdate,
     handleUndo,
     handleRedo,
+    handleSave,
     undoAvailable: schemeHistoryIndex > 0,
     redoAvailable: schemeHistoryIndex < schemeHistory.length - 1,
     frameIndex,

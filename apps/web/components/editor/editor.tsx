@@ -14,16 +14,17 @@ import { useEditor } from './editor.hooks';
 
 import type { EditorProps } from './editor.types';
 
-export const Editor = ({ schemeData, handleSave }: EditorProps) => {
+export const Editor = ({ schemeData, onSave }: EditorProps) => {
   const {
     device,
     setDevice,
-    updatedSchemeData: { scheme, uid, updatedAt },
+    updatedSchemeData: { scheme },
     handleUpdate,
     undoAvailable,
     handleUndo,
     redoAvailable,
     handleRedo,
+    handleSave,
     frameIndex,
     setFrameIndex,
     tool,
@@ -31,7 +32,7 @@ export const Editor = ({ schemeData, handleSave }: EditorProps) => {
     colorIndex,
     setColorIndex,
     setColorDialogOpen,
-  } = useEditor(schemeData);
+  } = useEditor(schemeData, onSave);
 
   return (
     <div className="m-auto max-w-md w-full flex flex-col gap-4">
@@ -93,7 +94,7 @@ export const Editor = ({ schemeData, handleSave }: EditorProps) => {
         handleUndo={handleUndo}
         redoAvailable={redoAvailable}
         handleRedo={handleRedo}
-        handleSave={() => handleSave({ scheme, uid, updatedAt })}
+        handleSave={handleSave}
       />
     </div>
   );

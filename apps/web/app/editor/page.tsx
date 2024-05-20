@@ -14,7 +14,7 @@ import type { LightsSchemeData } from 'config/lights.types';
 const EditorPage = () => {
   const router = useRouter();
 
-  const handleSave = useCallback(
+  const onSave = useCallback(
     (updatedSchemeData: LightsSchemeData) => {
       postLightsScheme(updatedSchemeData);
       router.push(`/editor/${updatedSchemeData.uid}`);
@@ -30,7 +30,7 @@ const EditorPage = () => {
           uid: uid(),
           updatedAt: new Date().toISOString(),
         }}
-        handleSave={handleSave}
+        onSave={onSave}
       />
     </main>
   );
