@@ -25,3 +25,9 @@ export const getStorageData: GetStorageData = (key, validationSchema, defaultVal
 
   return validationResult.data;
 };
+
+export const removeStorageData = (key: string) => {
+  const storage = window?.localStorage;
+
+  storage?.removeItem(key);
+};

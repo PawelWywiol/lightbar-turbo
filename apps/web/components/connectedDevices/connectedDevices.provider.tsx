@@ -7,7 +7,9 @@ import { dispatchCustomEvent } from 'utils/customEvent';
 
 import {
   loadConnectedDevices,
+  loadLastSelectedDeviceUrl,
   saveConnectedDevices,
+  saveLastSelectedDeviceUrl,
   updateConnectedDevicesList,
 } from './connectedDevices.utils';
 import { ConnectedDeviceWebSocket } from './connectedDevices';
@@ -48,7 +50,7 @@ export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
 export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<ConnectedDevice[]>([]);
   const [scanProgress, setScanProgress] = useState(100);
-  const [selected, select] = useState<string | undefined>();
+  const [selected, setSelected] = useState<string | undefined>();
 
   const updateDevice = (device: ConnectedDevice) => {
     setDevices((previousDevices) => {
@@ -78,8 +80,14 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     });
   };
 
+  const select = (url: string) => {
+    setSelected(url);
+    saveLastSelectedDeviceUrl(url);
+  };
+
   useEffect(() => {
     setDevices(loadConnectedDevices());
+    setSelected(loadLastSelectedDeviceUrl());
   }, []);
 
   useEffect(() => {
@@ -88,6 +96,14 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
       detail: selected ?? '',
     });
   }, [selected]);
+
+  useEffect(() => {
+    const firstDevice = devices[0];
+
+    if (!selected?.length && firstDevice) {
+      setSelected(firstDevice.url);
+    }
+  }, [devices, selected]);
 
   return (
     <>

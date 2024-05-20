@@ -1,8 +1,11 @@
-import { getStorageData, setStorageData } from 'utils/storage';
+import { getStorageData, removeStorageData, setStorageData } from 'utils/storage';
 import { parseSafeConnectionResponseData } from 'config/connections';
 
 import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_API_URL } from './connectedDevices.config';
-import { ConnectedDevicesValidationSchema } from './connectedDevices.schema';
+import {
+  ConnectedDeviceUrlValidationSchema,
+  ConnectedDevicesValidationSchema,
+} from './connectedDevices.schema';
 
 import type { LightsFrame, LightsScheme } from 'config/lights.types';
 import type { ConnectionResponseData } from 'config/connections.types';
@@ -16,7 +19,7 @@ export const isIPAddress = (value: string) => {
 
 export const loadConnectedDevices = (): ConnectedDevice[] => {
   const devices: ConnectedDevice[] = getStorageData(
-    CONNECTED_DEVICES_STORAGE_KEY,
+    CONNECTED_DEVICES_STORAGE_KEY('devices'),
     ConnectedDevicesValidationSchema,
     [],
   );
@@ -26,9 +29,24 @@ export const loadConnectedDevices = (): ConnectedDevice[] => {
 
 export const saveConnectedDevices = (devices: ConnectedDevice[]) => {
   setStorageData(
-    CONNECTED_DEVICES_STORAGE_KEY,
+    CONNECTED_DEVICES_STORAGE_KEY('devices'),
     devices.map(({ url, label }) => ({ url, label })),
   );
+};
+
+export const loadLastSelectedDeviceUrl = (): string | undefined =>
+  getStorageData(
+    CONNECTED_DEVICES_STORAGE_KEY('selected'),
+    ConnectedDeviceUrlValidationSchema,
+    undefined,
+  );
+
+export const saveLastSelectedDeviceUrl = (url: string) => {
+  if (ConnectedDeviceUrlValidationSchema.safeParse(url).success) {
+    setStorageData(CONNECTED_DEVICES_STORAGE_KEY('selected'), url);
+  } else {
+    removeStorageData(CONNECTED_DEVICES_STORAGE_KEY('selected'));
+  }
 };
 
 export const updateConnectedDevicesList = (devices: ConnectedDevice[], device: ConnectedDevice) => {

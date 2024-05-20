@@ -8,3 +8,5 @@ export const ConnectedDeviceValidationSchema = z.object({
 export const ConnectedDevicesValidationSchema = z.array(ConnectedDeviceValidationSchema);
 
 export type ConnectedDeviceValidationSchema = z.infer<typeof ConnectedDeviceValidationSchema>;
+
+export const ConnectedDeviceUrlValidationSchema = z.string();
