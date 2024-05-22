@@ -20,13 +20,59 @@ export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
 ];
 
 export const LIGHTS_FRAME_TEMPO_OPTIONS: LightsFrameTempoOption[] = [
-  1, 2, 3, 4, 8, 16, 32, 48, 60, 80, 120, 240, 255,
-]
-  .sort((a, b) => (a > b ? 1 : -1))
-  .map((index) => ({
-    value: `${index}`,
-    label: `${index === 255 ? 720 : index} bpm - ${Math.round(60_000 / (index === 255 ? 720 : index))} ms`,
-  }));
+  {
+    value: '255',
+    label: '83 ms',
+  },
+  {
+    value: '240',
+    label: '250 ms',
+  },
+  {
+    value: '120',
+    label: '500 ms',
+  },
+  {
+    value: '80',
+    label: '750 ms',
+  },
+  {
+    value: '60',
+    label: '1.00 sec',
+  },
+  {
+    value: '48',
+    label: '1.25 sec',
+  },
+  {
+    value: '32',
+    label: '1.87 sec',
+  },
+  {
+    value: '16',
+    label: '3.75 sec',
+  },
+  {
+    value: '8',
+    label: '7.50 sec',
+  },
+  {
+    value: '4',
+    label: '15 sec',
+  },
+  {
+    value: '3',
+    label: '20 sec',
+  },
+  {
+    value: '2',
+    label: '30 sec',
+  },
+  {
+    value: '1',
+    label: '1 min',
+  },
+];
 
 export const DEFAULT_COLOR_PALETTE = `
 #000000 #323232 #646464 #7d7d7d #afafaf #c8c8c8 #e1e1e1 #fafafa
