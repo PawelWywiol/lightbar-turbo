@@ -71,23 +71,6 @@ export const updateConnectedDevicesList = (devices: ConnectedDevice[], device: C
 export const progressPercentage = (index: number, current: number, max: number) =>
   Math.ceil((100 * (current + index + 1)) / (max || 1));
 
-export const postConnectedDeviceData = async (
-  url: string,
-  body: string,
-): Promise<ConnectionResponseData | undefined> => {
-  try {
-    const responseData = await fetch(CONNECTED_DEVICE_API_URL(url), {
-      method: 'POST',
-      body,
-    });
-
-    const data = await responseData.text();
-    return parseSafeConnectionResponseData(data);
-  } catch {}
-
-  return undefined;
-};
-
 export const getConnectedDeviceData = async (
   url: string,
 ): Promise<ConnectionResponseData | undefined> => {

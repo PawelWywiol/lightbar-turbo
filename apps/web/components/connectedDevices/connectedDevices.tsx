@@ -50,7 +50,7 @@ export const ConnectedDeviceWebSocket = ({
           lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
         ].join('\n');
 
-        void send(jsonl);
+        send(jsonl);
       },
     };
     const editorColorUpdateEvent: CustomEventCallback<EditorColorUpdateEvent> = {
@@ -62,7 +62,7 @@ export const ConnectedDeviceWebSocket = ({
 
         const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
 
-        void send(jsonl);
+        send(jsonl);
       },
     };
     const editorSchemeSaveEvent: CustomEventCallback<EditorSchemeSaveEvent> = {
@@ -75,7 +75,7 @@ export const ConnectedDeviceWebSocket = ({
           ),
         ].join('\n');
 
-        void send(jsonl);
+        send(jsonl);
       },
     };
 
