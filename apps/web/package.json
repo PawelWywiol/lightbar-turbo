@@ -11,13 +11,14 @@
     "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.next|.swc|.turbo|node_modules)/.*' ."
   },
   "dependencies": {
-    "cva": "npm:class-variance-authority@^0.7.0",
     "config": "*",
+    "cva": "npm:class-variance-authority@^0.7.0",
     "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "ui": "*",
-    "utils": "*"
+    "utils": "*",
+    "valibot": "^0.37.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.5",

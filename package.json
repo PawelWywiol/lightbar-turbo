@@ -16,11 +16,11 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.12.0",
-    "eslint": "^8.57.0",
+    "eslint": "^9.8.0",
     "eslint-config-custom": "*",
-    "madge": "^6.1.0",
-    "prettier": "^3.2.5",
-    "turbo": "^1.13.1"
+    "madge": "^8.0.0",
+    "prettier": "^3.3.3",
+    "turbo": "^2.0.12"
   },
   "name": "lightbar-turbo",
   "workspaces": [
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "lucide-react": "^0.424.0",
+    "lucide-react": "^0.426.0",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
