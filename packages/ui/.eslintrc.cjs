@@ -9,7 +9,6 @@ module.exports = {
   overrides: [],
   ignorePatterns: [
     '!**/*',
-    'turbo/generators/**/*',
     'tailwind.config.cjs',
     'postcss.config.cjs',
     'tsconfig.json',
