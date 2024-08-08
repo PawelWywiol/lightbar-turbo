@@ -7,11 +7,11 @@
   "dependencies": {
     "eslint-config-custom": "*",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-jest-dom": "^5.2.0",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-jest-dom": "^5.4.0",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.35.0",
     "eslint-plugin-react-hooks": "5.0.0-canary-7118f5dd7-20230705",
-    "eslint-plugin-testing-library": "^6.2.0"
+    "eslint-plugin-testing-library": "^6.2.2"
   },
   "publishConfig": {
     "access": "public"
