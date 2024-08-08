@@ -28,9 +28,10 @@
     "packages/*"
   ],
   "volta": {
-    "node": "20.10.0",
-    "npm": "10.1.0"
+    "node": "20.15.1",
+    "npm": "10.8.2"
   },
+  "packageManager": "npm@10.8.2",
   "dependencies": {
     "clsx": "^2.1.1",
     "lucide-react": "^0.426.0",
