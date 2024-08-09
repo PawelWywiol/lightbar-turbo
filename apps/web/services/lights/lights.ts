@@ -1,5 +1,5 @@
 import { getStorageData, setStorageData } from 'utils/storage';
-import { LightsSchemeDataArrayValidationSchema } from 'devices/lights.scheme';
+import { LightsSchemeDataArrayValidationSchema } from 'devices/lights.schema';
 
 import type { LightsSchemeData } from 'devices/lights.types';
 

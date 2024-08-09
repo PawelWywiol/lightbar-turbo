@@ -5,7 +5,7 @@ import { formatBytes } from 'utils/formatBytes';
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 
 import { useConnectedDeviceData } from './devices.hooks';
-import { connectedDeviceInfoStatus } from './devices.styled';
+import { connectedDeviceInfoStatus } from '../../../../apps/web/app/components/connectedDeviceInfoStatus.styled';
 import {
   editorColorUpdatedToConnectionRequest,
   lightsSchemeColorsToConnectionRequest,

@@ -8,11 +8,12 @@ import { Dialog } from 'ui/dialog';
 import { TextField } from 'ui/textField';
 import { DropDownMenu } from 'ui/dropdownMenu';
 
-import type { ConnectedDeviceValidationSchema } from './devices.schema';
-import { useConnectedDevices } from './devices.provider';
-import { ConnectedDevice } from './devices.types';
-import { connectedDeviceInfoStatus } from './devices.styled';
 import { formatBytes } from 'utils/formatBytes';
+import { ConnectedDevice } from 'devices/devices.types';
+import { useConnectedDevices } from 'devices/devices.provider';
+import { connectedDeviceInfoStatus } from './connectedDeviceInfoStatus.styled';
+
+import { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
 
 export const ConnectedDeviceInfo = ({
   device: { status, label, info, url },
