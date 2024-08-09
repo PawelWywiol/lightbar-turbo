@@ -1,5 +1,5 @@
-import type { LightsScheme } from 'config/lights.types';
-import type { Device } from 'config/devices.types';
+import type { LightsScheme } from 'devices/lights.types';
+import type { Device } from 'devices/devices.types';
 import type { ShiftDirection } from './editor.types';
 
 const transpose = (matrix: number[][]) =>

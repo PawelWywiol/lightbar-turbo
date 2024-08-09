@@ -15,12 +15,13 @@
     "eslint-config-custom-react": "*"
   },
   "exports": {
-    "./uid": "./src/uid/uid.ts",
-    "./storage": "./src/storage/storage.ts",
-    "./storage.types": "./src/storage/storage.types.ts",
-    "./rafTimeout": "./src/rafTimeout/rafTimeout.ts",
-    "./customEvent": "./src/customEvent/customEvent.ts",
     "./customEvent.types": "./src/customEvent/customEvent.types.ts",
-    "./formatBytes": "./src/formatBytes/formatBytes.ts"
+    "./customEvent": "./src/customEvent/customEvent.ts",
+    "./formatBytes": "./src/formatBytes/formatBytes.ts",
+    "./hexToRGB": "./src/hexToRGB/hexToRGB.ts",
+    "./rafTimeout": "./src/rafTimeout/rafTimeout.ts",
+    "./storage.types": "./src/storage/storage.types.ts",
+    "./storage": "./src/storage/storage.ts",
+    "./uid": "./src/uid/uid.ts"
   }
 }

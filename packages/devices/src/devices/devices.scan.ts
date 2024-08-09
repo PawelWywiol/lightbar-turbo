@@ -1,5 +1,5 @@
-import { CONNECTED_DEVICE_API_PATH, SUBNETS_IPS } from './connectedDevices.config';
-import { isIPAddress, progressPercentage } from './connectedDevices.utils';
+import { CONNECTED_DEVICE_API_PATH, SUBNETS_IPS } from './devices.config';
+import { isIPAddress, progressPercentage } from './devices.utils';
 
 const checkIPConnection = async (
   ip: string,

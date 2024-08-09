@@ -1,6 +1,6 @@
 import { formatBytes } from 'utils/formatBytes';
 
-import type { ConnectionResponseData } from 'config/connections.types';
+import type { ConnectionResponseData } from 'devices/connections.types';
 
 export const InfoSection = ({ info }: { info?: ConnectionResponseData | undefined }) => (
   <section className="container m-auto max-w-md w-full flex flex-col gap-4 text-center">

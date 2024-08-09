@@ -1,7 +1,7 @@
-import { DEVICE_SIZES } from 'config/devices';
+import { DEVICE_SIZES } from 'devices/devices.config';
 import { DropDownMenu } from 'ui/dropdownMenu';
 
-import type { Device } from 'config/devices.types';
+import type { Device } from 'devices/devices.types';
 
 export const LightsSchemeTools = ({
   device,

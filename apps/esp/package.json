@@ -12,6 +12,7 @@
   "dependencies": {
     "config": "*",
     "cva": "npm:class-variance-authority@^0.7.0",
+    "devices": "*",
     "preact": "^10.23.1",
     "ui": "*",
     "utils": "*"

@@ -3,19 +3,19 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { dispatchCustomEvent } from 'utils/customEvent';
-import { DEFAULT_DEVICE } from 'config/devices';
+import { DEFAULT_DEVICE } from 'devices/devices.config';
 
-import { resolveLightsSchemeColorIndexes } from '../connectedDevices/connectedDevices.utils';
+import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
 
 import { EDITOR_DEFAULT_TOOL } from './editor.config';
 
-import type { Device } from 'config/devices.types';
+import type { Device } from 'devices/devices.types';
 import type {
   EditorColorUpdateEvent,
   EditorSchemeSaveEvent,
   EditorSchemeUpdateEvent,
 } from './editor.types';
-import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
+import type { LightsScheme, LightsSchemeData } from 'devices/lights.types';
 
 const MAX_HISTORY = 50;
 

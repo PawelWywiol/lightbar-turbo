@@ -1,17 +1,14 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
-import { parseSafeConnectionResponseData } from 'config/connections';
+import { parseSafeConnectionResponseData } from '../connections/connections.utils';
 
-import { ConnectedDevicesContext } from './connectedDevices.provider';
-import { getConnectedDeviceData } from './connectedDevices.utils';
-import { CONNECTED_DEVICE_API_URL } from './connectedDevices.config';
+import { getConnectedDeviceData } from './devices.utils';
+import { CONNECTED_DEVICE_API_URL } from './devices.config';
 
 import type { CustomEventCallback } from 'utils/customEvent.types';
-import type { ConnectionResponseData, ConnectionType } from 'config/connections.types';
-import type { DeviceCustomEventDispatch } from 'config/devices.types';
-
-export const useConnectedDevices = () => useContext(ConnectedDevicesContext);
+import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
+import { DeviceCustomEventDispatch } from './devices.types';
 
 export const useConnectedDeviceData = ({ url }: { url: string }) => {
   const sendAbortControllerReference = useRef<AbortController | undefined>(undefined);

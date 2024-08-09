@@ -8,7 +8,7 @@ import { MESSAGES } from 'config/messages';
 import { getLightsSchemeData, postLightsScheme } from '../../../services/lights/lights';
 import { Editor } from '../../../components/editor/editor';
 
-import type { LightsSchemeData } from 'config/lights.types';
+import type { LightsSchemeData } from 'devices/lights.types';
 
 const EditorPage = ({ params: { schemeId } }: { params: { schemeId: string } }) => {
   const [statusMessage, setStatusMessage] = useState<string>(MESSAGES.scheme.loading);

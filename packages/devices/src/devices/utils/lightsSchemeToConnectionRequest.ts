@@ -1,12 +1,9 @@
-import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from 'config/lights';
+import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
 
-import type { LightsScheme } from 'config/lights.types';
-import type { ConnectionRequestLightsSchemeData } from 'config/connections.types';
+import { hexToRGB } from 'utils/hexToRGB';
 
-const hexToRGB = (hex: string) => {
-  const hexNumber = Number.parseInt(hex.replace('#', ''), 16);
-  return [hexNumber >> 16, (hexNumber >> 8) & 0xff, hexNumber & 0xff];
-};
+import type { LightsScheme } from '../../lights/lights.types';
+import type { ConnectionRequestLightsSchemeData } from '../../connections/connections.types';
 
 export const lightsSchemeColorsToConnectionRequest = (colors: LightsScheme['colors']) => {
   const request: ConnectionRequestLightsSchemeData = {

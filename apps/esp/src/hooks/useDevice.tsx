@@ -1,16 +1,11 @@
 import { useEffect, useState } from 'preact/hooks';
-import { parseSafeConnectionResponseData } from 'config/connections';
+import { parseSafeConnectionResponseData } from 'devices/connections.utils';
 
 import { env } from '../../env.mjs';
 
-import { useWebSocket } from './useWebSocket.js';
-
-import type { ConnectionRequestData, ConnectionResponseData } from 'config/connections.types';
+import type { ConnectionRequestData, ConnectionResponseData } from 'devices/connections.types';
 
 export const useDevice = () => {
-  const { status, data, message, send } = useWebSocket({
-    url: env['DEFAULT_WS_URL'],
-  });
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
 
   const setWiFi = (ssid: string, pass: string) => {
@@ -18,13 +13,9 @@ export const useDevice = () => {
       type: 'WIFI',
       data: { ssid, pass },
     };
-
-    send(JSON.stringify(requestData));
   };
 
-  useEffect(() => {
-    setInfo(parseSafeConnectionResponseData(typeof data === 'string' ? data : ''));
-  }, [data]);
+  useEffect(() => {}, []);
 
-  return { status, info, message, setWiFi };
+  return { status, info, setWiFi };
 };

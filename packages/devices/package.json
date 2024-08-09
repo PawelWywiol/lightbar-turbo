@@ -1,0 +1,27 @@
+{
+  "name": "devices",
+  "version": "1.0.0",
+  "description": "devices",
+  "dependencies": {
+    "ui": "*",
+    "utils": "*"
+  },
+  "devDependencies": {
+    "eslint-config-custom-react": "*"
+  },
+  "scripts": {},
+  "author": "",
+  "license": "MIT",
+  "exports": {
+    "./connections.types": "./src/connections/connections.types.ts",
+    "./connections.utils": "./src/connections/connections.utils.ts",
+    "./devices.config": "./src/devices/devices.config.ts",
+    "./devices.types": "./src/devices/devices.types.ts",
+    "./devices.utils": "./src/devices/devices.utils.ts",
+    "./devices.provider": "./src/devices/devices.provider.tsx",
+    "./devices.dialog": "./src/devices/devices.dialog.tsx",
+    "./lights.types": "./src/lights/lights.types.ts",
+    "./lights.config": "./src/lights/lights.config.ts",
+    "./lights.scheme": "./src/lights/lights.scheme.ts"
+  }
+}

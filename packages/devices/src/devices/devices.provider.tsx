@@ -1,5 +1,7 @@
 'use client';
 
+import { useContext } from 'react';
+
 import type { ReactNode } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
@@ -11,13 +13,12 @@ import {
   saveConnectedDevices,
   saveLastSelectedDeviceUrl,
   updateConnectedDevicesList,
-} from './connectedDevices.utils';
-import { ConnectedDeviceWebSocket } from './connectedDevices';
-import { findLocalNetworkConnectedDevices } from './connectedDevices.scan';
-import { MAX_CONNECTED_DEVICES } from './connectedDevices.config';
+} from './devices.utils';
+import { ConnectedDeviceWebSocket } from './devices';
+import { findLocalNetworkConnectedDevices } from './devices.scan';
+import { CONNECTED_DEVICES_MAX_COUNT } from './devices.config';
 
-import type { DeviceCustomEventDispatch } from 'config/devices.types';
-import type { ConnectedDevice } from './connectedDevices.types';
+import type { ConnectedDevice, DeviceCustomEventDispatch } from './devices.types';
 
 interface ConnectedDevicesContext {
   devices: ConnectedDevice[];
@@ -47,6 +48,8 @@ export const ConnectedDevicesContext = createContext<ConnectedDevicesContext>({
   },
 });
 
+export const useConnectedDevices = () => useContext(ConnectedDevicesContext);
+
 export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<ConnectedDevice[]>([]);
   const [scanProgress, setScanProgress] = useState(100);
@@ -58,7 +61,7 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
 
       saveConnectedDevices(updatedDevices);
 
-      return updatedDevices.slice(-1 * MAX_CONNECTED_DEVICES);
+      return updatedDevices.slice(-1 * CONNECTED_DEVICES_MAX_COUNT);
     });
   };
 
@@ -108,12 +111,14 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
   return (
     <>
       {devices.map((device) => (
-        <ConnectedDeviceWebSocket
-          key={device.url}
-          device={device}
-          onChange={updateDevice}
-          selected={selected === device.url}
-        />
+        // <ConnectedDeviceWebSocket
+        //   key={device.url}
+        //   device={device}
+        //   onChange={updateDevice}
+        //   selected={selected === device.url}
+        // />
+        // TODO: replace with devices based on the fetch api
+        <></>
       ))}
       <ConnectedDevicesContext.Provider
         value={{ devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select }}

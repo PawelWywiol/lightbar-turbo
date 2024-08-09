@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 
-import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from 'config/lights';
+import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from 'devices/lights.config';
 
 import { useGridPainter } from './lightsFrameGrid.utils';
 
-import type { LightsFrame } from 'config/lights.types';
+import type { LightsFrame } from 'devices/lights.types';
 import type { LightsFrameGridProps } from './lightsFrameGrid.types';
 
 export const LightsFrameGrid = ({
@@ -27,7 +27,7 @@ export const LightsFrameGrid = ({
       }).map((_, index) => {
         return updatedColorIndexes.includes(index)
           ? colorIndex
-          : currentFrame?.colorIndexes[index] ?? 0;
+          : (currentFrame?.colorIndexes[index] ?? 0);
       }),
     };
 

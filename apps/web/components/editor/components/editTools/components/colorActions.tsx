@@ -1,4 +1,4 @@
-import { DEFAULT_COLOR } from 'config/lights';
+import { DEFAULT_COLOR } from 'devices/lights.config';
 import { Button } from 'ui/button';
 import { Dialog } from 'ui/dialog';
 

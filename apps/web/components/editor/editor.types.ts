@@ -1,4 +1,4 @@
-import type { LightsScheme, LightsSchemeData } from 'config/lights.types';
+import type { LightsScheme, LightsSchemeData } from 'devices/lights.types';
 
 export type ShiftDirection = 'up' | 'down' | 'left' | 'right' | 'prev' | 'next' | 'shuffle';
 

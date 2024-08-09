@@ -1,5 +1,5 @@
 import type { LightsFrame } from '../lights/lights.types';
-import type { Message } from '../messages/messages.types';
+import type { Message } from 'config/messages.types';
 
 export type ConnectionType = 'CLOSED' | 'CONNECTING' | 'CONNECTED';
 export enum NetworkType {

@@ -1,4 +1,4 @@
-import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'config/lights';
+import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'devices/lights.config';
 import { Button } from 'ui/button';
 import { TextField } from 'ui/textField';
 
