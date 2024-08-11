@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 import { parseSafeConnectionResponseData } from '../connections/connections.utils';
@@ -10,7 +10,7 @@ import type { CustomEventCallback } from 'utils/customEvent.types';
 import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
 import { DeviceCustomEventDispatch } from './devices.types';
 
-export const useConnectedDeviceData = ({ url }: { url: string }) => {
+export const useConnectedDeviceData = ({ url }: { url?: string } = {}) => {
   const sendAbortControllerReference = useRef<AbortController | undefined>(undefined);
   const updatingStatusReference = useRef(false);
   const [status, setStatus] = useState<ConnectionType>('CLOSED');
@@ -37,38 +37,39 @@ export const useConnectedDeviceData = ({ url }: { url: string }) => {
     updatingStatusReference.current = false;
   }, [url]);
 
-  const send = (body: string) => {
+  const send = async (body: string) => {
     sendAbortControllerReference.current?.abort();
     sendAbortControllerReference.current = new AbortController();
 
-    fetch(CONNECTED_DEVICE_API_URL(url), {
-      method: 'POST',
-      body,
-      signal: sendAbortControllerReference.current.signal,
-    })
-      .then((responseData) => responseData.text())
-      .then((responseData) => {
-        const data = parseSafeConnectionResponseData(responseData);
+    setStatus('PROCESSING');
 
-        if (responseData) {
-          setStatus('CONNECTED');
-          setInfo(data);
-        } else {
-          setStatus('CLOSED');
-          setInfo(undefined);
-        }
-      })
-      .catch(() => {
-        setStatus('CLOSED');
-        setInfo(undefined);
+    try {
+      const response = await fetch(CONNECTED_DEVICE_API_URL(url), {
+        method: 'POST',
+        body,
+        signal: sendAbortControllerReference.current.signal,
       });
+
+      const textResponse = await response.text();
+      const responseData = parseSafeConnectionResponseData(textResponse);
+
+      if (responseData) {
+        setStatus('CONNECTED');
+        setInfo(responseData);
+
+        return;
+      }
+    } catch (error) {}
+
+    setStatus('CLOSED');
+    setInfo(undefined);
   };
 
   useEffect(() => {
     const deviceSelectedEvent: CustomEventCallback<DeviceCustomEventDispatch> = {
       name: 'app:device:selected',
       callback: ({ detail }) => {
-        if (detail === url || url.length === 0) {
+        if (detail === url || url?.length === 0) {
           void updateStatus();
         }
       },

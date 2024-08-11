@@ -21,6 +21,7 @@
     "./devices.provider": "./src/devices/devices.provider.tsx",
     "./devices.dialog": "./src/devices/devices.dialog.tsx",
     "./devices.schema": "./src/devices/devices.schema.ts",
+    "./devices.hooks": "./src/devices/devices.hooks.ts",
     "./lights.types": "./src/lights/lights.types.ts",
     "./lights.config": "./src/lights/lights.config.ts",
     "./lights.schema": "./src/lights/lights.schema.ts"

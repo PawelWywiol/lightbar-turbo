@@ -1,7 +1,7 @@
 import type { LightsFrame } from '../lights/lights.types';
 import type { Message } from 'config/messages.types';
 
-export type ConnectionType = 'CLOSED' | 'CONNECTING' | 'CONNECTED';
+export type ConnectionType = 'CLOSED' | 'CONNECTING' | 'CONNECTED' | 'PROCESSING';
 export enum NetworkType {
   Unknown = 0,
   STA = 1,

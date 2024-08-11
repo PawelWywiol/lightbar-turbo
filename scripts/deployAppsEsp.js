@@ -4,6 +4,7 @@ const path = require('path');
 
 const sourceDir = 'apps/esp/dist';
 const destinationDir = 'embedded/esp/data/public_html';
+const allowedExtensions = ['.html', '.js', '.css', '.ico', '.png'];
 const assetsDir = 'embedded/esp/data/public_html/assets';
 
 function deleteAssets(directory) {
@@ -41,7 +42,7 @@ function deployEspEmbeddedApp(directory) {
         if (stats.isFile()) {
           const extension = path.extname(filePath);
 
-          if (extension === '.html' || extension === '.js' || extension === '.css') {
+          if (allowedExtensions.includes(extension)) {
             const readStream = fs.createReadStream(filePath);
             const writeStream = fs.createWriteStream(filePath + '.gz');
             const gzip = zlib.createGzip();
