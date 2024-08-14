@@ -4,13 +4,17 @@ import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent'
 import { parseSafeConnectionResponseData } from '../connections/connections.utils';
 
 import { getConnectedDeviceData } from './devices.utils';
-import { CONNECTED_DEVICE_API_URL } from './devices.config';
+import { CONNECTED_DEVICE_API_URL, CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
+
+import { DeviceCustomEventDispatch } from './devices.types';
 
 import type { CustomEventCallback } from 'utils/customEvent.types';
 import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
-import { DeviceCustomEventDispatch } from './devices.types';
 
-export const useConnectedDeviceData = ({ url }: { url?: string } = {}) => {
+export const useConnectedDeviceData = ({
+  url,
+  updateInterval = CONNECTED_DEVICE_GET_STATE_INTERVAL,
+}: { url?: string; updateInterval?: number } = {}) => {
   const sendAbortControllerReference = useRef<AbortController | undefined>(undefined);
   const updatingStatusReference = useRef(false);
   const [status, setStatus] = useState<ConnectionType>('CLOSED');
@@ -82,6 +86,24 @@ export const useConnectedDeviceData = ({ url }: { url?: string } = {}) => {
       unsubscribeCustomEvent<DeviceCustomEventDispatch>(deviceSelectedEvent);
     };
   }, [url, updateStatus]);
+
+  useEffect(() => {
+    if (!updateInterval) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (status === 'CONNECTING' || status === 'PROCESSING') {
+        return;
+      }
+
+      void updateStatus();
+    }, updateInterval);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [updateInterval, updateStatus]);
 
   return { status, updateStatus, info, send };
 };

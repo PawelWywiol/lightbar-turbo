@@ -1,7 +1,6 @@
 import { NetworkType } from 'devices/connections.types';
 import { useConnectedDeviceData } from 'devices/devices.hooks';
 
-import { useDevice } from './hooks/useDevice.js';
 import { WifiSection } from './components/wifiSection.js';
 import { TitleSection } from './components/titleSection.js';
 import { InfoSection } from './components/infoSection.js';
