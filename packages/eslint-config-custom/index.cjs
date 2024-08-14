@@ -3,7 +3,7 @@ module.exports = {
     'turbo',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
-    'plugin:sonarjs/recommended',
+    'plugin:sonarjs/recommended-legacy',
     'plugin:unicorn/recommended',
     'prettier',
   ],
@@ -15,6 +15,7 @@ module.exports = {
     },
     ecmaVersion: 'latest',
     sourceType: 'module',
+    project: true,
   },
   rules: {
     'no-console': 'error',

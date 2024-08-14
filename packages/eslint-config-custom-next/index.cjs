@@ -21,6 +21,7 @@ module.exports = {
         extensions: ['.tsx'],
       },
     ],
+    'unicorn/prevent-abbreviations': 'off',
   },
   overrides: [
     {
@@ -39,7 +40,14 @@ module.exports = {
       },
     },
     {
-      files: ['app/**/*.tsx'],
+      files: [
+        'app/**/page.tsx',
+        'app/**/layout.tsx',
+        'app/**/loading.tsx',
+        'app/**/not-found.tsx',
+        'app/**/error.tsx',
+        'app/**/global-error.tsx',
+      ],
       rules: {
         'import/prefer-default-export': 'error',
         'import/no-default-export': 'off',

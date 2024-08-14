@@ -5,7 +5,7 @@ import { DropDownMenu } from 'ui/dropdownMenu';
 
 import { PlusIcon } from '../../../../../../packages/ui/src/icons/icons';
 
-import type { LightsFrame, LightsScheme } from 'devices/lights.types';
+import type { LightsScheme } from 'devices/lights.types';
 import type { EditorFrameProps } from '../../editor.types';
 
 export const LightsFrameTools = ({
@@ -65,7 +65,7 @@ export const LightsFrameTools = ({
       <div className="flex gap-2">
         <Button
           onClick={() => {
-            const newFrame = JSON.parse(JSON.stringify(frame)) as LightsFrame;
+            const newFrame = structuredClone(frame);
             const updatedScheme: LightsScheme = { ...scheme };
             updatedScheme.frames.splice(frameIndex, 0, newFrame);
             handleUpdate(updatedScheme);

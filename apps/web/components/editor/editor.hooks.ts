@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { dispatchCustomEvent } from 'utils/customEvent';
 import { DEFAULT_DEVICE } from 'devices/devices.config';
-
 import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
 
 import { EDITOR_DEFAULT_TOOL } from './editor.config';

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { Header } from 'ui/header';
 import { Theme } from 'ui/theme';
 import { APP_NAME } from 'config/app';
-
 import { ConnectedDevicesProvider } from 'devices/devices.provider';
+
 import { ConnectedDevicesDialog } from './components/connectedDevicesDialog';
 
 import 'ui/theme/styles/tailwindTheme.ts';

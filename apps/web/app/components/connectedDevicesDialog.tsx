@@ -7,13 +7,13 @@ import { Button } from 'ui/button';
 import { Dialog } from 'ui/dialog';
 import { TextField } from 'ui/textField';
 import { DropDownMenu } from 'ui/dropdownMenu';
-
 import { formatBytes } from 'utils/formatBytes';
-import { ConnectedDevice } from 'devices/devices.types';
 import { useConnectedDevices } from 'devices/devices.provider';
+
 import { connectedDeviceInfoStatus } from './connectedDeviceInfoStatus.styled';
 
-import { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
+import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
+import type { ConnectedDevice } from 'devices/devices.types';
 
 export const ConnectedDeviceInfo = ({
   device: { status, label, info, url },

@@ -5,8 +5,6 @@ module.exports = {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
-  rules: {},
-  overrides: [],
   ignorePatterns: [
     '!**/*',
     'tailwind.config.cjs',
