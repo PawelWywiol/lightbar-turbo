@@ -7,7 +7,7 @@ import type { ConnectionRequestLightsSchemeData } from '../../connections/connec
 
 export const lightsSchemeColorsToConnectionRequest = (colors: LightsScheme['colors']) => {
   const request: ConnectionRequestLightsSchemeData = {
-    type: 'COLORS',
+    type: 'colors',
     data: {
       colors: colors.flatMap((color) => hexToRGB(color)),
     },
@@ -21,7 +21,7 @@ export const lightsSchemeFrameToConnectionRequest = (
   deviceLedsCount?: number | undefined,
 ) => {
   const request: ConnectionRequestLightsSchemeData = {
-    type: 'FRAME',
+    type: 'frame',
     data: {
       type: frame.type,
       tempo: frame.tempo,

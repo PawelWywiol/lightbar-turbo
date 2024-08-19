@@ -15,7 +15,7 @@ export const WifiSection = ({ send }: { send: (body: string) => Promise<void> })
 
   const sendWiFiCredentials = () => {
     const requestData: ConnectionRequestData = {
-      type: 'WIFI',
+      type: 'wifi',
       data: wifiCredentials,
     };
 

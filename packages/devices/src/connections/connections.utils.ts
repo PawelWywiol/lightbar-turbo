@@ -3,7 +3,7 @@ import type { ConnectionResponseData } from './connections.types';
 const isConnectionResponseData = (data: unknown): data is ConnectionResponseData => {
   if (typeof data === 'object' && data !== null) {
     const { type, data: responseData } = data as ConnectionResponseData;
-    if (type === 'INFO' && typeof responseData === 'object' && responseData !== null) {
+    if (type === 'info' && typeof responseData === 'object' && responseData !== null) {
       const { leds, space, heap, ap } = responseData;
       if (
         typeof leds === 'number' &&

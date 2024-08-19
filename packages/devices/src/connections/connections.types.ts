@@ -25,7 +25,7 @@ export type ConnectionCustomEventDispatch =
     };
 
 export interface ConnectionRequestData {
-  type: 'WIFI';
+  type: 'wifi';
   data: {
     ssid: string;
     pass: string;
@@ -33,7 +33,7 @@ export interface ConnectionRequestData {
 }
 
 export interface ConnectionResponseData {
-  type: 'INFO';
+  type: 'info';
   message: string;
   network: NetworkType;
   data: {
@@ -46,13 +46,13 @@ export interface ConnectionResponseData {
 
 export type ConnectionRequestLightsSchemeData =
   | {
-      type: 'COLORS';
+      type: 'colors';
       data: {
         colors: number[];
       };
     }
   | {
-      type: 'FRAME';
+      type: 'frame';
       data: {
         type: LightsFrame['type'];
         tempo: LightsFrame['tempo'];
