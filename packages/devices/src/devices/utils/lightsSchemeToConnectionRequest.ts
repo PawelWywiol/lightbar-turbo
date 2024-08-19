@@ -1,6 +1,6 @@
-import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
-
 import { hexToRGB } from 'utils/hexToRGB';
+
+import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
 
 import type { LightsScheme } from '../../lights/lights.types';
 import type { ConnectionRequestLightsSchemeData } from '../../connections/connections.types';

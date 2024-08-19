@@ -7,7 +7,7 @@ import type { ConnectionRequestData } from 'devices/connections.types';
 const MAX_SSID_LENGTH = 32;
 const MAX_PASSWORD_LENGTH = 64;
 
-export const WifiSection = ({ send }: { send: (body: string) => void }) => {
+export const WifiSection = ({ send }: { send: (body: string) => Promise<void> }) => {
   const [wifiCredentials, setWiFiCredentials] = useState<ConnectionRequestData['data']>({
     ssid: '',
     pass: '',
@@ -19,7 +19,7 @@ export const WifiSection = ({ send }: { send: (body: string) => void }) => {
       data: wifiCredentials,
     };
 
-    send(JSON.stringify(requestData));
+    void send(JSON.stringify(requestData));
   };
 
   return (

@@ -1,4 +1,4 @@
-import { Device, DeviceSizeOptions } from './devices.types';
+import type { Device, DeviceSizeOptions } from './devices.types';
 
 export const CONNECTED_DEVICES_STORAGE_KEY = (type: 'devices' | 'selected') =>
   `connectedDevices:${type}`;

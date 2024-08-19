@@ -1,24 +1,21 @@
 import { useEffect } from 'react';
 
-import { MESSAGES } from 'config/messages';
-import { formatBytes } from 'utils/formatBytes';
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 
 import { useConnectedDeviceData } from './devices.hooks';
-import { connectedDeviceInfoStatus } from '../../../../apps/web/app/components/connectedDeviceInfoStatus.styled';
 import {
   editorColorUpdatedToConnectionRequest,
   lightsSchemeColorsToConnectionRequest,
   lightsSchemeFrameToConnectionRequest,
 } from './utils/lightsSchemeToConnectionRequest';
 
-import type { CustomEventCallback } from 'utils/customEvent.types';
-import type { ConnectedDevice } from './devices.types';
-import {
+import type {
   SaveSchemeDeviceEvent,
   UpdateColorDeviceEvent,
   UpdateSchemeDeviceEvent,
 } from './devices.events';
+import type { CustomEventCallback } from 'utils/customEvent.types';
+import type { ConnectedDevice } from './devices.types';
 
 // TODO: replace with devices based on the fetch api
 export const ConnectedDeviceWebSocket = ({
@@ -34,6 +31,8 @@ export const ConnectedDeviceWebSocket = ({
 
   useEffect(() => {
     onChange({ ...device, info, status });
+
+    // eslint-disable-next-line react-compiler/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info, status]);
 
@@ -51,7 +50,7 @@ export const ConnectedDeviceWebSocket = ({
           lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
         ].join('\n');
 
-        send(jsonl);
+        void send(jsonl);
       },
     };
     const editorColorUpdateEvent: CustomEventCallback<UpdateColorDeviceEvent> = {
@@ -63,7 +62,7 @@ export const ConnectedDeviceWebSocket = ({
 
         const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
 
-        send(jsonl);
+        void send(jsonl);
       },
     };
     const editorSchemeSaveEvent: CustomEventCallback<SaveSchemeDeviceEvent> = {
@@ -76,7 +75,7 @@ export const ConnectedDeviceWebSocket = ({
           ),
         ].join('\n');
 
-        send(jsonl);
+        void send(jsonl);
       },
     };
 

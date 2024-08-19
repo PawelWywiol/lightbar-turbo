@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 export const hexToRGB = (hex: string) => {
   const hexNumber = Number.parseInt(hex.replace('#', ''), 16);
   const r = hexNumber >> 16;

@@ -1,5 +1,7 @@
 import { getStorageData, removeStorageData, setStorageData } from 'utils/storage';
 
+import { parseSafeConnectionResponseData } from '../connections/connections.utils';
+
 import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_API_URL } from './devices.config';
 import {
   ConnectedDeviceUrlValidationSchema,
@@ -7,9 +9,8 @@ import {
 } from './devices.schema';
 
 import type { ConnectedDevice } from './devices.types';
-import { parseSafeConnectionResponseData } from '../connections/connections.utils';
-import { ConnectionResponseData } from '../connections/connections.types';
-import { LightsFrame, LightsScheme } from '../lights/lights.types';
+import type { ConnectionResponseData } from '../connections/connections.types';
+import type { LightsFrame, LightsScheme } from '../lights/lights.types';
 
 export const isIPAddress = (value: string) => {
   const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/;

@@ -4,7 +4,9 @@
   "description": "general utils",
   "main": "./src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
   },
   "author": "",
   "license": "MIT",

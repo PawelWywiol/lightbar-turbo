@@ -12,13 +12,20 @@
       "outputs": [".next/**", "!.next/cache/**"],
       "env": ["DEFAULT_WS_URL"]
     },
-    "lint": {},
     "dev": {
       "cache": false,
       "persistent": true
     },
+    "lint": {
+      "cache": true,
+      "persistent": false
+    },
     "type-check": {
       "cache": false
+    },
+    "madge": {
+      "cache": true,
+      "persistent": false
     }
   }
 }

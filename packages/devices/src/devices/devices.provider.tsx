@@ -1,7 +1,6 @@
 'use client';
 
 import { useContext } from 'react';
-
 import type { ReactNode } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
@@ -14,7 +13,6 @@ import {
   saveLastSelectedDeviceUrl,
   updateConnectedDevicesList,
 } from './devices.utils';
-import { ConnectedDeviceWebSocket } from './devices';
 import { findLocalNetworkConnectedDevices } from './devices.scan';
 import { CONNECTED_DEVICES_MAX_COUNT } from './devices.config';
 
@@ -110,7 +108,7 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
 
   return (
     <>
-      {devices.map((device) => (
+      {devices.map(() => (
         // <ConnectedDeviceWebSocket
         //   key={device.url}
         //   device={device}

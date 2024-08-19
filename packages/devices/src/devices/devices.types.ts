@@ -1,5 +1,5 @@
-import { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
-import { LightsScheme } from '../lights/lights.types';
+import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
+import type { LightsScheme } from '../lights/lights.types';
 
 export interface DeviceSizeOption {
   value: number;

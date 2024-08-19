@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
+
 import { parseSafeConnectionResponseData } from '../connections/connections.utils';
 
 import { getConnectedDeviceData } from './devices.utils';
 import { CONNECTED_DEVICE_API_URL, CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
 
-import { DeviceCustomEventDispatch } from './devices.types';
-
+import type { DeviceCustomEventDispatch } from './devices.types';
 import type { CustomEventCallback } from 'utils/customEvent.types';
 import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
 
@@ -63,7 +63,7 @@ export const useConnectedDeviceData = ({
 
         return;
       }
-    } catch (error) {}
+    } catch {}
 
     setStatus('CLOSED');
     setInfo(undefined);
@@ -103,7 +103,7 @@ export const useConnectedDeviceData = ({
     return () => {
       clearInterval(interval);
     };
-  }, [updateInterval, updateStatus]);
+  }, [updateInterval, updateStatus, status]);
 
   return { status, updateStatus, info, send };
 };

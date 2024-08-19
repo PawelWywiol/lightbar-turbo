@@ -9,7 +9,11 @@
   "devDependencies": {
     "eslint-config-custom-react": "*"
   },
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
+  },
   "author": "",
   "license": "MIT",
   "exports": {

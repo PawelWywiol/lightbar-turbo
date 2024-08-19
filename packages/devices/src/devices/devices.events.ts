@@ -1,4 +1,4 @@
-import { LightsScheme } from '../lights/lights.types';
+import type { LightsScheme } from '../lights/lights.types';
 
 export interface UpdateSchemeDeviceEvent {
   name: 'app:update:scheme';

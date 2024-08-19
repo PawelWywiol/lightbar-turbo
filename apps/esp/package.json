@@ -6,8 +6,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "lint": "eslint .",
     "type-check": "tsc --noEmit",
-    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.next|.swc|.turbo|node_modules)/.*' ."
+    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
   },
   "dependencies": {
     "config": "*",
