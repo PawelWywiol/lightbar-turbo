@@ -37,10 +37,9 @@ export interface ConnectionResponseData {
   message: string;
   network: NetworkType;
   data: {
+    uid: string;
     leds: number;
-    ap: string;
     space: number;
-    heap: number;
   };
 }
 

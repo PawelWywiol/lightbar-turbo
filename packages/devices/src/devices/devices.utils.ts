@@ -1,6 +1,6 @@
 import { getStorageData, removeStorageData, setStorageData } from 'utils/storage';
 
-import { parseSafeConnectionResponseData } from '../connections/connections.utils';
+import { isConnectionResponseData } from '../connections/connections.utils';
 
 import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_API_URL } from './devices.config';
 import {
@@ -80,8 +80,9 @@ export const getConnectedDeviceData = async (
       method: 'GET',
     });
 
-    const data = await responseData.text();
-    return parseSafeConnectionResponseData(data);
+    const responsJson = (await responseData.json()) as unknown;
+
+    return isConnectionResponseData(responsJson) ? responsJson : undefined;
   } catch {}
 
   return undefined;

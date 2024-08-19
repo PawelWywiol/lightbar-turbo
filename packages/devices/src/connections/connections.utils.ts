@@ -1,31 +1,19 @@
 import type { ConnectionResponseData } from './connections.types';
 
-const isConnectionResponseData = (data: unknown): data is ConnectionResponseData => {
-  if (typeof data !== 'object' || data === null) {
+export const isConnectionResponseData = (
+  responseData: unknown,
+): responseData is ConnectionResponseData => {
+  if (typeof responseData !== 'object' || responseData === null) {
     return false;
   }
 
-  const { type, data: responseData } = data as ConnectionResponseData;
+  const { type, data } = responseData as ConnectionResponseData;
 
-  if (type !== 'info' || typeof responseData !== 'object' || responseData === null) {
+  if (type !== 'info' || typeof data !== 'object' || data === null) {
     return false;
   }
 
-  const { leds, ap } = responseData;
+  const { leds, uid, space } = data;
 
-  return !!(typeof leds === 'number' && typeof ap === 'string');
-};
-
-export const parseSafeConnectionResponseData = (
-  json: string,
-): ConnectionResponseData | undefined => {
-  try {
-    const data = JSON.parse(json) as unknown;
-
-    if (isConnectionResponseData(data)) {
-      return data;
-    }
-  } catch {}
-
-  return undefined;
+  return !!(typeof uid === 'string' && typeof leds === 'number' && typeof space === 'number');
 };

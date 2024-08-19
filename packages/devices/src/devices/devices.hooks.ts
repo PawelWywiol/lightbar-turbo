@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 
-import { parseSafeConnectionResponseData } from '../connections/connections.utils';
+import { isConnectionResponseData } from '../connections/connections.utils';
 
 import { getConnectedDeviceData } from './devices.utils';
 import { CONNECTED_DEVICE_API_URL, CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
@@ -16,29 +16,16 @@ export const useConnectedDeviceData = ({
   updateInterval = CONNECTED_DEVICE_GET_STATE_INTERVAL,
 }: { url?: string; updateInterval?: number } = {}) => {
   const sendAbortControllerReference = useRef<AbortController | undefined>(undefined);
-  const updatingStatusReference = useRef(false);
   const [status, setStatus] = useState<ConnectionType>('CLOSED');
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
 
   const updateStatus = useCallback(async () => {
-    if (updatingStatusReference.current) {
-      return;
-    }
-
-    updatingStatusReference.current = true;
+    setStatus('PROCESSING');
 
     const responseData = await getConnectedDeviceData(url);
-    if (responseData) {
-      setStatus('CONNECTED');
-      setInfo(responseData);
 
-      return;
-    } else {
-      setStatus('CLOSED');
-      setInfo(undefined);
-    }
-
-    updatingStatusReference.current = false;
+    setStatus(responseData ? 'CONNECTED' : 'CLOSED');
+    setInfo(responseData);
   }, [url]);
 
   const send = async (body: string) => {
@@ -54,12 +41,11 @@ export const useConnectedDeviceData = ({
         signal: sendAbortControllerReference.current.signal,
       });
 
-      const textResponse = await response.text();
-      const responseData = parseSafeConnectionResponseData(textResponse);
+      const responseJson = (await response.json()) as unknown;
 
-      if (responseData) {
+      if (isConnectionResponseData(responseJson)) {
         setStatus('CONNECTED');
-        setInfo(responseData);
+        setInfo(responseJson);
 
         return;
       }

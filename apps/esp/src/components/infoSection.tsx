@@ -7,8 +7,8 @@ export const InfoSection = ({ info }: { info?: ConnectionResponseData | undefine
     {info?.data && (
       <div className="flex flex-col gap-1">
         <div className="flex flex-row justify-center items-center gap-2">
-          <span className="text-right text-sm font-bold">access point :</span>
-          <span className="text-right text-xs flex-1">{info.data.ap}</span>
+          <span className="text-right text-sm font-bold">uid :</span>
+          <span className="text-right text-xs flex-1">{info.data.uid}</span>
         </div>
         <div className="flex flex-row justify-center items-center gap-2">
           <span className="text-right text-sm font-bold">leds :</span>
@@ -17,10 +17,6 @@ export const InfoSection = ({ info }: { info?: ConnectionResponseData | undefine
         <div className="flex flex-row justify-center items-center gap-2">
           <span className="text-right text-sm font-bold">space :</span>
           <span className="text-right text-xs flex-1">{formatBytes(info.data.space)}</span>
-        </div>
-        <div className="flex flex-row justify-center items-center gap-2">
-          <span className="text-right text-sm font-bold">heap :</span>
-          <span className="text-right text-xs flex-1">{formatBytes(info.data.heap)}</span>
         </div>
       </div>
     )}

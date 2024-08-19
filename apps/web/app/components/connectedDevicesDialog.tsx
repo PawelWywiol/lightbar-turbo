@@ -24,7 +24,7 @@ export const ConnectedDeviceInfo = ({
     <div className="flex gap-4 flex-1 align-middle items-center text-left">
       <span className={connectedDeviceInfoStatus({ status })} />
       <span className="flex-1 flex flex-col gap-1">
-        <span>{label ?? info?.data.ap ?? url}</span>
+        <span>{label ?? info?.data.uid ?? url}</span>
         <span className="text-xs">
           {info?.message ??
             MESSAGES.connection[
