@@ -7,19 +7,25 @@ import type { ConnectionRequestData } from 'devices/connections.types';
 const MAX_SSID_LENGTH = 32;
 const MAX_PASSWORD_LENGTH = 64;
 
-export const WifiSection = ({ send }: { send: (body: string) => Promise<void> }) => {
-  const [wifiCredentials, setWiFiCredentials] = useState<ConnectionRequestData['data']>({
+export const WifiSection = ({
+  send,
+}: {
+  send: (request: ConnectionRequestData[]) => Promise<void>;
+}) => {
+  const [wifiCredentials, setWiFiCredentials] = useState<
+    Extract<ConnectionRequestData, { type: 'wifi' }>['data']
+  >({
     ssid: '',
-    pass: '',
+    password: '',
   });
 
   const sendWiFiCredentials = () => {
-    const requestData: ConnectionRequestData = {
+    const request: ConnectionRequestData = {
       type: 'wifi',
       data: wifiCredentials,
     };
 
-    void send(JSON.stringify(requestData));
+    void send([request]);
   };
 
   return (
@@ -38,20 +44,20 @@ export const WifiSection = ({ send }: { send: (body: string) => Promise<void> })
       <Input
         type="password"
         placeholder="password"
-        value={wifiCredentials.pass}
+        value={wifiCredentials.password}
         onChange={(event) =>
           setWiFiCredentials({
             ...wifiCredentials,
-            pass: event.currentTarget.value.slice(0, MAX_PASSWORD_LENGTH),
+            password: event.currentTarget.value.slice(0, MAX_PASSWORD_LENGTH),
           })
         }
       />
       <Button
         onClick={() => {
           sendWiFiCredentials();
-          setWiFiCredentials({ ssid: '', pass: '' });
+          setWiFiCredentials({ ssid: '', password: '' });
         }}
-        disabled={wifiCredentials.pass.length === 0 || wifiCredentials.ssid.length === 0}
+        disabled={wifiCredentials.password.length === 0 || wifiCredentials.ssid.length === 0}
       >
         Save
       </Button>

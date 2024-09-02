@@ -24,14 +24,6 @@ export type ConnectionCustomEventDispatch =
       };
     };
 
-export interface ConnectionRequestData {
-  type: 'wifi';
-  data: {
-    ssid: string;
-    pass: string;
-  };
-}
-
 export interface ConnectionResponseData {
   type: 'info';
   message: string;
@@ -43,7 +35,14 @@ export interface ConnectionResponseData {
   };
 }
 
-export type ConnectionRequestLightsSchemeData =
+export type ConnectionRequestData =
+  | {
+      type: 'wifi';
+      data: {
+        ssid: string;
+        password: string;
+      };
+    }
   | {
       type: 'colors';
       data: {
@@ -58,3 +57,5 @@ export type ConnectionRequestLightsSchemeData =
         colors: LightsFrame['colorIndexes'];
       };
     };
+
+export type ConnectionRequestDataType = ConnectionRequestData['type'];

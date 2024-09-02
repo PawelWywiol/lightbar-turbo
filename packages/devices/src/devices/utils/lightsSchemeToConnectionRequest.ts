@@ -3,10 +3,10 @@ import { hexToRGB } from 'utils/hexToRGB';
 import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
 
 import type { LightsScheme } from '../../lights/lights.types';
-import type { ConnectionRequestLightsSchemeData } from '../../connections/connections.types';
+import type { ConnectionRequestData } from '../../connections/connections.types';
 
 export const lightsSchemeColorsToConnectionRequest = (colors: LightsScheme['colors']) => {
-  const request: ConnectionRequestLightsSchemeData = {
+  const request: ConnectionRequestData = {
     type: 'colors',
     data: {
       colors: colors.flatMap((color) => hexToRGB(color)),
@@ -20,7 +20,7 @@ export const lightsSchemeFrameToConnectionRequest = (
   frame: LightsScheme['frames'][0],
   deviceLedsCount?: number | undefined,
 ) => {
-  const request: ConnectionRequestLightsSchemeData = {
+  const request: ConnectionRequestData = {
     type: 'frame',
     data: {
       type: frame.type,

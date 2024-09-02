@@ -2,14 +2,21 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 
-import { isConnectionResponseData } from '../connections/connections.utils';
+import {
+  connectionRequestDataToBinaryData,
+  isConnectionResponseData,
+} from '../connections/connections.utils';
 
 import { getConnectedDeviceData } from './devices.utils';
 import { CONNECTED_DEVICE_API_URL, CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
 
 import type { DeviceCustomEventDispatch } from './devices.types';
 import type { CustomEventCallback } from 'utils/customEvent.types';
-import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
+import type {
+  ConnectionRequestData,
+  ConnectionResponseData,
+  ConnectionType,
+} from '../connections/connections.types';
 
 export const useConnectedDeviceData = ({
   url,
@@ -28,17 +35,19 @@ export const useConnectedDeviceData = ({
     setInfo(responseData);
   }, [url]);
 
-  const send = async (body: string) => {
+  const send = async (requests: ConnectionRequestData[]) => {
     sendAbortControllerReference.current?.abort();
     sendAbortControllerReference.current = new AbortController();
 
     setStatus('PROCESSING');
 
     try {
+      const binaryData = connectionRequestDataToBinaryData(requests);
+
       const response = await fetch(CONNECTED_DEVICE_API_URL(url), {
         method: 'POST',
-        body,
         signal: sendAbortControllerReference.current.signal,
+        body: binaryData,
       });
 
       const responseJson = (await response.json()) as unknown;
