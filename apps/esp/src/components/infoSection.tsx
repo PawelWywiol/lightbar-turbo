@@ -18,10 +18,10 @@ export const InfoSection = ({ info }: { info?: ConnectionResponseData | undefine
           <span className="text-right text-sm font-bold">space :</span>
           <span className="text-right text-xs flex-1">{formatBytes(info.data.space)}</span>
         </div>
-        {info.data.ip && (
+        {info.data.host && (
           <div className="flex flex-row justify-center items-center gap-2">
-            <span className="text-right text-sm font-bold">ip :</span>
-            <span className="text-right text-xs flex-1">{info.data.ip}</span>
+            <span className="text-right text-sm font-bold">host :</span>
+            <span className="text-right text-xs flex-1">{info.data.host}</span>
           </div>
         )}
       </div>
