@@ -7,8 +7,8 @@ import {
   isConnectionResponseData,
 } from '../connections/connections.utils';
 
-import { getConnectedDeviceData } from './devices.utils';
-import { CONNECTED_DEVICE_API_URL, CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
+import { getConnectedDeviceData, resolveConnectedDeviceApiUrl } from './devices.utils';
+import { CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
 
 import type { DeviceCustomEventDispatch } from './devices.types';
 import type { CustomEventCallback } from 'utils/customEvent.types';
@@ -21,7 +21,10 @@ import type {
 export const useConnectedDeviceData = ({
   url,
   updateInterval = CONNECTED_DEVICE_GET_STATE_INTERVAL,
-}: { url?: string; updateInterval?: number } = {}) => {
+}: {
+  url: string;
+  updateInterval?: number;
+}) => {
   const sendAbortControllerReference = useRef<AbortController | undefined>(undefined);
   const [status, setStatus] = useState<ConnectionType>('CLOSED');
   const [info, setInfo] = useState<ConnectionResponseData | undefined>();
@@ -44,7 +47,7 @@ export const useConnectedDeviceData = ({
     try {
       const binaryData = connectionRequestDataToBinaryData(requests);
 
-      const response = await fetch(CONNECTED_DEVICE_API_URL(url), {
+      const response = await fetch(resolveConnectedDeviceApiUrl(url), {
         method: 'POST',
         signal: sendAbortControllerReference.current.signal,
         body: binaryData,

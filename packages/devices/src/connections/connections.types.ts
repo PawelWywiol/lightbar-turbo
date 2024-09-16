@@ -32,6 +32,7 @@ export interface ConnectionResponseData {
     uid: string;
     leds: number;
     space: number;
+    ip?: string;
   };
 }
 

@@ -2,9 +2,9 @@ import type { Device, DeviceSizeOptions } from './devices.types';
 
 export const CONNECTED_DEVICES_STORAGE_KEY = (type: 'devices' | 'selected') =>
   `connectedDevices:${type}`;
-export const CONNECTED_DEVICE_API_PATH = '/api';
-export const CONNECTED_DEVICE_API_URL = (url?: string) =>
-  url ? `http://${url}${CONNECTED_DEVICE_API_PATH}` : CONNECTED_DEVICE_API_PATH;
+export const CONNECTED_DEVICE_API_DEFAULT_SCHEMA = 'http';
+export const CONNECTED_DEVICE_API_DEFAULT_PATH = '/api';
+export const CONNECTED_DEVICE_API_DEFAULT_HOST = 'localhost';
 export const CONNECTED_DEVICE_GET_STATE_INTERVAL = 30_000;
 export const CONNECTED_DEVICES_MAX_COUNT = 255;
 

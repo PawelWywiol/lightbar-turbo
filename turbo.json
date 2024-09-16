@@ -5,12 +5,12 @@
     "start": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["DEFAULT_WS_URL"]
+      "env": ["DEFAULT_HOST_DEVICE_URL"]
     },
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["DEFAULT_WS_URL"]
+      "env": ["DEFAULT_HOST_DEVICE_URL"]
     },
     "dev": {
       "cache": false,

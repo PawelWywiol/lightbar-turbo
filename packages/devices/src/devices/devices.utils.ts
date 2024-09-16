@@ -2,7 +2,11 @@ import { getStorageData, removeStorageData, setStorageData } from 'utils/storage
 
 import { isConnectionResponseData } from '../connections/connections.utils';
 
-import { CONNECTED_DEVICES_STORAGE_KEY, CONNECTED_DEVICE_API_URL } from './devices.config';
+import {
+  CONNECTED_DEVICES_STORAGE_KEY,
+  CONNECTED_DEVICE_API_DEFAULT_PATH,
+  CONNECTED_DEVICE_API_DEFAULT_SCHEMA,
+} from './devices.config';
 import {
   ConnectedDeviceUrlValidationSchema,
   ConnectedDevicesValidationSchema,
@@ -16,6 +20,24 @@ export const isIPAddress = (value: string) => {
   const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/;
 
   return ipRegex.test(value);
+};
+
+export const isUrl = (value: string) => {
+  const urlRegex = /^(http|https):\/\//;
+
+  return urlRegex.test(value);
+};
+
+export const resolveConnectedDeviceApiUrl = (
+  url: string,
+  schema: string = CONNECTED_DEVICE_API_DEFAULT_SCHEMA,
+  path: string = CONNECTED_DEVICE_API_DEFAULT_PATH,
+): string => {
+  if (isIPAddress(url)) {
+    return `${schema}://${url}${path}`;
+  }
+
+  return isUrl(url) ? url : `${schema}://${url}${path}`;
 };
 
 export const loadConnectedDevices = (): ConnectedDevice[] => {
@@ -73,10 +95,10 @@ export const progressPercentage = (index: number, current: number, max: number) 
   Math.ceil((100 * (current + index + 1)) / (max || 1));
 
 export const getConnectedDeviceData = async (
-  url?: string,
+  url: string,
 ): Promise<ConnectionResponseData | undefined> => {
   try {
-    const responseData = await fetch(CONNECTED_DEVICE_API_URL(url), {
+    const responseData = await fetch(resolveConnectedDeviceApiUrl(url), {
       method: 'GET',
     });
 
