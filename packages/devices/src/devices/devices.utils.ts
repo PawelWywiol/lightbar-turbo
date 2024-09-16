@@ -22,11 +22,8 @@ export const isIPAddress = (value: string) => {
   return ipRegex.test(value);
 };
 
-export const isUrl = (value: string) => {
-  const urlRegex = /^(http|https):\/\//;
-
-  return urlRegex.test(value);
-};
+export const isUrl = (value: string) =>
+  value.startsWith('http://') || value.startsWith('https://') || value.startsWith('/');
 
 export const resolveConnectedDeviceApiUrl = (
   url: string,

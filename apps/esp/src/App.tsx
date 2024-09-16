@@ -1,6 +1,6 @@
 import { NetworkType } from 'devices/connections.types';
 import { useConnectedDeviceData } from 'devices/devices.hooks';
-import { CONNECTED_DEVICE_API_DEFAULT_HOST } from 'devices/devices.config';
+import { CONNECTED_DEVICE_API_DEFAULT_URL } from 'devices/devices.config';
 
 import { env } from '../env.mjs';
 
@@ -10,7 +10,7 @@ import { InfoSection } from './components/infoSection.js';
 
 export const App = () => {
   const { info, status, send } = useConnectedDeviceData({
-    url: env['DEFAULT_HOST_DEVICE_URL'] ?? CONNECTED_DEVICE_API_DEFAULT_HOST,
+    url: env['DEFAULT_HOST_DEVICE_URL'] ?? CONNECTED_DEVICE_API_DEFAULT_URL,
   });
 
   return (
