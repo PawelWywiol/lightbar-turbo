@@ -6,7 +6,7 @@
   "main": "index.cjs",
   "dependencies": {
     "@next/eslint-plugin-next": "^14.2.5",
-    "@tanstack/eslint-plugin-query": "^5.51.15",
+    "@tanstack/eslint-plugin-query": "^5.56.1",
     "eslint-config-custom-react": "*",
     "eslint-config-next": "14.2.5",
     "eslint-config-prettier": "^9.1.0",

@@ -24,7 +24,7 @@
     "eslint-plugin-react-compiler": "^0.0.0-experimental-2eea4a6-20240814",
     "madge": "^8.0.0",
     "prettier": "^3.3.3",
-    "turbo": "^2.0.12"
+    "turbo": "^2.1.2"
   },
   "name": "lightbar-turbo",
   "workspaces": [
@@ -33,13 +33,13 @@
   ],
   "volta": {
     "node": "20.15.1",
-    "npm": "10.8.2"
+    "npm": "10.8.3"
   },
-  "packageManager": "npm@10.8.2",
+  "packageManager": "npm@10.8.3",
   "dependencies": {
     "clsx": "^2.1.1",
-    "lucide-react": "^0.427.0",
-    "tailwind-merge": "^2.4.0",
+    "lucide-react": "^0.441.0",
+    "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   }
