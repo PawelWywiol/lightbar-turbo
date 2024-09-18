@@ -14,7 +14,7 @@ import 'ui/theme/styles/globals.ts';
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className="relative">
         <Theme appearance="dark" accentColor="amber" grayColor="slate" radius="small">
           <ConnectedDevicesProvider>

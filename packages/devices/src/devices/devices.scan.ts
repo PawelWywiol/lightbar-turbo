@@ -1,13 +1,20 @@
 import { CONNECTED_DEVICE_API_DEFAULT_PATH, SUBNETS_IPS } from './devices.config';
 import { isIPAddress, progressPercentage } from './devices.utils';
 
+const DEVICE_SCAN_DEFAULT_SCHEMA = 'http';
+const DEVICE_SCAN_DEFAULT_PATH = '/';
+const DEVICE_SCAN_DEFAULT_TIMEOUT = 120;
+const DEVICE_SCAN_DEFAULT_METHOD = 'GET';
+
 const checkIPConnection = async (
   ip: string,
   {
-    path = '/',
-    timeout = 120,
-    method = 'GET',
+    schema = DEVICE_SCAN_DEFAULT_SCHEMA,
+    path = DEVICE_SCAN_DEFAULT_PATH,
+    timeout = DEVICE_SCAN_DEFAULT_TIMEOUT,
+    method = DEVICE_SCAN_DEFAULT_METHOD,
   }: {
+    schema?: string | undefined;
     path?: string | undefined;
     timeout?: number | undefined;
     method?: string | undefined;
@@ -35,7 +42,7 @@ const checkIPConnection = async (
 
   try {
     await Promise.race([
-      fetch(`http://${ip}${path}`, config),
+      fetch(`${schema}://${ip}${path}`, config),
       new Promise((_, reject) =>
         setTimeout(() => {
           controller.abort();
@@ -45,7 +52,7 @@ const checkIPConnection = async (
       ),
     ]);
   } catch {
-    if (path.length > 1) {
+    if (path !== DEVICE_SCAN_DEFAULT_PATH) {
       checkResult = null;
     }
   }

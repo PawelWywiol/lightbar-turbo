@@ -21,7 +21,8 @@ export const Dialog = ({
         </Button>
       )}
     </RadixDialog.Trigger>
-
+    <RadixDialog.Title />
+    <RadixDialog.Description />
     <RadixDialog.Content className={className}>{children}</RadixDialog.Content>
   </RadixDialog.Root>
 );

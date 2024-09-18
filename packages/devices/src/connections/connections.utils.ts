@@ -28,7 +28,7 @@ export const isConnectionResponseData = (
   return !!(typeof uid === 'string' && typeof leds === 'number' && typeof space === 'number');
 };
 
-export const connectionRequestWifiBinaryData = (
+export const resolveConnectionRequestWifiBinaryData = (
   data: Extract<ConnectionRequestData, { type: 'wifi' }>,
 ) => {
   const { ssid, password } = data.data;
@@ -62,7 +62,7 @@ export const connectionRequestDataToBinaryData = (
 
     switch (requestDataType) {
       case 'wifi': {
-        return connectionRequestWifiBinaryData(requestData);
+        return resolveConnectionRequestWifiBinaryData(requestData);
       }
       case 'colors': {
         const { colors } = requestData.data;

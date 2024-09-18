@@ -1,3 +1,3 @@
-const Page = () => <main className={'container'}></main>;
+const Page = () => <main className="container"></main>;
 
 export default Page;

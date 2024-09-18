@@ -15,6 +15,7 @@ import {
 } from './devices.utils';
 import { findLocalNetworkConnectedDevices } from './devices.scan';
 import { CONNECTED_DEVICES_MAX_COUNT } from './devices.config';
+import { ConnectedDeviceResolver } from './devices';
 
 import type { ConnectedDevice, DeviceCustomEventDispatch } from './devices.types';
 
@@ -108,15 +109,13 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
 
   return (
     <>
-      {devices.map(() => (
-        // <ConnectedDeviceWebSocket
-        //   key={device.url}
-        //   device={device}
-        //   onChange={updateDevice}
-        //   selected={selected === device.url}
-        // />
-        // TODO: replace with devices based on the fetch api
-        <></>
+      {devices.map((device) => (
+        <ConnectedDeviceResolver
+          key={device.url}
+          device={device}
+          onChange={updateDevice}
+          selected={selected === device.url}
+        />
       ))}
       <ConnectedDevicesContext.Provider
         value={{ devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select }}

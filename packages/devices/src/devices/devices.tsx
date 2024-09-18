@@ -17,8 +17,7 @@ import type {
 import type { CustomEventCallback } from 'utils/customEvent.types';
 import type { ConnectedDevice } from './devices.types';
 
-// TODO: replace with devices based on the fetch api
-export const ConnectedDeviceWebSocket = ({
+export const ConnectedDeviceResolver = ({
   device,
   onChange,
   selected,
@@ -50,7 +49,7 @@ export const ConnectedDeviceWebSocket = ({
           lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
         ].join('\n');
 
-        void send(jsonl);
+        // void send(jsonl);
       },
     };
     const editorColorUpdateEvent: CustomEventCallback<UpdateColorDeviceEvent> = {
@@ -62,7 +61,7 @@ export const ConnectedDeviceWebSocket = ({
 
         const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
 
-        void send(jsonl);
+        // void send(jsonl);
       },
     };
     const editorSchemeSaveEvent: CustomEventCallback<SaveSchemeDeviceEvent> = {
@@ -75,7 +74,7 @@ export const ConnectedDeviceWebSocket = ({
           ),
         ].join('\n');
 
-        void send(jsonl);
+        // void send(jsonl);
       },
     };
 
