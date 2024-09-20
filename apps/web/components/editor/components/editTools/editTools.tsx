@@ -13,7 +13,6 @@ export const EditTools = ({
   setTool,
   colorIndex,
   setColorIndex,
-  colors,
   shiftLightsFrameColorPixel,
   setColorDialogOpen,
 }: EditToolsProps) => {
@@ -34,7 +33,6 @@ export const EditTools = ({
       />
       {tool === 'pencil' && (
         <ColorActions
-          colors={colors}
           colorIndex={colorIndex}
           setColorIndex={setColorIndex}
           setColorDialogOpen={setColorDialogOpen}

@@ -5,8 +5,8 @@ import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent'
 import { useConnectedDeviceData } from './devices.hooks';
 import {
   editorColorUpdatedToConnectionRequest,
-  lightsSchemeColorsToConnectionRequest,
-  lightsSchemeFrameToConnectionRequest,
+  // lightsSchemeColorsToConnectionRequest,
+  // lightsSchemeFrameToConnectionRequest,
 } from './utils/lightsSchemeToConnectionRequest';
 
 import type {
@@ -44,10 +44,10 @@ export const ConnectedDeviceResolver = ({
           return;
         }
 
-        const jsonl = [
-          lightsSchemeColorsToConnectionRequest(detail.scheme.colors),
-          lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
-        ].join('\n');
+        // const jsonl = [
+        //   lightsSchemeColorsToConnectionRequest(detail.scheme.colors),
+        //   lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
+        // ].join('\n');
 
         // void send(jsonl);
       },
@@ -66,14 +66,17 @@ export const ConnectedDeviceResolver = ({
     };
     const editorSchemeSaveEvent: CustomEventCallback<SaveSchemeDeviceEvent> = {
       name: 'app:save:scheme',
-      callback: ({ detail: { scheme } }) => {
-        const jsonl = [
-          lightsSchemeColorsToConnectionRequest(scheme.colors),
-          ...scheme.frames.map((frame) =>
-            lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
-          ),
-        ].join('\n');
-
+      callback: ({
+        detail: {
+          // scheme
+        },
+      }) => {
+        // const jsonl = [
+        //   lightsSchemeColorsToConnectionRequest(scheme.colors),
+        //   ...scheme.frames.map((frame) =>
+        //     lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
+        //   ),
+        // ].join('\n');
         // void send(jsonl);
       },
     };

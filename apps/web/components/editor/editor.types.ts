@@ -25,7 +25,9 @@ export interface EditorSchemeUpdateEvent {
 
 export interface EditorColorUpdateEvent {
   name: 'app:editor:color:update';
-  detail: string | undefined;
+  detail: {
+    colorIndex: number | undefined;
+  };
 }
 
 export interface EditorSchemeSaveEvent {

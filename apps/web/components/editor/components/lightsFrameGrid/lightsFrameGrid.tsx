@@ -2,6 +2,8 @@ import { useRef } from 'react';
 
 import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from 'devices/lights.config';
 
+import { resolveBinaryColorStyle } from '../../editor.utils';
+
 import { useGridPainter } from './lightsFrameGrid.utils';
 
 import type { LightsFrame } from 'devices/lights.types';
@@ -17,7 +19,7 @@ export const LightsFrameGrid = ({
   const ref = useRef<HTMLDivElement>(null);
   const currentFrame = scheme.frames[frameIndex];
 
-  useGridPainter(ref, scheme.colors[colorIndex] ?? 'transparent', (updatedColorIndexes) => {
+  useGridPainter(ref, resolveBinaryColorStyle(colorIndex), (updatedColorIndexes) => {
     const updatedFrame: LightsFrame = {
       ...currentFrame,
       type: currentFrame?.type ?? DEFAULT_LIGHTS_FRAME_TYPE,
@@ -45,7 +47,7 @@ export const LightsFrameGrid = ({
         style={{ gridTemplateColumns: `repeat(${device.size.grid.columns},minmax(0,1fr))` }}
       >
         {Array.from({ length: device.size.value }).map((_, index) => {
-          const color = scheme.colors[currentFrame.colorIndexes[index] ?? 0] ?? 'transparent';
+          const color = resolveBinaryColorStyle(currentFrame.colorIndexes[index] ?? 0);
           return (
             <div
               key={index}

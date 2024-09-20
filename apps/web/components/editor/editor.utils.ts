@@ -22,9 +22,9 @@ export const shiftLightsFrameColorPixel = (
   const frameRows = Array.from({ length: rowsCount }, (_, index) =>
     frame.slice(index * columnsCount, (index + 1) * columnsCount),
   );
-  const frameColumns = Array.from({ length: columnsCount }, (iterationElement, iterationIndex) =>
+  const frameColumns = Array.from({ length: columnsCount }, (_iterationElement, iterationIndex) =>
     frame.filter(
-      (filteredElement, filteredIndex) => filteredIndex % columnsCount === iterationIndex,
+      (_filteredElement, filteredIndex) => filteredIndex % columnsCount === iterationIndex,
     ),
   );
 
@@ -76,4 +76,11 @@ export const shiftLightsFrameColorPixel = (
       index === frameIndex ? { ...f, colorIndexes: newFrame } : f,
     ),
   };
+};
+
+export const resolveBinaryColorStyle = (colorIndex: number): string => {
+  const hue = colorIndex & 0b0011_1111;
+  const saturation = colorIndex & (0b1100_0000 >> 6);
+
+  return `hsl(${hue * 4}deg ${(saturation + 2) * 20}% 50%)`;
 };

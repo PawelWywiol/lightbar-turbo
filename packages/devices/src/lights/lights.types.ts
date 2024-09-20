@@ -23,7 +23,6 @@ export interface LightsFrame {
 
 export interface LightsScheme {
   name: string;
-  colors: string[];
   frames: LightsFrame[];
 }
 

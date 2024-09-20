@@ -5,7 +5,7 @@ import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lig
 import type { LightsScheme } from '../../lights/lights.types';
 import type { ConnectionRequestData } from '../../connections/connections.types';
 
-export const lightsSchemeColorsToConnectionRequest = (colors: LightsScheme['colors']) => {
+export const lightsSchemeColorsToConnectionRequest = (colors: string[]) => {
   const request: ConnectionRequestData = {
     type: 'colors',
     data: {

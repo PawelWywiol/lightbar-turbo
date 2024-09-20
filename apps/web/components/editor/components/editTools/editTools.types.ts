@@ -6,7 +6,6 @@ export interface EditToolsProps {
   setTool: (tool: EditorToolType) => void;
   colorIndex: number;
   setColorIndex: (colorIndex: number) => void;
-  colors: string[];
   shiftLightsFrameColorPixel: (direction: ShiftDirection) => void;
   setColorDialogOpen: (open: boolean) => void;
 }

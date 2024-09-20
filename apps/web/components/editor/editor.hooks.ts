@@ -96,12 +96,11 @@ export const useEditor = (
 
   useEffect(() => {
     colorDialogOpen &&
-      updatedSchemeData.scheme.colors[colorIndex] &&
       dispatchCustomEvent<EditorColorUpdateEvent>({
         name: 'app:editor:color:update',
-        detail: updatedSchemeData.scheme.colors[colorIndex],
+        detail: { colorIndex },
       });
-  }, [colorDialogOpen, colorIndex, updatedSchemeData.scheme.colors]);
+  }, [colorDialogOpen, colorIndex]);
 
   return {
     device,

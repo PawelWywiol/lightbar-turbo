@@ -1,7 +1,5 @@
 'use client';
 
-import { Suspense } from 'react';
-
 import { Pagination } from 'ui/pagination';
 
 import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
@@ -43,7 +41,6 @@ export const Editor = ({ schemeData, onSave }: EditorProps) => {
             setTool={setTool}
             colorIndex={colorIndex}
             setColorIndex={setColorIndex}
-            colors={scheme.colors}
             shiftLightsFrameColorPixel={(direction) => {
               handleUpdate(shiftLightsFrameColorPixel(scheme, frameIndex, direction, device));
             }}
@@ -78,15 +75,13 @@ export const Editor = ({ schemeData, onSave }: EditorProps) => {
           )
         }
       />
-      <Suspense>
-        <Pagination
-          page={frameIndex + 1}
-          handleChange={(selectedFrameIndex) => setFrameIndex(selectedFrameIndex - 1)}
-          count={scheme.frames.length}
-          siblingCount={0}
-          boundaryCount={0}
-        />
-      </Suspense>
+      <Pagination
+        page={frameIndex + 1}
+        handleChange={(selectedFrameIndex) => setFrameIndex(selectedFrameIndex - 1)}
+        count={scheme.frames.length}
+        siblingCount={0}
+        boundaryCount={0}
+      />
       <StateTools
         scheme={scheme}
         handleUpdate={handleUpdate}
