@@ -1,5 +1,5 @@
 import { Button } from 'ui/button';
-import { DropDownMenu } from 'ui/dropdownMenu';
+import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 
 import { EDITOR_TOOLS_LIST } from '../../editor.config';
 
@@ -20,7 +20,7 @@ export const EditTools = ({
 
   return (
     <div className="flex gap-2">
-      <DropDownMenu
+      <DropDownMenuWrapper
         trigger={
           <Button className="px-2 aspect-square justify-center align-middle rounded">
             {selectedTool?.icon ?? tool}

@@ -1,5 +1,5 @@
 import { Button } from 'ui/button';
-import { Dialog } from 'ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from 'ui/dialog';
 
 import { resolveBinaryColorStyle } from '../../../editor.utils';
 
@@ -10,19 +10,16 @@ export const ColorActions = ({
   setColorIndex,
   setColorDialogOpen,
 }: Pick<EditToolsProps, 'colorIndex' | 'setColorIndex' | 'setColorDialogOpen'>) => (
-  <Dialog
-    className="flex justify-center align-middle w-fit"
-    trigger={
+  <Dialog onOpenChange={setColorDialogOpen}>
+    <DialogTrigger>
       <Button className="rounded aspect-square px-0 overflow-hidden">
         <span
           className="rounded w-5 aspect-square"
           style={{ backgroundColor: resolveBinaryColorStyle(colorIndex) }}
         />
       </Button>
-    }
-    onOpenChange={setColorDialogOpen}
-  >
-    <div className="grid grid-cols-8 gap-1">
+    </DialogTrigger>
+    <DialogContent className="grid grid-cols-8 gap-1 items-center justify-center">
       {Array.from({ length: 64 }, (_, index) => index).map((color) => (
         <button
           key={color}
@@ -35,6 +32,6 @@ export const ColorActions = ({
           )}
         </button>
       ))}
-    </div>
+    </DialogContent>
   </Dialog>
 );

@@ -4,7 +4,7 @@ import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent'
 
 import { useConnectedDeviceData } from './devices.hooks';
 import {
-  editorColorUpdatedToConnectionRequest,
+  // editorColorUpdatedToConnectionRequest,
   // lightsSchemeColorsToConnectionRequest,
   // lightsSchemeFrameToConnectionRequest,
 } from './utils/lightsSchemeToConnectionRequest';
@@ -59,7 +59,7 @@ export const ConnectedDeviceResolver = ({
           return;
         }
 
-        const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
+        // const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
 
         // void send(jsonl);
       },

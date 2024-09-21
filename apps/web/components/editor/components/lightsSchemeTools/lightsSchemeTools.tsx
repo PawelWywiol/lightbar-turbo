@@ -1,5 +1,5 @@
 import { DEVICE_SIZES } from 'devices/devices.config';
-import { DropDownMenu } from 'ui/dropdownMenu';
+import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 
 import type { Device } from 'devices/devices.types';
 
@@ -11,7 +11,7 @@ export const LightsSchemeTools = ({
   setDevice: (device: Device) => void;
 }) => (
   <div className="flex">
-    <DropDownMenu
+    <DropDownMenuWrapper
       options={DEVICE_SIZES.map((size) => ({
         label: size.label,
         onClick: () => setDevice({ ...device, size }),

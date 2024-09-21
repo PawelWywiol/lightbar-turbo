@@ -1,7 +1,7 @@
 import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'devices/lights.config';
-import { Select } from 'ui/select';
+import { SelectWrapper } from 'ui/select';
 import { Button } from 'ui/button';
-import { DropDownMenu } from 'ui/dropdownMenu';
+import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 
 import { PlusIcon } from '../../../../../../packages/ui/src/icons/icons';
 
@@ -24,7 +24,7 @@ export const LightsFrameTools = ({
   return (
     <div className="flex justify-between content-center px-4">
       <div className="flex gap-2">
-        <Select
+        <SelectWrapper
           options={LIGHTS_FRAME_TYPES.map((option) => ({
             value: `${option.value}`,
             label: option.label,
@@ -44,7 +44,7 @@ export const LightsFrameTools = ({
             handleUpdate(updatedScheme);
           }}
         />
-        <Select
+        <SelectWrapper
           options={LIGHTS_FRAME_TEMPO_OPTIONS}
           value={`${frame.tempo}`}
           onChange={(value) => {
@@ -74,7 +74,7 @@ export const LightsFrameTools = ({
         >
           <PlusIcon />
         </Button>
-        <DropDownMenu
+        <DropDownMenuWrapper
           options={[
             {
               label: 'Delete',

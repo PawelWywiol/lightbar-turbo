@@ -1,6 +1,6 @@
 import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'devices/lights.config';
 import { Button } from 'ui/button';
-import { TextField } from 'ui/textField';
+import { Input } from 'ui/input';
 
 import { DoubleArrowLeft, DoubleArrowRight } from '../../../../../../packages/ui/src/icons/icons';
 
@@ -25,13 +25,13 @@ export const StateTools = ({
       </Button>
     </div>
     <div className="flex flex-1 justify-stretch">
-      <TextField
+      <Input
         className="w-full"
         value={scheme.name}
-        onChange={(name) => {
+        onChange={(event) => {
           handleUpdate({
             ...scheme,
-            name: name.replaceAll(/(<([^>]+)>)/gi, ''),
+            name: event.target.value.replaceAll(/(<([^>]+)>)/gi, ''),
           });
         }}
         maxLength={LIGHTS_SCHEME_NAME_MAX_LENGTH}

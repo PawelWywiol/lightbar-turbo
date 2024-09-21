@@ -2,35 +2,31 @@ import type { ReactNode } from 'react';
 
 import Link from 'next/link';
 import { Header } from 'ui/header';
-import { Theme } from 'ui/theme';
 import { APP_NAME } from 'config/app';
 import { ConnectedDevicesProvider } from 'devices/devices.provider';
 
 import { ConnectedDevicesDialog } from './components/connectedDevicesDialog';
 
 import 'ui/theme/styles/tailwindTheme.ts';
-import 'ui/theme/styles/radixTheme.ts';
 import 'ui/theme/styles/globals.ts';
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en">
-      <body className="relative">
-        <Theme appearance="dark" accentColor="amber" grayColor="slate" radius="small">
-          <ConnectedDevicesProvider>
-            <Header title={APP_NAME}>
-              <ul>
-                <li>
-                  <Link href="/editor">Editor</Link>
-                </li>
-                <li>
-                  <ConnectedDevicesDialog />
-                </li>
-              </ul>
-            </Header>
-            {children}
-          </ConnectedDevicesProvider>
-        </Theme>
+      <body className="relative dark">
+        <ConnectedDevicesProvider>
+          <Header title={APP_NAME}>
+            <ul>
+              <li>
+                <Link href="/editor">Editor</Link>
+              </li>
+              <li>
+                <ConnectedDevicesDialog />
+              </li>
+            </ul>
+          </Header>
+          {children}
+        </ConnectedDevicesProvider>
       </body>
     </html>
   );
