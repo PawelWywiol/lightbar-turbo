@@ -4,9 +4,49 @@ import type {
   LightsFrameTypeOption,
   LightsScheme,
   LightsFrameTempoOption,
+  LightsLayoutOptions,
 } from './lights.types';
 
 export const LIGHTS_SCHEME_NAME_MAX_LENGTH = 16;
+export const LIGHTS_MAX_COLORS_COUNT = 64;
+
+export const DEFAULT_LIGHTS_LAYOUT_OPTIONS: LightsLayoutOptions = [
+  {
+    value: 8,
+    label: '8 leds',
+    grid: {
+      rows: 1,
+      columns: 8,
+    },
+  },
+  {
+    value: 16,
+    label: '16 leds',
+    grid: {
+      rows: 2,
+      columns: 8,
+    },
+  },
+  {
+    value: 64,
+    label: '64 leds',
+    grid: {
+      rows: 8,
+      columns: 8,
+    },
+  },
+  {
+    value: 100,
+    label: '100 leds',
+    grid: {
+      rows: 10,
+      columns: 10,
+    },
+  },
+];
+
+export const DEFAULT_LIGHTS_LAYOUT_OPTION =
+  DEFAULT_LIGHTS_LAYOUT_OPTIONS[2] ?? DEFAULT_LIGHTS_LAYOUT_OPTIONS[0];
 
 export const LIGHTS_FRAME_TYPES: LightsFrameTypeOption[] = [
   {

@@ -29,7 +29,7 @@ export const WifiSection = ({
   };
 
   return (
-    <section className="container m-auto max-w-md w-full flex flex-col gap-4 text-center">
+    <section className="container m-auto w-sm max-w-full-gap flex flex-col gap-4 text-center">
       <Input
         type="text"
         placeholder="ssid"

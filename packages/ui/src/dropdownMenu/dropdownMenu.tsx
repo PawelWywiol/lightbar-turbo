@@ -182,9 +182,9 @@ const DropDownMenuWrapper = ({
   }[];
 }) => (
   <DropdownMenu>
-    <DropdownMenuTrigger>
+    <DropdownMenuTrigger className="flex flex-1">
       {trigger ?? (
-        <Button className="px-2">
+        <Button className="px-2" asChild>
           <EllipsisVerticalIcon />
         </Button>
       )}

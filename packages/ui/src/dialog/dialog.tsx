@@ -1,11 +1,13 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes } from 'react';
+import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { SquareMenuIcon } from 'lucide-react';
 
 import { cn } from '../utils/cn';
+import { Button } from '../button/button';
 
 const Dialog = DialogPrimitive.Root;
 
@@ -22,7 +24,11 @@ const DialogOverlay = forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      'fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      'fixed inset-0 z-50 bg-black/80',
+      'data-[state=open]:animate-in',
+      'data-[state=closed]:animate-out',
+      'data-[state=closed]:fade-out-0',
+      'data-[state=open]:fade-in-0',
       className,
     )}
     {...props}
@@ -41,12 +47,21 @@ const DialogContent = forwardRef<
       className={cn(
         'fixed left-[50%] top-[50%] z-50',
         'translate-x-[-50%] translate-y-[-50%]',
-        'w-max max-w-full',
-        'grid gap-4',
-        'border bg-background p-2 shadow-lg',
+        'w-sm max-w-full-gap',
+        'p-4',
+        'border bg-background shadow-lg',
         'rounded',
         'duration-200',
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+        'data-[state=open]:animate-in',
+        'data-[state=open]:fade-in-0',
+        'data-[state=open]:zoom-in-95',
+        'data-[state=open]:slide-in-from-left-1/2',
+        'data-[state=open]:slide-in-from-top-[48%]',
+        'data-[state=closed]:animate-out',
+        'data-[state=closed]:fade-out-0',
+        'data-[state=closed]:zoom-out-95',
+        'data-[state=closed]:slide-out-to-left-1/2',
+        'data-[state=closed]:slide-out-to-top-[48%]',
         className,
       )}
       {...props}
@@ -93,6 +108,42 @@ const DialogDescription = forwardRef<
   />
 ));
 DialogDescription.displayName = DialogPrimitive.Description.displayName;
+
+export const DialogWrapper = ({
+  className,
+  children,
+  title,
+  trigger,
+  onOpenChange,
+}: {
+  className?: string;
+  children: ReactNode;
+  title?: ReactNode;
+  trigger?: ReactNode;
+  onOpenChange?: (open: boolean) => void;
+}) => (
+  <Dialog
+    onOpenChange={
+      onOpenChange ??
+      (() => {
+        // void
+      })
+    }
+  >
+    <DialogTrigger className="flex items-center">
+      {trigger ?? (
+        <Button asChild>
+          <SquareMenuIcon />
+        </Button>
+      )}
+    </DialogTrigger>
+    <DialogContent className={className}>
+      <DialogTitle className={title ? 'mb-4' : ''}>{title}</DialogTitle>
+      <DialogDescription />
+      {children}
+    </DialogContent>
+  </Dialog>
+);
 
 export {
   Dialog,

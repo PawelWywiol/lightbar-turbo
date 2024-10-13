@@ -3,16 +3,7 @@ import type { LightsScheme, LightsSchemeData } from 'devices/lights.types';
 export type ShiftDirection = 'up' | 'down' | 'left' | 'right' | 'prev' | 'next' | 'shuffle';
 
 export interface EditorProps {
-  schemeData: LightsSchemeData;
-  onSave: (schemeData: LightsSchemeData) => void;
-}
-
-export interface EditorFrameProps {
-  scheme: LightsScheme;
-  handleUpdate: (newScheme: LightsScheme) => void;
-  frameIndex: number;
-  nextFrame?: () => void;
-  previousFrame?: () => void;
+  lightsSchemeData?: LightsSchemeData | undefined;
 }
 
 export interface EditorSchemeUpdateEvent {

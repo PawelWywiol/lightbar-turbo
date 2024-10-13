@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentPropsWithoutRef, ElementRef } from 'react';
+import type { ComponentPropsWithoutRef, ElementRef, ReactNode } from 'react';
 import { forwardRef } from 'react';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
@@ -14,6 +14,8 @@ const SelectGroup = SelectPrimitive.Group;
 
 const SelectValue = SelectPrimitive.Value;
 
+const SelectIcon = SelectPrimitive.Icon;
+
 const SelectTrigger = forwardRef<
   ElementRef<typeof SelectPrimitive.Trigger>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
@@ -21,15 +23,21 @@ const SelectTrigger = forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+      'flex h-10 w-full gap-1',
+      'px-3 py-2',
+      'items-center justify-between',
+      'rounded-md border border-input',
+      'bg-background',
+      'text-sm ring-offset-background',
+      'placeholder:text-muted-foreground',
+      'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+      'disabled:cursor-not-allowed disabled:opacity-50',
+      'whitespace-nowrap',
       className,
     )}
     {...props}
   >
     {children}
-    <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
-    </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -145,6 +153,7 @@ export {
   Select,
   SelectGroup,
   SelectValue,
+  SelectIcon,
   SelectTrigger,
   SelectContent,
   SelectLabel,
@@ -158,26 +167,47 @@ export const SelectWrapper = ({
   options,
   value,
   onChange,
+  valueFormatter = (v) => `${v}`,
+  selectIcon,
 }: {
-  value: string;
+  value: string | number;
   onChange: (value: string) => void;
-  options: { value: string; label: string }[] | string[] | number[];
-}) => (
-  <Select value={value ?? ''} onValueChange={onChange}>
-    <SelectTrigger />
-    <SelectContent>
-      <SelectGroup>
+  options: { value: string | number; label: string; icon?: ReactNode }[] | string[] | number[];
+  valueFormatter?: (value: string | number) => string;
+  selectIcon?: ReactNode;
+}) => {
+  const currentOption =
+    options.find((option) =>
+      typeof option === 'object' ? option.value === value : `${option}` === value,
+    ) ?? value;
+  const currentLabel =
+    typeof currentOption === 'object'
+      ? (currentOption.icon ?? currentOption.label)
+      : valueFormatter(value);
+
+  return (
+    <Select value={`${value}`} onValueChange={onChange}>
+      <SelectTrigger>
+        <SelectValue>{currentLabel}</SelectValue>
+        {selectIcon && <SelectIcon asChild>{selectIcon}</SelectIcon>}
+        {selectIcon === undefined && (
+          <SelectIcon asChild>
+            <ChevronDown className="h-4 w-4 opacity-50" />
+          </SelectIcon>
+        )}
+      </SelectTrigger>
+      <SelectContent>
         {options.map((option) => {
-          const optionValue: string = typeof option === 'object' ? option.value : `${option}`;
-          const optionLabel: string = typeof option === 'object' ? option.label : `${option}`;
+          const optionValue = typeof option === 'object' ? option.value : `${option}`;
+          const optionLabel = typeof option === 'object' ? option.label : valueFormatter(option);
 
           return (
-            <SelectItem key={`${optionValue}${optionLabel}`} value={optionValue}>
+            <SelectItem key={`${optionValue}${optionLabel}`} value={`${optionValue}`}>
               {optionLabel}
             </SelectItem>
           );
         })}
-      </SelectGroup>
-    </SelectContent>
-  </Select>
-);
+      </SelectContent>
+    </Select>
+  );
+};

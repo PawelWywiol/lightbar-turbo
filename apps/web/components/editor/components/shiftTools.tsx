@@ -1,0 +1,52 @@
+import {
+  ArrowLeftToLineIcon,
+  ArrowRightToLineIcon,
+  ArrowLeftFromLineIcon,
+  ArrowUpFromLineIcon,
+  ArrowRightFromLineIcon,
+  ArrowDownFromLineIcon,
+  ShuffleIcon,
+} from 'lucide-react';
+import { Button } from 'ui/button';
+
+import { useEditor } from '../editor.provider';
+import { shiftLightsFrameColorPixel } from '../editor.utils';
+
+import type { ShiftDirection } from '../editor.types';
+
+const buttonClassName = 'flex-1 min-w-min';
+
+export const ShiftTools = () => {
+  const { lightsScheme, lightsLayout, frameIndex, handleUpdate } = useEditor();
+
+  const shiftLightsFrame = (direction: ShiftDirection) =>
+    handleUpdate(
+      shiftLightsFrameColorPixel(lightsScheme.scheme, frameIndex, direction, lightsLayout),
+    );
+
+  return (
+    <div className="flex gap-1 justify-center">
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('prev')}>
+        <ArrowLeftToLineIcon />
+      </Button>
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('left')}>
+        <ArrowLeftFromLineIcon />
+      </Button>
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('up')}>
+        <ArrowUpFromLineIcon />
+      </Button>
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('shuffle')}>
+        <ShuffleIcon />
+      </Button>
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('down')}>
+        <ArrowDownFromLineIcon />
+      </Button>
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('right')}>
+        <ArrowRightFromLineIcon />
+      </Button>
+      <Button className={buttonClassName} onClick={() => shiftLightsFrame('next')}>
+        <ArrowRightToLineIcon />
+      </Button>
+    </div>
+  );
+};

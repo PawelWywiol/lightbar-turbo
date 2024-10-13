@@ -1,3 +1,14 @@
+export interface LightsLayoutOption {
+  value: number;
+  label: string;
+  grid: {
+    rows: number;
+    columns: number;
+  };
+}
+
+export type LightsLayoutOptions = [LightsLayoutOption, ...LightsLayoutOption[]];
+
 export const lightsFrameType = {
   step: 0,
   fade: 1,

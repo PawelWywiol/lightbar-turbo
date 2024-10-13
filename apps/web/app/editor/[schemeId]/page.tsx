@@ -1,11 +1,11 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { MESSAGES } from 'config/messages';
 
-import { getLightsSchemeData, postLightsScheme } from '../../../services/lights/lights';
+import { getLightsSchemeData } from '../../../services/lights/lights';
 import { Editor } from '../../../components/editor/editor';
 
 import type { LightsSchemeData } from 'devices/lights.types';
@@ -24,14 +24,14 @@ const EditorPage = ({ params: { schemeId } }: { params: { schemeId: string } }) 
     setSchemeData(getLightsSchemeData(schemeId));
   }, [schemeId]);
 
-  const onSave = useCallback((updatedSchemeData: LightsSchemeData) => {
-    postLightsScheme(updatedSchemeData);
-  }, []);
+  // const onSave = useCallback((updatedSchemeData: LightsSchemeData) => {
+  //   postLightsScheme(updatedSchemeData);
+  // }, []);
 
   return (
     <main className={'flex-1 flex justify-center align-middle'}>
       {schemeData ? (
-        <Editor schemeData={schemeData} onSave={onSave} />
+        <Editor lightsSchemeData={schemeData} />
       ) : (
         <Link href={'/'}>{statusMessage}</Link>
       )}

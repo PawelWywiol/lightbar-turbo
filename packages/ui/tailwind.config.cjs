@@ -2,6 +2,10 @@
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    screens: {
+      tablet: '768px',
+      desktop: '1024px',
+    },
     container: {
       center: true,
       padding: '1rem',
@@ -10,6 +14,16 @@ module.exports = {
       },
     },
     extend: {
+      width: {
+        xs: '20rem',
+        sm: '26.875rem',
+        md: '48rem',
+        lg: '64rem',
+        xl: '80rem',
+      },
+      maxWidth: {
+        'full-gap': 'calc(100% - 2rem)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

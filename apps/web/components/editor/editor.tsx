@@ -1,96 +1,22 @@
 'use client';
 
-import { Pagination } from 'ui/pagination';
-
 import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
-import { LightsSchemeTools } from './components/lightsSchemeTools/lightsSchemeTools';
-import { LightsFrameTools } from './components/lightsFrameTools/lightsFrameTools';
-import { EditTools } from './components/editTools/editTools';
-import { shiftLightsFrameColorPixel } from './editor.utils';
-import { StateTools } from './components/stateTools/stateTools';
-import { useEditor } from './editor.hooks';
+import { LightsFrameTools } from './components/lightsFrameTools';
+import { StateTools } from './components/stateTools';
+import { EditorProvider } from './editor.provider';
+import { ShiftTools } from './components/shiftTools';
 
 import type { EditorProps } from './editor.types';
 
-export const Editor = ({ schemeData, onSave }: EditorProps) => {
-  const {
-    device,
-    setDevice,
-    updatedSchemeData: { scheme },
-    handleUpdate,
-    undoAvailable,
-    handleUndo,
-    redoAvailable,
-    handleRedo,
-    handleSave,
-    frameIndex,
-    setFrameIndex,
-    tool,
-    setTool,
-    colorIndex,
-    setColorIndex,
-    setColorDialogOpen,
-  } = useEditor(schemeData, onSave);
-
+export const Editor = ({ lightsSchemeData }: EditorProps) => {
   return (
-    <div className="m-auto max-w-md w-full flex flex-col gap-4">
-      <div className="flex justify-between content-center px-4">
-        <div className="flex">
-          <EditTools
-            tool={tool}
-            setTool={setTool}
-            colorIndex={colorIndex}
-            setColorIndex={setColorIndex}
-            shiftLightsFrameColorPixel={(direction) => {
-              handleUpdate(shiftLightsFrameColorPixel(scheme, frameIndex, direction, device));
-            }}
-            setColorDialogOpen={setColorDialogOpen}
-          />
-        </div>
-        <div className="flex">
-          <LightsSchemeTools device={device} setDevice={setDevice} />
-        </div>
+    <EditorProvider initialSchemeData={lightsSchemeData}>
+      <div className="m-auto w-sm max-w-full-gap flex flex-col gap-4 py-4">
+        <ShiftTools />
+        <LightsFrameGrid />
+        <LightsFrameTools />
+        <StateTools />
       </div>
-      <LightsFrameGrid
-        colorIndex={colorIndex}
-        frameIndex={frameIndex}
-        scheme={scheme}
-        handleUpdate={handleUpdate}
-        device={device}
-      />
-      <LightsFrameTools
-        frameIndex={frameIndex}
-        scheme={scheme}
-        handleUpdate={handleUpdate}
-        nextFrame={() =>
-          setFrameIndex((previousFrameIndex) =>
-            previousFrameIndex + 1 < scheme.frames.length
-              ? previousFrameIndex + 1
-              : previousFrameIndex,
-          )
-        }
-        previousFrame={() =>
-          setFrameIndex((previousFrameIndex) =>
-            previousFrameIndex > 0 ? previousFrameIndex - 1 : 0,
-          )
-        }
-      />
-      <Pagination
-        page={frameIndex + 1}
-        handleChange={(selectedFrameIndex) => setFrameIndex(selectedFrameIndex - 1)}
-        count={scheme.frames.length}
-        siblingCount={0}
-        boundaryCount={0}
-      />
-      <StateTools
-        scheme={scheme}
-        handleUpdate={handleUpdate}
-        undoAvailable={undoAvailable}
-        handleUndo={handleUndo}
-        redoAvailable={redoAvailable}
-        handleRedo={handleRedo}
-        handleSave={handleSave}
-      />
-    </div>
+    </EditorProvider>
   );
 };

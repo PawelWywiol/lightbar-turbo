@@ -1,5 +1,4 @@
-import type { LightsScheme } from 'devices/lights.types';
-import type { Device } from 'devices/devices.types';
+import type { LightsLayoutOption, LightsScheme } from 'devices/lights.types';
 import type { ShiftDirection } from './editor.types';
 
 const transpose = (matrix: number[][]) =>
@@ -9,15 +8,15 @@ export const shiftLightsFrameColorPixel = (
   scheme: LightsScheme,
   frameIndex: number,
   direction: ShiftDirection,
-  device: Device,
+  lightsLayout: LightsLayoutOption,
 ): LightsScheme => {
   const frame = Array.from(
-    { length: device.size.value },
+    { length: lightsLayout.value },
     (_, index) => scheme.frames[frameIndex]?.colorIndexes[index] ?? 0,
   );
   const newFrame: number[] = [];
-  const rowsCount = device.size.grid.rows;
-  const columnsCount = device.size.grid.columns;
+  const rowsCount = lightsLayout.grid.rows;
+  const columnsCount = lightsLayout.grid.columns;
 
   const frameRows = Array.from({ length: rowsCount }, (_, index) =>
     frame.slice(index * columnsCount, (index + 1) * columnsCount),

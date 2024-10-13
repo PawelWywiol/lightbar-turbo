@@ -12,7 +12,7 @@ import type {
 export const PaginationItem = ({
   children,
   page,
-  selected,
+  // selected,
   disabled,
   handleChange,
   hrefTemplate,
@@ -34,7 +34,7 @@ export const PaginationItem = ({
       ) : (
         <Button
           className={className}
-          active={selected}
+          // active={selected}
           disabled={disabled}
           onClick={() => {
             handleChange && handleChange(page);

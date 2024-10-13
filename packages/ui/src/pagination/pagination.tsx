@@ -59,7 +59,7 @@ export const Pagination = ({
   const maxPageIndexForSeparator = count - boundaryCount - 1 - siblingCount * 2 - 1;
 
   return (
-    <nav className={cx(className, 'relative px-4')}>
+    <nav className={cx('relative', className)}>
       <ol className="flex justify-center align-middle gap-1">
         {count > Math.max(buttonsCount, minPageIndexForSeparator * 2 - 1)
           ? [
