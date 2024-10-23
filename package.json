@@ -15,13 +15,15 @@
     "deploy:apps:esp": "npm run build:esp && node scripts/deployAppsEsp.js"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.12.0",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
     "eslint": "^8.57.1",
     "eslint-config-custom": "*",
-    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-turbo": "^2.2.3",
     "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.1",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-51a85ea-20240601",
+    "eslint-plugin-sonarjs": "^2.0.4",
+    "eslint-plugin-unicorn": "^56.0.0",
     "madge": "^8.0.0",
     "prettier": "^3.3.3",
     "turbo": "^2.2.3"
