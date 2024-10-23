@@ -3,18 +3,15 @@
   "globalDependencies": ["**/.env.*local"],
   "tasks": {
     "start": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["DEFAULT_HOST_DEVICE_URL"]
+      "env": ["VITE_DEFAULT_HOST_DEVICE_URL"]
     },
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["DEFAULT_HOST_DEVICE_URL"]
+      "env": ["VITE_DEFAULT_HOST_DEVICE_URL"]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["VITE_DEFAULT_HOST_DEVICE_URL"]
     },
     "lint": {
       "cache": true,

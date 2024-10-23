@@ -2,37 +2,45 @@
   "name": "web",
   "version": "1.0.0",
   "private": true,
+  "sideEffects": false,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "type-check": "tsc --noEmit",
-    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.next|.swc|.turbo|node_modules)/.*' ."
+    "build": "remix vite:build",
+    "dev": "remix vite:dev",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "remix-serve ./build/server/app.js",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "config": "*",
     "cva": "npm:class-variance-authority@^0.7.0",
     "devices": "*",
-    "next": "^14.2.11",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@remix-run/node": "^2.13.1",
+    "@remix-run/react": "^2.13.1",
+    "@remix-run/serve": "^2.13.1",
+    "isbot": "^5.1.17",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "ui": "*",
-    "utils": "*",
-    "valibot": "^0.42.0"
+    "utils": "*"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.2.5",
-    "@types/node": "^20.16.5",
-    "@types/react": "^18.3.7",
-    "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.20",
+    "@remix-run/dev": "^2.13.1",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "autoprefixer": "^10.4.19",
     "eslint-config-custom": "*",
-    "eslint-config-custom-next": "*",
-    "postcss": "^8.4.47",
-    "sass": "^1.78.0",
-    "tailwindcss": "^3.4.12",
+    "eslint-config-custom-remix": "*",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
     "tsconfig": "*",
-    "typescript": "~5.4.5"
+    "typescript": "^5.1.6",
+    "vite": "^5.1.0",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

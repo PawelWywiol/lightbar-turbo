@@ -1,14 +1,12 @@
 {
-  "name": "eslint-config-custom-next",
+  "name": "eslint-config-custom-remix",
   "license": "MIT",
   "version": "0.0.0",
   "private": true,
   "main": "index.cjs",
   "dependencies": {
-    "@next/eslint-plugin-next": "^14.2.5",
     "@tanstack/eslint-plugin-query": "^5.56.1",
     "eslint-config-custom-react": "*",
-    "eslint-config-next": "14.2.5",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest-dom": "^5.4.0",
     "eslint-plugin-testing-library": "^6.2.2"

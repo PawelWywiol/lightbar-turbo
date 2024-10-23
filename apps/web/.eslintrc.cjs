@@ -1,10 +1,32 @@
 module.exports = {
   root: true,
-  extends: ['custom-next'],
+  extends: ['custom-remix'],
   parserOptions: {
     project: ['./tsconfig.json'],
     tsconfigRootDir: __dirname,
+    ecmaVersion: 'latest',
   },
-  ignorePatterns: ['.next/**/*', 'next*.config.cjs'],
-  overrides: [],
+  env: {
+    browser: true,
+    commonjs: true,
+    es6: true,
+  },
+  ignorePatterns: [
+    '!**/.server',
+    '!**/.client',
+    'vite.config.mjs',
+    'vite-env.d.ts',
+    'tailwind.config.ts',
+    'dist',
+    '.turbo',
+    'node_modules',
+  ],
+  overrides: [
+    {
+      files: ['.eslintrc.cjs'],
+      env: {
+        node: true,
+      },
+    },
+  ],
 };
