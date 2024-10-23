@@ -16,15 +16,15 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.12.0",
-    "eslint": "^8.57.0",
+    "eslint": "^8.57.1",
     "eslint-config-custom": "*",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsx-a11y": "^6.9.0",
-    "eslint-plugin-react-compiler": "^0.0.0-experimental-2eea4a6-20240814",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.1",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-51a85ea-20240601",
     "madge": "^8.0.0",
     "prettier": "^3.3.3",
-    "turbo": "^2.1.2"
+    "turbo": "^2.2.3"
   },
   "name": "lightbar-turbo",
   "workspaces": [
@@ -35,8 +35,5 @@
     "node": "20.15.1",
     "npm": "10.8.3"
   },
-  "packageManager": "npm@10.8.3",
-  "dependencies": {
-    "zod": "^3.23.8"
-  }
+  "packageManager": "npm@10.8.3"
 }

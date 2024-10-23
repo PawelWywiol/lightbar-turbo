@@ -8,5 +8,8 @@
   },
   "devDependencies": {
     "@remix-run/node": "^2.13.1"
+  },
+  "dependencies": {
+    "@remix-run/dev": "^2.13.1"
   }
 }

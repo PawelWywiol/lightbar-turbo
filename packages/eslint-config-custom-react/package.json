@@ -4,18 +4,17 @@
   "version": "0.0.0",
   "private": true,
   "main": "index.cjs",
-  "dependencies": {},
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "eslint-config-custom": "*",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest-dom": "^5.4.0",
-    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-jsx-a11y": "^6.10.1",
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-compiler": "^0.0.0-experimental-51a85ea-20240601",
     "eslint-plugin-react-hooks": "5.0.0-canary-7118f5dd7-20230705",
     "eslint-plugin-testing-library": "^6.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
