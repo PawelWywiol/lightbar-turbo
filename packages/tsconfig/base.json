@@ -32,7 +32,8 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "allowUnusedLabels": false,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+    "allowJs": true,
   },
   "exclude": ["node_modules"]
 }

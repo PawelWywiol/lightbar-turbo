@@ -101,7 +101,7 @@ module.exports = {
           camelCase: true,
           pascalCase: true,
         },
-        ignore: ['next-env.d.ts'],
+        ignore: [],
       },
     ],
     'unicorn/prevent-abbreviations': [

@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "turbo run start",
+    "start": "turbo run start --filter web",
     "build": "turbo run build",
     "build:esp": "turbo run build --filter esp",
     "build:web": "turbo run build --filter web",

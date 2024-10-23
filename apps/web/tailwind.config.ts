@@ -1,8 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-const defaultTheme = require('ui/tailwind.config.cjs');
+import defaultTheme from 'ui/tailwind.config.cjs';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+const theme: Config = {
   ...defaultTheme,
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
@@ -10,3 +10,5 @@ module.exports = {
     '../../packages/ui/src/**/*.{js,ts,jsx,tsx}',
   ],
 };
+
+export default theme;

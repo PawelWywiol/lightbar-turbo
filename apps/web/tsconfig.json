@@ -1,18 +1,15 @@
 {
-  "extends": "tsconfig/nextjs.json",
-  "compilerOptions": {
-    "plugins": [{ "name": "next" }],
-    "types": ["node"]
-  },
+  "extends": "tsconfig/remix.json",
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "ui/**/*.ts",
-    "ui/**/*.tsx",
-    "@ui/**/*.ts",
-    "@ui/**/*.tsx"
-  ],
-  "exclude": ["node_modules"]
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx",
+    "tailwind.config.ts",
+    "vite.config.mjs",
+    ".eslintrc.cjs",
+    "postcss.config.cjs"
+  ]
 }

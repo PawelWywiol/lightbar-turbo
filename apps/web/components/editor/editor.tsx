@@ -1,5 +1,3 @@
-'use client';
-
 import { LightsFrameGrid } from './components/lightsFrameGrid/lightsFrameGrid';
 import { LightsFrameTools } from './components/lightsFrameTools';
 import { StateTools } from './components/stateTools';

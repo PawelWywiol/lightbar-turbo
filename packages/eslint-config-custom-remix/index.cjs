@@ -1,8 +1,7 @@
 module.exports = {
   plugins: ['jest-dom', 'testing-library', '@tanstack/query'],
-  extends: ['custom-react', 'next', 'next/core-web-vitals', 'prettier'],
+  extends: ['custom-react', 'prettier'],
   rules: {
-    '@next/next/no-html-link-for-pages': 'off',
     'react/jsx-key': 'error',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-props-no-spreading': 'off',
@@ -40,14 +39,7 @@ module.exports = {
       },
     },
     {
-      files: [
-        'app/**/page.tsx',
-        'app/**/layout.tsx',
-        'app/**/loading.tsx',
-        'app/**/not-found.tsx',
-        'app/**/error.tsx',
-        'app/**/global-error.tsx',
-      ],
+      files: ['app/**/*.{ts,tsx}'],
       rules: {
         'import/prefer-default-export': 'error',
         'import/no-default-export': 'off',
