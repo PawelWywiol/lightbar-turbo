@@ -1,10 +1,10 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
+import { generateUid } from 'utils/uid';
 import { dispatchCustomEvent } from 'utils/customEvent';
 import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
 import { DEFAULT_LIGHTS_LAYOUT_OPTION, DEFAULT_LIGHTS_SCHEME } from 'devices/lights.config';
-import { uid } from 'utils/uid';
 
 import { EDITOR_MAX_HISTORY } from './editor.config';
 
@@ -15,7 +15,7 @@ import type {
   EditorSchemeUpdateEvent,
 } from './editor.types';
 
-interface EditorContext {
+interface EditorContextProps {
   lightsScheme: LightsSchemeData;
   lightsLayout: LightsLayoutOption;
   setLightsLayout: Dispatch<SetStateAction<LightsLayoutOption>>;
@@ -38,10 +38,10 @@ interface EditorContext {
   handleSave: () => void;
 }
 
-const editorContextDefaultValues: EditorContext = {
+const editorContextDefaultValues: EditorContextProps = {
   lightsScheme: {
     scheme: DEFAULT_LIGHTS_SCHEME,
-    uid: uid(),
+    uid: generateUid(),
     updatedAt: new Date().toISOString(),
   },
   lightsLayout: DEFAULT_LIGHTS_LAYOUT_OPTION,
@@ -85,7 +85,7 @@ const editorContextDefaultValues: EditorContext = {
   },
 };
 
-export const EditorContext = createContext<EditorContext>(editorContextDefaultValues);
+export const EditorContext = createContext<EditorContextProps>(editorContextDefaultValues);
 
 export const useEditor = () => useContext(EditorContext);
 
@@ -93,7 +93,7 @@ export const EditorProvider = ({
   children,
   initialSchemeData = {
     scheme: DEFAULT_LIGHTS_SCHEME,
-    uid: uid(),
+    uid: generateUid(),
     updatedAt: new Date().toISOString(),
   },
 }: {
@@ -159,19 +159,24 @@ export const EditorProvider = ({
     });
   }, [lightsScheme, lightsLayout.value]);
 
-  const nextFrame = () =>
-    setFrameIndex((previousFrameIndex) =>
-      previousFrameIndex + 1 < lightsScheme.scheme.frames.length
-        ? previousFrameIndex + 1
-        : previousFrameIndex,
-    );
+  const nextFrame = useCallback(
+    () =>
+      setFrameIndex((previousFrameIndex) =>
+        previousFrameIndex + 1 < lightsScheme.scheme.frames.length
+          ? previousFrameIndex + 1
+          : previousFrameIndex,
+      ),
+    [lightsScheme.scheme.frames.length],
+  );
 
-  const previousFrame = () =>
-    setFrameIndex((previousFrameIndex) => (previousFrameIndex > 0 ? previousFrameIndex - 1 : 0));
+  const previousFrame = useCallback(
+    () =>
+      setFrameIndex((previousFrameIndex) => (previousFrameIndex > 0 ? previousFrameIndex - 1 : 0)),
+    [],
+  );
 
   useEffect(() => {
-    !isColorDialogOpen &&
-      lightsScheme.scheme.frames[frameIndex] &&
+    if (!isColorDialogOpen && lightsScheme.scheme.frames[frameIndex]) {
       dispatchCustomEvent<EditorSchemeUpdateEvent>({
         name: 'app:editor:scheme:update',
         detail: {
@@ -179,42 +184,57 @@ export const EditorProvider = ({
           frameIndex,
         },
       });
+    }
   }, [isColorDialogOpen, lightsScheme.scheme, frameIndex, lightsLayout.value]);
 
   useEffect(() => {
-    isColorDialogOpen &&
+    if (isColorDialogOpen) {
       dispatchCustomEvent<EditorColorUpdateEvent>({
         name: 'app:editor:color:update',
         detail: { colorIndex },
       });
+    }
   }, [isColorDialogOpen, colorIndex]);
 
-  return (
-    <EditorContext.Provider
-      value={{
-        lightsScheme: lightsScheme,
-        lightsLayout,
-        setLightsLayout,
-        isColorDialogOpen,
-        setIsColorDialogOpen,
-        colorIndex,
-        setColorIndex,
-        frameIndex,
-        setFrameIndex,
-        framesCount: lightsScheme.scheme.frames.length,
-        nextFrame,
-        nextFrameAvailable: frameIndex < lightsScheme.scheme.frames.length - 1,
-        previousFrame,
-        previousFrameAvailable: frameIndex > 0,
-        handleUpdate,
-        handleUndo,
-        undoAvailable: lightsSchemeHistoryIndex > 0,
-        handleRedo,
-        redoAvailable: lightsSchemeHistoryIndex < lightsSchemeHistory.length - 1,
-        handleSave,
-      }}
-    >
-      {children}
-    </EditorContext.Provider>
+  const value = useMemo(
+    () => ({
+      lightsScheme: lightsScheme,
+      lightsLayout,
+      setLightsLayout,
+      isColorDialogOpen,
+      setIsColorDialogOpen,
+      colorIndex,
+      setColorIndex,
+      frameIndex,
+      setFrameIndex,
+      framesCount: lightsScheme.scheme.frames.length,
+      nextFrame,
+      nextFrameAvailable: frameIndex < lightsScheme.scheme.frames.length - 1,
+      previousFrame,
+      previousFrameAvailable: frameIndex > 0,
+      handleUpdate,
+      handleUndo,
+      undoAvailable: lightsSchemeHistoryIndex > 0,
+      handleRedo,
+      redoAvailable: lightsSchemeHistoryIndex < lightsSchemeHistory.length - 1,
+      handleSave,
+    }),
+    [
+      lightsScheme,
+      lightsLayout,
+      isColorDialogOpen,
+      colorIndex,
+      frameIndex,
+      lightsSchemeHistoryIndex,
+      lightsSchemeHistory,
+      handleUpdate,
+      handleUndo,
+      handleRedo,
+      handleSave,
+      nextFrame,
+      previousFrame,
+    ],
   );
+
+  return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
 };

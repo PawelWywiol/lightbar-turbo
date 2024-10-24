@@ -18,6 +18,7 @@ module.exports = {
     'vite-env.d.ts',
     'tailwind.config.ts',
     'dist',
+    'build',
     '.turbo',
     'node_modules',
   ],

@@ -48,10 +48,10 @@ const getPositionFromEvent = (event: Event): { offsetX: number; offsetY: number 
   const touchEvent = event as TouchEvent;
 
   const offsetX = touchEvent.touches?.length
-    ? touchEvent.touches[0]?.clientX ?? 0
+    ? (touchEvent.touches[0]?.clientX ?? 0)
     : mouseEvent.clientX || 0;
   const offsetY = touchEvent.touches?.length
-    ? touchEvent.touches[0]?.clientY ?? 0
+    ? (touchEvent.touches[0]?.clientY ?? 0)
     : mouseEvent.clientY || 0;
 
   return { offsetX, offsetY };
@@ -224,10 +224,10 @@ export const useGridPainter = (
   useEffect(() => {
     const currentReferenceContainer = containerReference.current;
 
-    window?.addEventListener('mouseup', onDragEnd);
-    window?.addEventListener('touchend', onDragEnd, { passive: false });
-    window?.addEventListener('mousemove', onDragMove);
-    window?.addEventListener('touchmove', onDragMove, { passive: false });
+    globalThis?.addEventListener('mouseup', onDragEnd);
+    globalThis?.addEventListener('touchend', onDragEnd, { passive: false });
+    globalThis?.addEventListener('mousemove', onDragMove);
+    globalThis?.addEventListener('touchmove', onDragMove, { passive: false });
 
     currentReferenceContainer?.addEventListener('mousedown', onDragStart);
     currentReferenceContainer?.addEventListener('touchstart', onDragStart);
@@ -235,10 +235,10 @@ export const useGridPainter = (
     currentReferenceContainer?.addEventListener('click', onClick, { passive: false });
 
     return () => {
-      window?.removeEventListener('mouseup', onDragEnd);
-      window?.removeEventListener('touchend', onDragEnd);
-      window?.removeEventListener('mousemove', onDragMove);
-      window?.removeEventListener('touchmove', onDragMove);
+      globalThis?.removeEventListener('mouseup', onDragEnd);
+      globalThis?.removeEventListener('touchend', onDragEnd);
+      globalThis?.removeEventListener('mousemove', onDragMove);
+      globalThis?.removeEventListener('touchmove', onDragMove);
 
       currentReferenceContainer?.removeEventListener('mousedown', onDragStart);
       currentReferenceContainer?.removeEventListener('touchstart', onDragStart);

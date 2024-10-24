@@ -22,6 +22,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-turbo": "^2.2.3",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-8a03594-20241020",
     "eslint-plugin-sonarjs": "^2.0.4",
     "eslint-plugin-unicorn": "^56.0.0",
     "madge": "^8.0.0",

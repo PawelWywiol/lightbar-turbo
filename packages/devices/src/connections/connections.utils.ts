@@ -19,7 +19,7 @@ export const isConnectionResponseData = (
 
   const { type, data } = responseData as ConnectionResponseData;
 
-  if (type !== 'info' || typeof data !== 'object' || data === null) {
+  if (type !== 'info' || typeof data !== 'object' || data == null) {
     return false;
   }
 

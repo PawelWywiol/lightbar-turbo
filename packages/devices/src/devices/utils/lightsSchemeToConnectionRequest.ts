@@ -18,24 +18,24 @@ export const lightsSchemeColorsToConnectionRequest = (colors: string[]) => {
 
 export const lightsSchemeFrameToConnectionRequest = (
   frame: LightsScheme['frames'][0],
-  deviceLedsCount?: number | undefined,
+  deviceLedsCount?: number,
 ) => {
   const request: ConnectionRequestData = {
     type: 'frame',
     data: {
       type: frame.type,
       tempo: frame.tempo,
-      colors: frame.colorIndexes.slice(0, deviceLedsCount),
+      colors: frame.colorIndexes.slice(
+        0,
+        typeof deviceLedsCount === 'number' ? deviceLedsCount : frame.colorIndexes.length,
+      ),
     },
   };
 
   return JSON.stringify(request);
 };
 
-export const editorColorUpdatedToConnectionRequest = (
-  color: string,
-  deviceLedsCount?: number | undefined,
-) => {
+export const editorColorUpdatedToConnectionRequest = (color: string, deviceLedsCount?: number) => {
   return [
     lightsSchemeColorsToConnectionRequest([color]),
     lightsSchemeFrameToConnectionRequest(

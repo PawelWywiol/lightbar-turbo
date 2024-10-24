@@ -47,7 +47,11 @@ const checkIPConnection = async (
         setTimeout(() => {
           controller.abort();
           checkResult = null;
-          reject();
+          reject(
+            new Error(
+              `Timeout of ${timeout}ms reached while trying to connect to ${schema}://${ip}${path}`,
+            ),
+          );
         }, timeout),
       ),
     ]);

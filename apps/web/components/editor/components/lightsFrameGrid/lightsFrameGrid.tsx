@@ -47,7 +47,7 @@ export const LightsFrameGrid = () => {
           const color = resolveBinaryColorStyle(currentFrame.colorIndexes[index] ?? 0);
           return (
             <div
-              key={index}
+              key={`color-${color}-${index}`}
               className="w-full h-full rounded aspect-square"
               style={{ background: `${color}` }}
             />

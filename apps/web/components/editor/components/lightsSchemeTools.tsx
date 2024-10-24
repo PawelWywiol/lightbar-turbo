@@ -17,7 +17,9 @@ export const LightsSchemeTools = () => {
         onChange={(selected) => {
           const option = DEFAULT_LIGHTS_LAYOUT_OPTIONS.find(({ value }) => selected === `${value}`);
 
-          option && setLightsLayout(option);
+          if (option) {
+            setLightsLayout(option);
+          }
         }}
       />
     </div>

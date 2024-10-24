@@ -1,13 +1,13 @@
 import type { SetStorageData, GetStorageData } from './storage.types';
 
 export const setStorageData: SetStorageData = (key, data) => {
-  const storage = window?.localStorage;
+  const storage = globalThis?.localStorage;
 
   storage?.setItem(key, JSON.stringify(data));
 };
 
 export const getStorageData: GetStorageData = (key, validationSchema, defaultValue) => {
-  const storage = window?.localStorage;
+  const storage = globalThis?.localStorage;
 
   const storageValue = storage.getItem(key);
 
@@ -27,7 +27,7 @@ export const getStorageData: GetStorageData = (key, validationSchema, defaultVal
 };
 
 export const removeStorageData = (key: string) => {
-  const storage = window?.localStorage;
+  const storage = globalThis?.localStorage;
 
   storage?.removeItem(key);
 };

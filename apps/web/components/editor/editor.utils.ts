@@ -1,3 +1,5 @@
+import { secureRandomNumber } from 'utils/uid';
+
 import type { LightsLayoutOption, LightsScheme } from 'devices/lights.types';
 import type { ShiftDirection } from './editor.types';
 
@@ -59,7 +61,7 @@ export const shiftLightsFrameColorPixel = (
       break;
     }
     case 'shuffle': {
-      frame.sort(() => Math.random() - 0.5);
+      frame.sort(() => secureRandomNumber(10) - 5);
       newFrame.push(...frame);
       break;
     }

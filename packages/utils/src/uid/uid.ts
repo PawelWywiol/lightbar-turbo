@@ -1,62 +1,22 @@
-import type { ReactNode } from 'react';
-
-export const uid4 = (): string => Math.random().toString(16).slice(2);
-
-export const uid = (prefix = 'u'): string => `${prefix}${Date.now().toString(16)}${uid4()}`;
-
-/**
- * INSECURE, use only for keys when rendering in loop
- * @param input - string to hash
- * @returns hash string
- */
-export const insecureHash = (input: string): string => {
-  let hash = 0;
-  for (let index = 0; index < input.length; index++) {
-    const char = input.codePointAt(index);
-    hash = (hash << 5) - hash + (char ?? 0);
-    hash &= hash;
-  }
-  const uInt32Array = new Uint32Array([hash]);
-
-  if (uInt32Array[0]) {
-    return uInt32Array[0].toString(36);
-  }
-
-  return input;
+export const fallbackRandomNumber = (size: number): number => {
+  // eslint-disable-next-line sonarjs/pseudo-random
+  return Math.trunc(Math.random() * size);
 };
 
-export const insecureObjectHash = (input: object = {}): string => {
-  const stringified = JSON.stringify(input);
-  return insecureHash(stringified);
+export const secureRandomNumber = (size: number): number => {
+  const uint8 = new Uint8Array(1);
+  try {
+    globalThis.crypto.getRandomValues(uint8);
+    return (uint8[0] ?? 0) % size;
+  } catch {
+    return fallbackRandomNumber(size);
+  }
 };
 
-const cachedElementsUid = new WeakMap<object, string>();
-
-export const getNodeUid = (element: ReactNode | object): string => {
-  const emptyNode =
-    typeof element === 'bigint' ||
-    typeof element === 'boolean' ||
-    element === null ||
-    element === undefined;
-
-  if (emptyNode) {
-    return '';
-  }
-
-  if (typeof element === 'string') {
-    return insecureHash(element);
-  }
-
-  if (typeof element === 'number') {
-    return insecureHash(element.toString());
-  }
-
-  if (cachedElementsUid.has(element)) {
-    return cachedElementsUid.get(element) ?? '';
-  }
-
-  const elementUid = uid4();
-  cachedElementsUid.set(element, elementUid);
-
-  return elementUid;
+export const generateUid = (pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'): string => {
+  return pattern.replaceAll(/[xy]/g, (c) => {
+    const r = secureRandomNumber(16);
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 };
