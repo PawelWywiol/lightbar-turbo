@@ -16,7 +16,7 @@ import type { ShiftDirection } from '../editor.types';
 
 const buttonClassName = 'flex-1 min-w-min';
 
-export const ShiftTools = () => {
+export const LightsFrameShiftTools = () => {
   const { lightsScheme, lightsLayout, frameIndex, handleUpdate } = useEditor();
 
   const shiftLightsFrame = (direction: ShiftDirection) =>

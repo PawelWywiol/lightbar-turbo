@@ -5,7 +5,7 @@ import { LIGHTS_MAX_COLORS_COUNT } from 'devices/lights.config';
 import { resolveBinaryColorStyle } from '../editor.utils';
 import { useEditor } from '../editor.provider';
 
-export const ColorTools = () => {
+export const ColorPickerTools = () => {
   const { setIsColorDialogOpen, colorIndex, setColorIndex } = useEditor();
 
   return (
@@ -25,7 +25,10 @@ export const ColorTools = () => {
           <button
             key={color}
             className="w-full aspect-square rounded cursor-pointer flex justify-center items-center outline-none"
-            onClick={() => setColorIndex(color)}
+            onClick={() => {
+              setColorIndex(color);
+              setIsColorDialogOpen(false);
+            }}
             style={{ background: resolveBinaryColorStyle(color) }}
           >
             {color === colorIndex && (

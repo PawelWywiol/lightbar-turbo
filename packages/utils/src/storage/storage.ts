@@ -1,33 +1,35 @@
+import { getStorage, parseStorageValue, validateData } from './storage.utils';
+
 import type { SetStorageData, GetStorageData } from './storage.types';
 
 export const setStorageData: SetStorageData = (key, data) => {
-  const storage = globalThis?.localStorage;
-
-  storage?.setItem(key, JSON.stringify(data));
+  const storage = getStorage();
+  try {
+    storage?.setItem(key, JSON.stringify(data));
+  } catch {}
 };
 
 export const getStorageData: GetStorageData = (key, validationSchema, defaultValue) => {
-  const storage = globalThis?.localStorage;
+  const storage = getStorage();
+  try {
+    const storageValue = storage?.getItem(key);
 
-  const storageValue = storage.getItem(key);
+    if (!storageValue) {
+      return defaultValue;
+    }
 
-  if (!storageValue) {
+    const data = parseStorageValue(storageValue);
+    const validatedData = validateData(data, validationSchema);
+
+    return validatedData ?? defaultValue;
+  } catch {
     return defaultValue;
   }
-
-  const data: unknown = JSON.parse(storageValue);
-
-  const validationResult = validationSchema.safeParse(data);
-
-  if (!validationResult.success) {
-    return defaultValue;
-  }
-
-  return validationResult.data;
 };
 
 export const removeStorageData = (key: string) => {
-  const storage = globalThis?.localStorage;
-
-  storage?.removeItem(key);
+  const storage = getStorage();
+  try {
+    storage?.removeItem(key);
+  } catch {}
 };

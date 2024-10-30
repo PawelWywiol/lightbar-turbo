@@ -1,9 +1,11 @@
-export const fallbackRandomNumber = (size: number): number => {
+import type { RandomNumberGenerator, UidGenerator } from './uid.types';
+
+export const fallbackRandomNumber: RandomNumberGenerator = (size) => {
   // eslint-disable-next-line sonarjs/pseudo-random
   return Math.trunc(Math.random() * size);
 };
 
-export const secureRandomNumber = (size: number): number => {
+export const secureRandomNumber: RandomNumberGenerator = (size) => {
   const uint8 = new Uint8Array(1);
   try {
     globalThis.crypto.getRandomValues(uint8);
@@ -13,7 +15,7 @@ export const secureRandomNumber = (size: number): number => {
   }
 };
 
-export const generateUid = (pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'): string => {
+export const generateUid: UidGenerator = (pattern = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx') => {
   return pattern.replaceAll(/[xy]/g, (c) => {
     const r = secureRandomNumber(16);
     const v = c === 'x' ? r : (r & 0x3) | 0x8;

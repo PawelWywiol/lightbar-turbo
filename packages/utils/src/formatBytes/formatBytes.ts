@@ -1,11 +1,12 @@
+import { BASE, SIZES } from './formatBytes.config';
+import { formatToFixed, logBase } from './formatBytes.utils';
+
 export const formatBytes = (bytes: number, decimals = 2): string => {
-  if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return `0 ${SIZES[0]}`;
 
-  const k = 1024;
   const dm = Math.max(decimals, 0);
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const index = Math.floor(logBase(bytes, BASE));
+  const value = bytes / Math.pow(BASE, index);
 
-  const index = Math.floor(Math.log(bytes) / Math.log(k));
-
-  return Number.parseFloat((bytes / Math.pow(k, index)).toFixed(dm)) + ' ' + sizes[index];
+  return `${formatToFixed(value, dm)} ${SIZES[index]}`;
 };

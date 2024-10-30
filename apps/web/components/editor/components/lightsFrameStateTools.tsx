@@ -6,11 +6,11 @@ import { Button } from 'ui/button';
 
 import { useEditor } from '../editor.provider';
 
-import { ColorTools } from './colorTools';
+import { ColorPickerTools } from './colorPickerTools';
 
 import type { LightsScheme } from 'devices/lights.types';
 
-export const LightsFrameTools = () => {
+export const LightsFrameStateTools = () => {
   const {
     lightsScheme,
     frameIndex,
@@ -67,7 +67,7 @@ export const LightsFrameTools = () => {
             handleUpdate(updatedScheme);
           }}
         />
-        <ColorTools />
+        <ColorPickerTools />
       </div>
       <div className="flex gap-2 flex-grow">
         <Button disabled={!previousFrameAvailable} onClick={previousFrame}>

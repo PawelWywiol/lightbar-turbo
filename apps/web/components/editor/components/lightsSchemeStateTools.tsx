@@ -6,7 +6,7 @@ import { Input } from 'ui/input';
 
 import { useEditor } from '../editor.provider';
 
-export const StateTools = () => {
+export const LightsSchemeStateTools = () => {
   const {
     lightsScheme,
     handleUndo,

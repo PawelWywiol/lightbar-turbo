@@ -3,7 +3,7 @@ import { DEFAULT_LIGHTS_LAYOUT_OPTIONS } from 'devices/lights.config';
 
 import { useEditor } from '../editor.provider';
 
-export const LightsSchemeTools = () => {
+export const LightsSchemeLayoutTools = () => {
   const { lightsLayout, setLightsLayout } = useEditor();
 
   return (

@@ -5,7 +5,7 @@ import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from 'devices/l
 import { resolveBinaryColorStyle } from '../../editor.utils';
 import { useEditor } from '../../editor.provider';
 
-import { useGridPainter } from './lightsFrameGrid.utils';
+import { useGridPainter } from './lightsFrameGrid.hooks';
 
 import type { LightsFrame } from 'devices/lights.types';
 

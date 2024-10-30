@@ -38,8 +38,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               <h1>
                 <Link to="/">{APP_NAME}</Link>
               </h1>
-              <nav className="[&_ul]:flex [&_ul]:flex-row [&_ul]:justify-items-start [&_ul]:items-center [&_ul]:list-none [&_ul]:gap-4">
-                <ul>
+              <nav>
+                <ul className="flex flex-row justify-items-start items-center list-none gap-4">
                   <li>
                     <Link to="/editor">Editor</Link>
                   </li>

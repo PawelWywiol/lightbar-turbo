@@ -1,62 +1,48 @@
 import { secureRandomNumber } from 'utils/uid';
 
 import type { LightsLayoutOption, LightsScheme } from 'devices/lights.types';
-import type { ShiftDirection } from './editor.types';
+import type { FrameShifter, ShiftDirection } from './editor.types';
 
 const transpose = (matrix: number[][]) =>
   (matrix[0] ?? []).map((_, index) => matrix.map((row) => row[index] ?? 0));
 
-export const shiftLightsFrameColorPixel = (
-  scheme: LightsScheme,
-  frameIndex: number,
-  direction: ShiftDirection,
-  lightsLayout: LightsLayoutOption,
-): LightsScheme => {
-  const frame = Array.from(
-    { length: lightsLayout.value },
-    (_, index) => scheme.frames[frameIndex]?.colorIndexes[index] ?? 0,
-  );
+export const shiftFrame: FrameShifter['shift'] = (frame, direction, rowsCount, columnsCount) => {
   const newFrame: number[] = [];
-  const rowsCount = lightsLayout.grid.rows;
-  const columnsCount = lightsLayout.grid.columns;
-
   const frameRows = Array.from({ length: rowsCount }, (_, index) =>
     frame.slice(index * columnsCount, (index + 1) * columnsCount),
   );
-  const frameColumns = Array.from({ length: columnsCount }, (_iterationElement, iterationIndex) =>
-    frame.filter(
-      (_filteredElement, filteredIndex) => filteredIndex % columnsCount === iterationIndex,
-    ),
+  const frameColumns = Array.from({ length: columnsCount }, (_, index) =>
+    frame.filter((_frame, i) => i % columnsCount === index),
   );
 
   switch (direction) {
     case 'up': {
-      frameRows.push(frameRows.shift()!);
+      frameRows.push(frameRows.shift() ?? []);
       newFrame.push(...frameRows.flat());
       break;
     }
     case 'down': {
-      frameRows.unshift(frameRows.pop()!);
+      frameRows.unshift(frameRows.pop() ?? []);
       newFrame.push(...frameRows.flat());
       break;
     }
     case 'left': {
-      frameColumns.push(frameColumns.shift()!);
+      frameColumns.push(frameColumns.shift() ?? []);
       newFrame.push(...transpose(frameColumns).flat());
       break;
     }
     case 'right': {
-      frameColumns.unshift(frameColumns.pop()!);
+      frameColumns.unshift(frameColumns.pop() ?? []);
       newFrame.push(...transpose(frameColumns).flat());
       break;
     }
     case 'prev': {
-      frame.push(frame.shift()!);
+      frame.push(frame.shift() ?? 0);
       newFrame.push(...frame);
       break;
     }
     case 'next': {
-      frame.unshift(frame.pop()!);
+      frame.unshift(frame.pop() ?? 0);
       newFrame.push(...frame);
       break;
     }
@@ -70,6 +56,22 @@ export const shiftLightsFrameColorPixel = (
       break;
     }
   }
+
+  return newFrame;
+};
+
+export const shiftLightsFrameColorPixel = (
+  scheme: LightsScheme,
+  frameIndex: number,
+  direction: ShiftDirection,
+  lightsLayout: LightsLayoutOption,
+): LightsScheme => {
+  const frame = Array.from(
+    { length: lightsLayout.value },
+    (_, index) => scheme.frames[frameIndex]?.colorIndexes[index] ?? 0,
+  );
+
+  const newFrame = shiftFrame(frame, direction, lightsLayout.grid.rows, lightsLayout.grid.columns);
 
   return {
     ...scheme,
