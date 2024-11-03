@@ -1,6 +1,7 @@
 import { Button } from 'ui/button';
 import { DialogWrapper } from 'ui/dialog';
 import { LIGHTS_MAX_COLORS_COUNT } from 'devices/lights.config';
+import { MESSAGES } from 'config/messages';
 
 import { resolveBinaryColorStyle } from '../editor.utils';
 import { useEditor } from '../editor.provider';
@@ -19,6 +20,7 @@ export const ColorPickerTools = () => {
           />
         </Button>
       }
+      title={MESSAGES.editor.choseColor}
     >
       <div className="grid grid-cols-8 gap-1 desktop:gap-1 items-center justify-center">
         {Array.from({ length: LIGHTS_MAX_COLORS_COUNT }, (_, index) => index).map((color) => (

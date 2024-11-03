@@ -29,4 +29,7 @@ export const MESSAGES = {
     scanForDevices: 'Scan for devices',
     scanning: 'Scanning...',
   },
+  editor: {
+    choseColor: 'Chose a color',
+  },
 } as const;

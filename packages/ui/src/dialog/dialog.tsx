@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, ReactNode } 
 import { forwardRef } from 'react';
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { SquareMenuIcon } from 'lucide-react';
+import { SquareMenuIcon, XIcon } from 'lucide-react';
 
 import { cn } from '../utils/cn';
 import { Button } from '../button/button';
@@ -136,7 +136,12 @@ export const DialogWrapper = ({
       )}
     </DialogTrigger>
     <DialogContent className={className}>
-      <DialogTitle className={title ? 'mb-4' : ''}>{title}</DialogTitle>
+      <DialogTitle className={title ? 'relative mb-4 flex justify-between gap-4' : ''}>
+        <span className="truncate">{title}</span>
+        <DialogClose className="relative aspect-square h-5 w-5">
+          <XIcon className="absolute top-1/2 right-1/2 transform -translate-y-1/2 translate-x-1/2" />
+        </DialogClose>
+      </DialogTitle>
       <DialogDescription />
       {children}
     </DialogContent>

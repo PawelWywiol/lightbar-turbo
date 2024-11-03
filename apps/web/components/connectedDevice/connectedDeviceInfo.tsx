@@ -31,7 +31,7 @@ export const ConnectedDeviceInfo = ({ device }: { device: ConnectedDevice }) => 
       <span className={connectedDeviceInfoStatus({ status: device.status })} />
       <span className="truncate">{deviceLabel}</span>
       <span className="text-right text-xs">{formattedDeviceLeds}</span>
-      <span className="text-xs">{deviceStatusMessage}</span>
+      <span className="text-xs truncate">{deviceStatusMessage}</span>
       <span className="text-right text-xs">{formattedDeviceSpace}</span>
     </div>
   );
