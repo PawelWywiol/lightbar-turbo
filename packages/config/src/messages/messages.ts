@@ -16,6 +16,7 @@ export const MESSAGES = {
     connecting: 'Connecting to the server...',
     connected: 'Connected to the server',
     error: 'Connection error',
+    processing: 'Processing...',
   },
   device: {
     triggerDialogLabel: 'Devices',

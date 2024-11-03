@@ -1,21 +1,49 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { MESSAGES } from 'config/messages';
-import { Button } from 'ui/button';
-import { DialogWrapper } from 'ui/dialog';
-import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 import { useConnectedDevices } from 'devices/devices.provider';
+import { DialogWrapper } from 'ui/dialog';
+import { MESSAGES } from 'config/messages';
 
-import { ConnectedDeviceEditor } from './connectedDeviceEditor';
+import { ConnectedDeviceItem } from './connectedDeviceItem';
 import { ConnectedDevicesEmptyListInfo } from './connectedDevicesEmptyListInfo';
-import { ConnectedDeviceInfo } from './connectedDeviceInfo';
+import { ConnectedDeviceEditor } from './connectedDeviceEditor';
 
+import type { ConnectedDevice } from 'devices/devices.types';
 import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
 
 export const ConnectedDevicesDialog = () => {
-  const { devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select } =
-    useConnectedDevices();
-  const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema | undefined>();
+  const {
+    devices,
+    updateDevice,
+    removeDevice,
+    findDevices,
+    scanProgress,
+    selectedDevice,
+    selectDevice,
+  } = useConnectedDevices();
+
+  const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema>({
+    url: '',
+    label: '',
+  });
+
+  const handleSelect = useCallback(
+    (url: string) => {
+      selectDevice(url);
+    },
+    [selectDevice],
+  );
+
+  const handleEdit = useCallback((device: ConnectedDeviceValidationSchema) => {
+    setDeviceInfo(device);
+  }, []);
+
+  const handleDelete = useCallback(
+    (device: ConnectedDevice) => {
+      removeDevice(device.url);
+    },
+    [removeDevice],
+  );
 
   return (
     <DialogWrapper
@@ -23,46 +51,26 @@ export const ConnectedDevicesDialog = () => {
       title={MESSAGES.device.dialogHeader}
     >
       <div className="flex flex-col gap-2">
-        {devices.map((device) => (
-          <div key={device.url} className="flex justify-center align-middle text-left gap-4">
-            <Button
-              className="flex flex-1 justify-stretch p-2"
-              variant={selected === device.url ? 'outline' : 'ghost'}
-              onClick={() => select(device.url)}
-            >
-              <ConnectedDeviceInfo device={device} />
-            </Button>
-            <div className="flex gap-2 justify-center align-middle">
-              <DropDownMenuWrapper
-                options={[
-                  {
-                    label: MESSAGES.common.select,
-                    onClick: () => select(device.url),
-                  },
-                  {
-                    label: MESSAGES.common.edit,
-                    onClick: () => setDeviceInfo(device),
-                  },
-                  {
-                    label: MESSAGES.common.delete,
-                    onClick: () => removeDevice(device),
-                  },
-                ]}
-              />
-            </div>
-          </div>
-        ))}
-        {devices.length === 0 && (
+        {devices.length > 0 ? (
+          devices.map((device) => (
+            <ConnectedDeviceItem
+              key={device.url}
+              device={device}
+              isSelected={selectedDevice?.url === device.url}
+              onSelect={handleSelect}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          ))
+        ) : (
           <ConnectedDevicesEmptyListInfo findDevices={findDevices} scanProgress={scanProgress} />
         )}
       </div>
-      {deviceInfo && (
-        <ConnectedDeviceEditor
-          deviceInfo={deviceInfo}
-          setDeviceInfo={setDeviceInfo}
-          updateDevice={updateDevice}
-        />
-      )}
+      <ConnectedDeviceEditor
+        deviceInfo={deviceInfo}
+        setDeviceInfo={setDeviceInfo}
+        updateDevice={updateDevice}
+      />
     </DialogWrapper>
   );
 };

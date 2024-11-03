@@ -19,7 +19,7 @@ export interface Device {
 export type DeviceCustomEventDispatch =
   | {
       name: 'app:device:selected';
-      detail: string;
+      detail: string | undefined;
     }
   | {
       name: 'app:device:updated';

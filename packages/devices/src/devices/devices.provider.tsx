@@ -1,6 +1,5 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo, createContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import { createContext, useEffect, useState } from 'react';
 
 import { dispatchCustomEvent } from 'utils/customEvent';
 
@@ -20,11 +19,11 @@ import type { ConnectedDevice, DeviceCustomEventDispatch } from './devices.types
 interface ConnectedDevicesContextProps {
   devices: ConnectedDevice[];
   updateDevice: (device: ConnectedDevice) => void;
-  removeDevice: (device: ConnectedDevice) => void;
+  removeDevice: (device: string) => void;
   findDevices: () => void;
   scanProgress: number;
-  selected?: string | undefined;
-  select: (url: string) => void;
+  selectedDevice?: ConnectedDevice | undefined;
+  selectDevice: (url: string) => void;
 }
 
 export const ConnectedDevicesContext = createContext<ConnectedDevicesContextProps>({
@@ -39,8 +38,8 @@ export const ConnectedDevicesContext = createContext<ConnectedDevicesContextProp
     // void
   },
   scanProgress: 100,
-  selected: undefined,
-  select: () => {
+  selectedDevice: undefined,
+  selectDevice: () => {
     // void
   },
 });
@@ -50,7 +49,7 @@ export const useConnectedDevices = () => useContext(ConnectedDevicesContext);
 export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) => {
   const [devices, setDevices] = useState<ConnectedDevice[]>([]);
   const [scanProgress, setScanProgress] = useState(100);
-  const [selected, setSelected] = useState<string | undefined>();
+  const [selectedDevice, setSelectedDevice] = useState<ConnectedDevice | undefined>();
 
   const updateDevice = useCallback((device: ConnectedDevice) => {
     setDevices((previousDevices) => {
@@ -62,9 +61,9 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     });
   }, []);
 
-  const removeDevice = useCallback((device: ConnectedDevice) => {
+  const removeDevice = useCallback((url: string) => {
     setDevices((previousDevices) => {
-      const updatedDevices = previousDevices.filter((d) => d.url !== device.url);
+      const updatedDevices = previousDevices.filter((device) => device.url !== url);
 
       saveConnectedDevices(updatedDevices);
 
@@ -80,35 +79,52 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     });
   }, [updateDevice]);
 
-  const select = useCallback((url: string) => {
-    setSelected(url);
-    saveLastSelectedDeviceUrl(url);
-  }, []);
+  const selectDevice = useCallback(
+    (url: string) => {
+      const newSelectedDevice = devices.find((device) => device.url === url);
+      setSelectedDevice(newSelectedDevice);
+      saveLastSelectedDeviceUrl(newSelectedDevice?.url);
 
-  const value = useMemo(
-    () => ({ devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select }),
-    [devices, updateDevice, removeDevice, findDevices, scanProgress, selected, select],
+      dispatchCustomEvent<DeviceCustomEventDispatch>({
+        name: 'app:device:selected',
+        detail: newSelectedDevice?.url,
+      });
+    },
+    [devices],
   );
 
   useEffect(() => {
-    setDevices(loadConnectedDevices());
-    setSelected(loadLastSelectedDeviceUrl());
-  }, []);
+    const lastSelectedDeviceUrl = loadLastSelectedDeviceUrl();
+    const lastSelectedDevice = devices.find((device) => device.url === lastSelectedDeviceUrl);
 
-  useEffect(() => {
-    dispatchCustomEvent<DeviceCustomEventDispatch>({
-      name: 'app:device:selected',
-      detail: selected ?? '',
-    });
-  }, [selected]);
+    setDevices(loadConnectedDevices());
+    setSelectedDevice(lastSelectedDevice);
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const firstDevice = devices[0];
 
-    if (!selected?.length && firstDevice) {
-      setSelected(firstDevice.url);
+    if (!selectedDevice?.url.length && !!firstDevice?.url.length) {
+      setSelectedDevice(firstDevice);
     }
-  }, [devices, selected]);
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDevice?.url]);
+
+  const connectedDevicesProviderValue = useMemo(
+    () => ({
+      devices,
+      updateDevice,
+      removeDevice,
+      findDevices,
+      scanProgress,
+      selectedDevice,
+      selectDevice,
+    }),
+    [devices, updateDevice, removeDevice, findDevices, scanProgress, selectedDevice, selectDevice],
+  );
 
   return (
     <>
@@ -117,10 +133,12 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
           key={device.url}
           device={device}
           onChange={updateDevice}
-          selected={selected === device.url}
+          selected={selectedDevice?.url === device.url}
         />
       ))}
-      <ConnectedDevicesContext.Provider value={value}>{children}</ConnectedDevicesContext.Provider>
+      <ConnectedDevicesContext.Provider value={connectedDevicesProviderValue}>
+        {children}
+      </ConnectedDevicesContext.Provider>
     </>
   );
 };

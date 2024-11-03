@@ -61,8 +61,8 @@ export const loadLastSelectedDeviceUrl = (): string | undefined =>
     undefined,
   );
 
-export const saveLastSelectedDeviceUrl = (url: string) => {
-  if (ConnectedDeviceUrlValidationSchema.safeParse(url).success) {
+export const saveLastSelectedDeviceUrl = (url?: string) => {
+  if (url && ConnectedDeviceUrlValidationSchema.safeParse(url).success) {
     setStorageData(CONNECTED_DEVICES_STORAGE_KEY('selected'), url);
   } else {
     removeStorageData(CONNECTED_DEVICES_STORAGE_KEY('selected'));

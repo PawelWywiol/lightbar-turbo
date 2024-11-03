@@ -14,7 +14,7 @@ export const ConnectedDeviceEditor = ({
   setDeviceInfo: (deviceInfo: ConnectedDeviceValidationSchema) => void;
   updateDevice: (device: ConnectedDevice) => void;
 }) => (
-  <div className="flex justify-center align-middle gap-2">
+  <div className="flex justify-center align-middle gap-2 pt-3 mt-2 border-t">
     <div className="flex flex-1 justify-stretch">
       <Input
         className="w-full"

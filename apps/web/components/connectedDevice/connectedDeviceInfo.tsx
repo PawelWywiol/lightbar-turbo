@@ -5,31 +5,34 @@ import { connectedDeviceInfoStatus } from './connectedDeviceInfoStatus.styled';
 
 import type { ConnectedDevice } from 'devices/devices.types';
 
-export const ConnectedDeviceInfo = ({
-  device: { status, label, info, url },
-}: {
-  device: ConnectedDevice;
-}) => {
+const getDeviceLabel = (device: ConnectedDevice): string =>
+  device.label?.length ? device.label : (device.info?.data.uid ?? device.url);
+
+const getDeviceFormattedLeds = (device: ConnectedDevice): string =>
+  device.info?.data.leds ? `${device.info?.data.leds} ${MESSAGES.device.leds}` : '';
+
+const getDeviceStatusMessage = (device: ConnectedDevice): string =>
+  device.info?.message ??
+  MESSAGES.connection[
+    (device.status?.toLocaleLowerCase() as keyof typeof MESSAGES.connection) ?? 'closed'
+  ];
+
+const getFormattedDeviceSpace = (device: ConnectedDevice): string | undefined =>
+  device.info?.data.space ? formatBytes(device.info.data.space) : undefined;
+
+export const ConnectedDeviceInfo = ({ device }: { device: ConnectedDevice }) => {
+  const deviceLabel = getDeviceLabel(device);
+  const formattedDeviceLeds = getDeviceFormattedLeds(device);
+  const deviceStatusMessage = getDeviceStatusMessage(device);
+  const formattedDeviceSpace = getFormattedDeviceSpace(device);
+
   return (
-    <div className="flex gap-4 flex-1 align-middle items-center text-left">
-      <span className={connectedDeviceInfoStatus({ status })} />
-      <span className="flex-1 flex flex-col gap-1">
-        <span>{label ?? info?.data.uid ?? url}</span>
-        <span className="text-xs">
-          {info?.message ??
-            MESSAGES.connection[
-              (status?.toLocaleLowerCase() as keyof typeof MESSAGES.connection) ?? 'closed'
-            ]}
-        </span>
-      </span>
-      {info && (
-        <span className="text-xs flex flex-col gap-1 text-right">
-          <span>
-            {info.data.leds} {MESSAGES.device.leds}
-          </span>
-          <span>{formatBytes(info.data.space)}</span>
-        </span>
-      )}
+    <div className="text-left h-10 grid grid-cols-[auto,1fr,auto] w-full gap-x-4 items-center">
+      <span className={connectedDeviceInfoStatus({ status: device.status })} />
+      <span className="truncate">{deviceLabel}</span>
+      <span className="text-right text-xs">{formattedDeviceLeds}</span>
+      <span className="text-xs">{deviceStatusMessage}</span>
+      <span className="text-right text-xs">{formattedDeviceSpace}</span>
     </div>
   );
 };

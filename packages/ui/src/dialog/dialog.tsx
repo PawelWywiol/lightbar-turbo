@@ -128,7 +128,7 @@ export const DialogWrapper = ({
       })
     }
   >
-    <DialogTrigger className="flex items-center">
+    <DialogTrigger className="flex items-center cursor-pointer" asChild>
       {trigger ?? (
         <Button asChild>
           <SquareMenuIcon />

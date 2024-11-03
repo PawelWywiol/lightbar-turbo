@@ -1,26 +1,10 @@
-import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
-import { APP_NAME } from 'config/app';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
 import { ConnectedDevicesProvider } from 'devices/devices.provider';
 
-import { ConnectedDevicesDialog } from '../components/connectedDevice/connectedDevicesDialog';
-
-import type { LinksFunction } from '@remix-run/node';
+import { PageHeader } from '../components/pageHeader/pageHeader';
 
 import 'ui/theme/styles/tailwindTheme.ts';
 import 'ui/theme/styles/globals.ts';
-
-export const links: LinksFunction = () => [
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous',
-  },
-  {
-    rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
-  },
-];
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -33,23 +17,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body className="relative dark">
         <ConnectedDevicesProvider>
-          <header className="container p-4">
-            <div className="flex justify-between items-center">
-              <h1>
-                <Link to="/">{APP_NAME}</Link>
-              </h1>
-              <nav>
-                <ul className="flex flex-row justify-items-start items-center list-none gap-4">
-                  <li>
-                    <Link to="/editor">Editor</Link>
-                  </li>
-                  <li>
-                    <ConnectedDevicesDialog />
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </header>
+          <PageHeader />
           <main className="flex-1 relative flex flex-col">{children}</main>
         </ConnectedDevicesProvider>
         <ScrollRestoration />
@@ -59,8 +27,6 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const App = () => {
-  return <Outlet />;
-};
+const App = () => <Outlet />;
 
 export default App;

@@ -1,6 +1,6 @@
 import { cva } from 'cva';
 
-export const connectedDeviceInfoStatus = cva('aspect-square rounded-full h-4', {
+export const connectedDeviceInfoStatus = cva('aspect-square rounded-full h-4 row-span-2', {
   variants: {
     status: {
       PROCESSING: 'bg-warning',
