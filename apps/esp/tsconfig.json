@@ -4,5 +4,5 @@
     "types": ["vite/client"]
   },
   "include": ["src", "vite.config.mjs", "**/*.ts", "**/*.tsx", "env.mjs", "postcss.config.cjs"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }
