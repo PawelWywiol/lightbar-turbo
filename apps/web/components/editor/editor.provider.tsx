@@ -4,12 +4,18 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { generateUid } from 'utils/uid';
 import { dispatchCustomEvent } from 'utils/customEvent';
 import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
-import { DEFAULT_LIGHTS_LAYOUT_OPTION, DEFAULT_LIGHTS_SCHEME } from 'devices/lights.config';
+import {
+  DEFAULT_LIGHTS_LAYOUT_OPTION,
+  DEFAULT_LIGHTS_SCHEME,
+  LIGHTS_MAX_COLORS_COUNT,
+} from 'devices/lights.config';
 
-import { EDITOR_MAX_HISTORY } from './editor.config';
+import { EDITOR_INITIAL_RECENT_COLORS_INDEX_MODULO, EDITOR_MAX_HISTORY } from './editor.config';
+import { resolveBinaryColorStyle } from './editor.utils';
 
 import type { LightsLayoutOption, LightsScheme, LightsSchemeData } from 'devices/lights.types';
 import type {
+  EditorColorPalette,
   EditorColorUpdateEvent,
   EditorSchemeSaveEvent,
   EditorSchemeUpdateEvent,
@@ -20,9 +26,11 @@ interface EditorContextProps {
   lightsLayout: LightsLayoutOption;
   setLightsLayout: Dispatch<SetStateAction<LightsLayoutOption>>;
   isColorDialogOpen: boolean;
-  setIsColorDialogOpen: Dispatch<SetStateAction<boolean>>;
+  handleColorDialogOpenChange: (open: boolean) => void;
   colorIndex: number;
-  setColorIndex: Dispatch<SetStateAction<number>>;
+  selectColor: (index: number) => void;
+  colorPalette: EditorColorPalette[];
+  recentColors: EditorColorPalette[];
   frameIndex: number;
   setFrameIndex: Dispatch<SetStateAction<number>>;
   framesCount: number;
@@ -38,6 +46,18 @@ interface EditorContextProps {
   handleSave: () => void;
 }
 
+const editorColorPalette: EditorColorPalette[] = Array.from(
+  { length: LIGHTS_MAX_COLORS_COUNT },
+  (_, index) => index,
+).map((index) => ({
+  index,
+  color: resolveBinaryColorStyle(index),
+}));
+
+const initialRecentColors: EditorColorPalette[] = editorColorPalette.filter(
+  (color) => color.index % EDITOR_INITIAL_RECENT_COLORS_INDEX_MODULO === 0,
+);
+
 const editorContextDefaultValues: EditorContextProps = {
   lightsScheme: {
     scheme: DEFAULT_LIGHTS_SCHEME,
@@ -49,13 +69,15 @@ const editorContextDefaultValues: EditorContextProps = {
     // void
   },
   isColorDialogOpen: false,
-  setIsColorDialogOpen: () => {
+  handleColorDialogOpenChange: () => {
     // void
   },
   colorIndex: 0,
-  setColorIndex: () => {
+  selectColor: () => {
     // void
   },
+  colorPalette: editorColorPalette,
+  recentColors: initialRecentColors,
   frameIndex: 0,
   setFrameIndex: () => {
     // void
@@ -108,7 +130,41 @@ export const EditorProvider = ({
   const [lightsSchemeHistoryIndex, setLightsSchemeHistoryIndex] = useState(0);
   const [frameIndex, setFrameIndex] = useState(0);
   const [colorIndex, setColorIndex] = useState(0);
+  const [lastColorIndex, setLastColorIndex] = useState<number>(0);
   const [isColorDialogOpen, setIsColorDialogOpen] = useState(false);
+  const [recentColors, setRecentColors] = useState<EditorColorPalette[]>(initialRecentColors);
+
+  const selectColor = useCallback((index: number) => {
+    setColorIndex(index);
+  }, []);
+
+  const handleColorDialogOpenChange = useCallback(
+    (open: boolean) => {
+      setIsColorDialogOpen(open);
+
+      if (open) {
+        setLastColorIndex(colorIndex);
+        return;
+      }
+
+      if (lastColorIndex === colorIndex) {
+        return;
+      }
+
+      setRecentColors((previousRecentColors) => {
+        const newRecentColors = previousRecentColors.filter((color) => color.index !== colorIndex);
+        const selectedColor = editorColorPalette.find((color) => color.index === colorIndex);
+
+        if (!selectedColor) {
+          return previousRecentColors;
+        }
+
+        newRecentColors.unshift(selectedColor);
+        return newRecentColors.slice(0, initialRecentColors.length);
+      });
+    },
+    [colorIndex, lastColorIndex],
+  );
 
   const handleUpdate = useCallback(
     (newScheme: LightsScheme) => {
@@ -196,15 +252,17 @@ export const EditorProvider = ({
     }
   }, [isColorDialogOpen, colorIndex]);
 
-  const value = useMemo(
+  const editorProviderValue = useMemo(
     () => ({
       lightsScheme: lightsScheme,
       lightsLayout,
       setLightsLayout,
       isColorDialogOpen,
-      setIsColorDialogOpen,
+      handleColorDialogOpenChange,
       colorIndex,
-      setColorIndex,
+      selectColor,
+      colorPalette: editorColorPalette,
+      recentColors,
       frameIndex,
       setFrameIndex,
       framesCount: lightsScheme.scheme.frames.length,
@@ -223,7 +281,10 @@ export const EditorProvider = ({
       lightsScheme,
       lightsLayout,
       isColorDialogOpen,
+      handleColorDialogOpenChange,
       colorIndex,
+      recentColors,
+      selectColor,
       frameIndex,
       lightsSchemeHistoryIndex,
       lightsSchemeHistory,
@@ -236,5 +297,5 @@ export const EditorProvider = ({
     ],
   );
 
-  return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
+  return <EditorContext.Provider value={editorProviderValue}>{children}</EditorContext.Provider>;
 };

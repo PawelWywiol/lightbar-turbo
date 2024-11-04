@@ -1,17 +1,49 @@
 import { Button } from 'ui/button';
 import { DialogWrapper } from 'ui/dialog';
-import { LIGHTS_MAX_COLORS_COUNT } from 'devices/lights.config';
 import { MESSAGES } from 'config/messages';
+import { cn } from 'ui/cn';
 
 import { resolveBinaryColorStyle } from '../editor.utils';
 import { useEditor } from '../editor.provider';
 
+import type { EditorColorPalette } from '../editor.types';
+
+const ColorPickerGrid = ({
+  className,
+  colorPalette,
+  selectColor,
+  colorIndex,
+}: {
+  className?: string;
+  colorPalette: EditorColorPalette[];
+  selectColor: (index: number) => void;
+  colorIndex: number;
+}) => (
+  <div
+    className={cn('grid grid-cols-8 gap-1 desktop:gap-1 items-center justify-center', className)}
+  >
+    {colorPalette.map(({ index, color }) => (
+      <button
+        key={`color-${index}-${color}`}
+        className="w-full aspect-square rounded cursor-pointer flex justify-center items-center outline-none"
+        onClick={() => selectColor(index)}
+        style={{ background: color }}
+      >
+        {index === colorIndex && (
+          <span className="flex items-center justify-center w-4 aspect-square rounded-full bg-[white] shadow-md" />
+        )}
+      </button>
+    ))}
+  </div>
+);
+
 export const ColorPickerTools = () => {
-  const { setIsColorDialogOpen, colorIndex, setColorIndex } = useEditor();
+  const { handleColorDialogOpenChange, colorIndex, selectColor, colorPalette, recentColors } =
+    useEditor();
 
   return (
     <DialogWrapper
-      onOpenChange={setIsColorDialogOpen}
+      onOpenChange={handleColorDialogOpenChange}
       trigger={
         <Button className="rounded aspect-square px-0 overflow-hidden" asChild>
           <span
@@ -22,23 +54,17 @@ export const ColorPickerTools = () => {
       }
       title={MESSAGES.editor.choseColor}
     >
-      <div className="grid grid-cols-8 gap-1 desktop:gap-1 items-center justify-center">
-        {Array.from({ length: LIGHTS_MAX_COLORS_COUNT }, (_, index) => index).map((color) => (
-          <button
-            key={color}
-            className="w-full aspect-square rounded cursor-pointer flex justify-center items-center outline-none"
-            onClick={() => {
-              setColorIndex(color);
-              setIsColorDialogOpen(false);
-            }}
-            style={{ background: resolveBinaryColorStyle(color) }}
-          >
-            {color === colorIndex && (
-              <span className="flex items-center justify-center w-4 aspect-square rounded-full bg-[white] shadow-md" />
-            )}
-          </button>
-        ))}
-      </div>
+      <ColorPickerGrid
+        colorPalette={colorPalette}
+        selectColor={selectColor}
+        colorIndex={colorIndex}
+      />
+      <ColorPickerGrid
+        className="pt-2 mt-2 border-t"
+        colorPalette={recentColors}
+        selectColor={selectColor}
+        colorIndex={colorIndex}
+      />
     </DialogWrapper>
   );
 };

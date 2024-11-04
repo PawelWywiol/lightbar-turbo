@@ -15,6 +15,11 @@ export interface EditorProps {
   lightsSchemeData?: LightsSchemeData | undefined;
 }
 
+export interface EditorColorPalette {
+  color: string;
+  index: number;
+}
+
 export interface EditorSchemeUpdateEvent {
   name: 'app:editor:scheme:update';
   detail: {

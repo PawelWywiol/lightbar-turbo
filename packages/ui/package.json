@@ -57,6 +57,6 @@
     "./select": "./src/select/select.tsx",
     "./theme/styles/*.scss": "./src/theme/styles/*.scss",
     "./theme/styles/*.ts": "./src/theme/styles/*.ts",
-    "./utils/cn.ts": "./src/utils/cn.ts"
+    "./cn": "./src/utils/cn.ts"
   }
 }
