@@ -1,4 +1,10 @@
 import { secureRandomNumber } from 'utils/uid';
+import {
+  LIGHTS_PALLETTE_HUE_MASK,
+  LIGHTS_PALLETTE_LIGHTNESS_LEVELS,
+  LIGHTS_PALLETTE_LIGHTNESS_MASK,
+  LIGHTS_PALLETTE_LIGHTNESS_MAX,
+} from 'devices/lights.config';
 
 import type { LightsLayoutOption, LightsScheme } from 'devices/lights.types';
 import type { FrameShifter, ShiftDirection } from './editor.types';
@@ -81,9 +87,24 @@ export const shiftLightsFrameColorPixel = (
   };
 };
 
-export const resolveBinaryColorStyle = (colorIndex: number): string => {
-  const hue = colorIndex & 0b0011_1111;
-  const saturation = colorIndex & (0b1100_0000 >> 6);
+const resolveColorHue = (index: number): number =>
+  ((index & LIGHTS_PALLETTE_HUE_MASK) * LIGHTS_PALLETTE_LIGHTNESS_MAX) /
+  ((LIGHTS_PALLETTE_HUE_MASK + LIGHTS_PALLETTE_LIGHTNESS_MASK) / 360);
 
-  return `hsl(${hue * 4}deg ${(saturation + 2) * 20}% 50%)`;
+const resolveColorLightness = (index: number): number =>
+  (LIGHTS_PALLETTE_LIGHTNESS_LEVELS[(index & LIGHTS_PALLETTE_LIGHTNESS_MASK) >> 6] ?? 0.5) * 100;
+
+export const resolveBinaryColorStyle = (colorIndex: number): string => {
+  const hue = resolveColorHue(colorIndex);
+  const lightness = resolveColorLightness(colorIndex);
+
+  if (colorIndex === 0) {
+    return 'hsl(0deg 0% 0%)';
+  }
+
+  if (colorIndex >= LIGHTS_PALLETTE_LIGHTNESS_MASK + LIGHTS_PALLETTE_HUE_MASK) {
+    return 'hsl(0deg 0% 100%)';
+  }
+
+  return `hsl(${hue}deg 50% ${lightness}%)`;
 };

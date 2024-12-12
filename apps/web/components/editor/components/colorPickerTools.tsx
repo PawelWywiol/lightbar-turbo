@@ -25,7 +25,7 @@ const ColorPickerGrid = ({
     {colorPalette.map(({ index, color }) => (
       <button
         key={`color-${index}-${color}`}
-        className="w-full aspect-square rounded cursor-pointer flex justify-center items-center outline-none"
+        className="w-full h-10 rounded cursor-pointer flex justify-center items-center outline-none"
         onClick={() => selectColor(index)}
         style={{ background: color }}
       >
@@ -38,8 +38,14 @@ const ColorPickerGrid = ({
 );
 
 export const ColorPickerTools = () => {
-  const { handleColorDialogOpenChange, colorIndex, selectColor, colorPalette, recentColors } =
-    useEditor();
+  const {
+    handleColorDialogOpenChange,
+    colorIndex,
+    selectColor,
+    recentColors,
+    hueColors,
+    lightnessColors,
+  } = useEditor();
 
   return (
     <DialogWrapper
@@ -54,8 +60,10 @@ export const ColorPickerTools = () => {
       }
       title={MESSAGES.editor.choseColor}
     >
+      <ColorPickerGrid colorPalette={hueColors} selectColor={selectColor} colorIndex={colorIndex} />
       <ColorPickerGrid
-        colorPalette={colorPalette}
+        className="pt-2 mt-2 border-t grid-cols-4"
+        colorPalette={lightnessColors}
         selectColor={selectColor}
         colorIndex={colorIndex}
       />
