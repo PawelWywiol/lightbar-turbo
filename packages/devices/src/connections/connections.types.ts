@@ -7,6 +7,10 @@ export enum NetworkType {
   STA = 1,
   AP = 2,
 }
+export interface WifiCredentials {
+  ssid: string;
+  password: string;
+}
 
 export type ConnectionCustomEventDispatch =
   | {
@@ -39,24 +43,11 @@ export interface ConnectionResponseData {
 export type ConnectionRequestData =
   | {
       type: 'wifi';
-      data: {
-        ssid: string;
-        password: string;
-      };
-    }
-  | {
-      type: 'colors';
-      data: {
-        colors: number[];
-      };
+      data: WifiCredentials;
     }
   | {
       type: 'frame';
-      data: {
-        type: LightsFrame['type'];
-        tempo: LightsFrame['tempo'];
-        colors: LightsFrame['colorIndexes'];
-      };
+      data: LightsFrame;
     };
 
 export type ConnectionRequestDataType = ConnectionRequestData['type'];

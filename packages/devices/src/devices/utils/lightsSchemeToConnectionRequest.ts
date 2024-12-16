@@ -1,20 +1,7 @@
-import { hexToRGB } from 'utils/hexToRGB';
-
 import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
 
-import type { LightsScheme } from '../../lights/lights.types';
+import type { LightColor, LightsScheme } from '../../lights/lights.types';
 import type { ConnectionRequestData } from '../../connections/connections.types';
-
-export const lightsSchemeColorsToConnectionRequest = (colors: string[]) => {
-  const request: ConnectionRequestData = {
-    type: 'colors',
-    data: {
-      colors: colors.flatMap((color) => hexToRGB(color)),
-    },
-  };
-
-  return JSON.stringify(request);
-};
 
 export const lightsSchemeFrameToConnectionRequest = (
   frame: LightsScheme['frames'][0],
@@ -25,9 +12,9 @@ export const lightsSchemeFrameToConnectionRequest = (
     data: {
       type: frame.type,
       tempo: frame.tempo,
-      colors: frame.colorIndexes.slice(
+      colors: frame.colors.slice(
         0,
-        typeof deviceLedsCount === 'number' ? deviceLedsCount : frame.colorIndexes.length,
+        typeof deviceLedsCount === 'number' ? deviceLedsCount : frame.colors.length,
       ),
     },
   };
@@ -37,12 +24,11 @@ export const lightsSchemeFrameToConnectionRequest = (
 
 export const editorColorUpdatedToConnectionRequest = (color: string, deviceLedsCount?: number) => {
   return [
-    lightsSchemeColorsToConnectionRequest([color]),
     lightsSchemeFrameToConnectionRequest(
       {
         type: DEFAULT_LIGHTS_FRAME_TYPE,
         tempo: DEFAULT_LIGHTS_FRAME_TEMPO,
-        colorIndexes: [0],
+        colors: [0 as LightColor],
       },
       deviceLedsCount,
     ),

@@ -1,19 +1,20 @@
 import { secureRandomNumber } from 'utils/uid';
 import {
+  LIGHTS_BACKGROUND_COLOR,
   LIGHTS_PALLETTE_HUE_MASK,
   LIGHTS_PALLETTE_LIGHTNESS_LEVELS,
   LIGHTS_PALLETTE_LIGHTNESS_MASK,
   LIGHTS_PALLETTE_LIGHTNESS_MAX,
 } from 'devices/lights.config';
 
-import type { LightsLayoutOption, LightsScheme } from 'devices/lights.types';
-import type { FrameShifter, ShiftDirection } from './editor.types';
+import type { LightColor, LightsLayoutOption, LightsScheme } from 'devices/lights.types';
+import type { ShiftColorsFrame, ShiftDirection } from './editor.types';
 
-const transpose = (matrix: number[][]) =>
-  (matrix[0] ?? []).map((_, index) => matrix.map((row) => row[index] ?? 0));
+const transposeLightsMatrix = (matrix: LightColor[][]) =>
+  (matrix[0] ?? []).map((_, index) => matrix.map((row) => row[index] ?? LIGHTS_BACKGROUND_COLOR));
 
-export const shiftFrame: FrameShifter['shift'] = (frame, direction, rowsCount, columnsCount) => {
-  const newFrame: number[] = [];
+export const shiftColorsFrame: ShiftColorsFrame = (frame, direction, rowsCount, columnsCount) => {
+  const newFrame: LightColor[] = [];
   const frameRows = Array.from({ length: rowsCount }, (_, index) =>
     frame.slice(index * columnsCount, (index + 1) * columnsCount),
   );
@@ -34,21 +35,21 @@ export const shiftFrame: FrameShifter['shift'] = (frame, direction, rowsCount, c
     }
     case 'left': {
       frameColumns.push(frameColumns.shift() ?? []);
-      newFrame.push(...transpose(frameColumns).flat());
+      newFrame.push(...transposeLightsMatrix(frameColumns).flat());
       break;
     }
     case 'right': {
       frameColumns.unshift(frameColumns.pop() ?? []);
-      newFrame.push(...transpose(frameColumns).flat());
+      newFrame.push(...transposeLightsMatrix(frameColumns).flat());
       break;
     }
     case 'prev': {
-      frame.push(frame.shift() ?? 0);
+      frame.push(frame.shift() ?? LIGHTS_BACKGROUND_COLOR);
       newFrame.push(...frame);
       break;
     }
     case 'next': {
-      frame.unshift(frame.pop() ?? 0);
+      frame.unshift(frame.pop() ?? LIGHTS_BACKGROUND_COLOR);
       newFrame.push(...frame);
       break;
     }
@@ -74,15 +75,20 @@ export const shiftLightsFrameColorPixel = (
 ): LightsScheme => {
   const frame = Array.from(
     { length: lightsLayout.value },
-    (_, index) => scheme.frames[frameIndex]?.colorIndexes[index] ?? 0,
+    (_, index) => scheme.frames[frameIndex]?.colors[index] ?? LIGHTS_BACKGROUND_COLOR,
   );
 
-  const newFrame = shiftFrame(frame, direction, lightsLayout.grid.rows, lightsLayout.grid.columns);
+  const newFrame = shiftColorsFrame(
+    frame,
+    direction,
+    lightsLayout.grid.rows,
+    lightsLayout.grid.columns,
+  );
 
   return {
     ...scheme,
     frames: scheme.frames.map((f, index) =>
-      index === frameIndex ? { ...f, colorIndexes: newFrame } : f,
+      index === frameIndex ? { ...f, colors: newFrame } : f,
     ),
   };
 };
@@ -94,15 +100,15 @@ const resolveColorHue = (index: number): number =>
 const resolveColorLightness = (index: number): number =>
   (LIGHTS_PALLETTE_LIGHTNESS_LEVELS[(index & LIGHTS_PALLETTE_LIGHTNESS_MASK) >> 6] ?? 0.5) * 100;
 
-export const resolveBinaryColorStyle = (colorIndex: number): string => {
-  const hue = resolveColorHue(colorIndex);
-  const lightness = resolveColorLightness(colorIndex);
+export const resolveBinaryColorStyle = (color: LightColor): string => {
+  const hue = resolveColorHue(color);
+  const lightness = resolveColorLightness(color);
 
-  if (colorIndex === 0) {
+  if (color === 0) {
     return 'hsl(0deg 0% 0%)';
   }
 
-  if (colorIndex >= LIGHTS_PALLETTE_LIGHTNESS_MASK + LIGHTS_PALLETTE_HUE_MASK) {
+  if (color >= LIGHTS_PALLETTE_LIGHTNESS_MASK + LIGHTS_PALLETTE_HUE_MASK) {
     return 'hsl(0deg 0% 100%)';
   }
 

@@ -9,7 +9,7 @@ export const LightsSchemeValidationSchema = z.object({
     z.object({
       type: z.nativeEnum(lightsFrameType),
       tempo: z.number(),
-      colorIndexes: z.array(z.number()),
+      colors: z.array(z.number()),
     }),
   ),
 });

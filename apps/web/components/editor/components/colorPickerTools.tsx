@@ -5,19 +5,21 @@ import { cn } from 'ui/cn';
 
 import { resolveBinaryColorStyle } from '../editor.utils';
 import { useEditor } from '../editor.provider';
+import { createLightColor } from '../../../../../packages/devices/src/lights/lights.utils';
 
+import type { LightColor } from 'devices/lights.types';
 import type { EditorColorPalette } from '../editor.types';
 
 const ColorPickerGrid = ({
   className,
   colorPalette,
   selectColor,
-  colorIndex,
+  activeColor,
 }: {
   className?: string;
   colorPalette: EditorColorPalette[];
-  selectColor: (index: number) => void;
-  colorIndex: number;
+  selectColor: (index: LightColor) => void;
+  activeColor: LightColor;
 }) => (
   <div
     className={cn('grid grid-cols-8 gap-1 desktop:gap-1 items-center justify-center', className)}
@@ -26,10 +28,10 @@ const ColorPickerGrid = ({
       <button
         key={`color-${index}-${color}`}
         className="w-full h-10 rounded cursor-pointer flex justify-center items-center outline-none"
-        onClick={() => selectColor(index)}
+        onClick={() => selectColor(createLightColor(index))}
         style={{ background: color }}
       >
-        {index === colorIndex && (
+        {index === activeColor && (
           <span className="flex items-center justify-center w-4 aspect-square rounded-full bg-[white] shadow-md" />
         )}
       </button>
@@ -40,7 +42,7 @@ const ColorPickerGrid = ({
 export const ColorPickerTools = () => {
   const {
     handleColorDialogOpenChange,
-    colorIndex,
+    color,
     selectColor,
     recentColors,
     hueColors,
@@ -54,24 +56,24 @@ export const ColorPickerTools = () => {
         <Button className="rounded aspect-square px-0 overflow-hidden" asChild>
           <span
             className="rounded w-5 aspect-square"
-            style={{ backgroundColor: resolveBinaryColorStyle(colorIndex) }}
+            style={{ backgroundColor: resolveBinaryColorStyle(color) }}
           />
         </Button>
       }
       title={MESSAGES.editor.choseColor}
     >
-      <ColorPickerGrid colorPalette={hueColors} selectColor={selectColor} colorIndex={colorIndex} />
+      <ColorPickerGrid colorPalette={hueColors} selectColor={selectColor} activeColor={color} />
       <ColorPickerGrid
         className="pt-2 mt-2 border-t grid-cols-4"
         colorPalette={lightnessColors}
         selectColor={selectColor}
-        colorIndex={colorIndex}
+        activeColor={color}
       />
       <ColorPickerGrid
         className="pt-2 mt-2 border-t"
         colorPalette={recentColors}
         selectColor={selectColor}
-        colorIndex={colorIndex}
+        activeColor={color}
       />
     </DialogWrapper>
   );

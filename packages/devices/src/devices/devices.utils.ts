@@ -1,6 +1,7 @@
 import { getStorageData, removeStorageData, setStorageData } from 'utils/storage';
 
 import { isConnectionResponseData } from '../connections/connections.utils';
+import { LIGHTS_BACKGROUND_COLOR } from '../lights/lights.config';
 
 import {
   CONNECTED_DEVICES_STORAGE_KEY,
@@ -14,7 +15,7 @@ import {
 
 import type { ConnectedDevice } from './devices.types';
 import type { ConnectionResponseData } from '../connections/connections.types';
-import type { LightsFrame, LightsScheme } from '../lights/lights.types';
+import type { LightColor, LightsFrame, LightsScheme } from '../lights/lights.types';
 
 export const isIPAddress = (value: string) => {
   const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/;
@@ -109,9 +110,11 @@ export const getConnectedDeviceData = async (
 
 export const resolveFrameColorIndexes = (frame: LightsFrame, size: number): LightsFrame => ({
   ...frame,
-  colorIndexes: [
-    ...frame.colorIndexes,
-    ...(Array.from({ length: size - frame.colorIndexes.length }).fill(0) as number[]),
+  colors: [
+    ...frame.colors,
+    ...(Array.from({ length: size - frame.colors.length }).fill(
+      LIGHTS_BACKGROUND_COLOR,
+    ) as LightColor[]),
   ].slice(0, size),
 });
 

@@ -15,9 +15,9 @@ import type { GridPainterState } from './lightsFrameGrid.types';
 export const useGridPainter = (
   containerReference: RefObject<HTMLDivElement>,
   color: string,
-  onComplete: (colorIndexes: number[]) => void,
+  onComplete: (colors: number[]) => void,
 ) => {
-  const colorIndexes = useRef<number[]>([]);
+  const colors = useRef<number[]>([]);
   const stateObject = useRef<GridPainterState>(DEFAULT_PAINTER_STATE);
 
   const onDragStart = useCallback(
@@ -41,14 +41,14 @@ export const useGridPainter = (
       state.offsetStart = state.offsetCurrent || 0;
       state.animationTime = 0;
 
-      colorIndexes.current = [];
+      colors.current = [];
       state.itemIndex = getChildElementFromPoint(offsetX, offsetY, currentReferenceContainer);
 
       if (state.itemIndex === -1) {
         return;
       }
 
-      colorIndexes.current = [state.itemIndex];
+      colors.current = [state.itemIndex];
 
       rafTimeout(() => {
         setChildElementBackgroundColor(state.itemIndex, color, currentReferenceContainer);
@@ -96,11 +96,11 @@ export const useGridPainter = (
 
       event.preventDefault();
 
-      if (state.itemIndex === -1 || colorIndexes.current.includes(state.itemIndex)) {
+      if (state.itemIndex === -1 || colors.current.includes(state.itemIndex)) {
         return;
       }
 
-      colorIndexes.current.push(state.itemIndex);
+      colors.current.push(state.itemIndex);
 
       setChildElementBackgroundColor(state.itemIndex, color, currentReferenceContainer);
     },
@@ -121,7 +121,7 @@ export const useGridPainter = (
 
       event.preventDefault();
 
-      onComplete(colorIndexes.current);
+      onComplete(colors.current);
 
       rafTimeout(() => {
         state.dragged = false;

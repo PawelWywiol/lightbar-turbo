@@ -1,6 +1,10 @@
 import { useRef } from 'react';
 
-import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from 'devices/lights.config';
+import {
+  DEFAULT_LIGHTS_FRAME_TEMPO,
+  DEFAULT_LIGHTS_FRAME_TYPE,
+  LIGHTS_BACKGROUND_COLOR,
+} from 'devices/lights.config';
 
 import { resolveBinaryColorStyle } from '../../editor.utils';
 import { useEditor } from '../../editor.provider';
@@ -10,21 +14,21 @@ import { useGridPainter } from './lightsFrameGrid.hooks';
 import type { LightsFrame } from 'devices/lights.types';
 
 export const LightsFrameGrid = () => {
-  const { lightsScheme, lightsLayout, frameIndex, colorIndex, handleUpdate } = useEditor();
+  const { lightsScheme, lightsLayout, frameIndex, color, handleUpdate } = useEditor();
   const ref = useRef<HTMLDivElement>(null);
   const currentFrame = lightsScheme.scheme.frames[frameIndex];
 
-  useGridPainter(ref, resolveBinaryColorStyle(colorIndex), (updatedColorIndexes) => {
+  useGridPainter(ref, resolveBinaryColorStyle(color), (updatedColorIndexes) => {
     const updatedFrame: LightsFrame = {
       ...currentFrame,
       type: currentFrame?.type ?? DEFAULT_LIGHTS_FRAME_TYPE,
       tempo: currentFrame?.tempo ?? DEFAULT_LIGHTS_FRAME_TEMPO,
-      colorIndexes: Array.from({
+      colors: Array.from({
         length: lightsLayout.value,
       }).map((_, index) => {
         return updatedColorIndexes.includes(index)
-          ? colorIndex
-          : (currentFrame?.colorIndexes[index] ?? 0);
+          ? color
+          : (currentFrame?.colors[index] ?? LIGHTS_BACKGROUND_COLOR);
       }),
     };
 
@@ -44,12 +48,14 @@ export const LightsFrameGrid = () => {
         style={{ gridTemplateColumns: `repeat(${lightsLayout.grid.columns},minmax(0,1fr))` }}
       >
         {Array.from({ length: lightsLayout.value }).map((_, index) => {
-          const color = resolveBinaryColorStyle(currentFrame.colorIndexes[index] ?? 0);
+          const binaryColorStyle = resolveBinaryColorStyle(
+            currentFrame.colors[index] ?? LIGHTS_BACKGROUND_COLOR,
+          );
           return (
             <div
-              key={`color-${color}-${index}`}
+              key={`color-${binaryColorStyle}-${index}`}
               className="w-full h-full rounded aspect-square"
-              style={{ background: `${color}` }}
+              style={{ background: `${binaryColorStyle}` }}
             />
           );
         })}

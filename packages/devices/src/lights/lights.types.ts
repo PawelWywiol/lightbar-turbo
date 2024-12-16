@@ -1,3 +1,17 @@
+type Enumerate<
+  N extends number,
+  Accumulator extends number[] = [],
+> = Accumulator['length'] extends N
+  ? Accumulator[number]
+  : Enumerate<N, [...Accumulator, Accumulator['length']]>;
+
+type Range<From extends number, To extends number> = Exclude<Enumerate<To>, Enumerate<From>>;
+
+type ColorHue = Range<0, 64>;
+type ColorLightness = Range<0, 4>;
+
+export type LightColor = number & { __hue: ColorHue; __lightness: ColorLightness };
+
 export interface LightsLayoutOption {
   value: number;
   label: string;
@@ -29,7 +43,7 @@ export interface LightsFrameTempoOption {
 export interface LightsFrame {
   type: LightsFrameType;
   tempo: number;
-  colorIndexes: number[];
+  colors: LightColor[];
 }
 
 export interface LightsScheme {

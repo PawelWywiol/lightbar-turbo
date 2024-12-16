@@ -64,18 +64,6 @@ export const connectionRequestDataToBinaryData = (
       case 'wifi': {
         return resolveConnectionRequestWifiBinaryData(requestData);
       }
-      case 'colors': {
-        const { colors } = requestData.data;
-
-        const buffer = new Uint8Array(4 + colors.length * 4);
-        const view = new DataView(buffer.buffer);
-
-        view.setUint32(0, CONNECTION_REQUEST_TYPE.colors);
-
-        colors.forEach((color, index) => view.setUint32(4 + index * 4, color));
-
-        return buffer;
-      }
       case 'frame': {
         const { type, tempo, colors } = requestData.data;
 

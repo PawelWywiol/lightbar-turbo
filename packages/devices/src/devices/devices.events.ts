@@ -1,4 +1,4 @@
-import type { LightsScheme } from '../lights/lights.types';
+import type { LightColor, LightsScheme } from '../lights/lights.types';
 
 export interface UpdateSchemeDeviceEvent {
   name: 'app:update:scheme';
@@ -18,5 +18,7 @@ export interface SaveSchemeDeviceEvent {
 
 export interface UpdateColorDeviceEvent {
   name: 'app:update:color';
-  detail: string | undefined;
+  detail: {
+    color: LightColor;
+  };
 }

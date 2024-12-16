@@ -3,11 +3,6 @@ import { useEffect } from 'react';
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 
 import { useConnectedDeviceData } from './devices.hooks';
-import {
-  // editorColorUpdatedToConnectionRequest,
-  // lightsSchemeColorsToConnectionRequest,
-  // lightsSchemeFrameToConnectionRequest,
-} from './utils/lightsSchemeToConnectionRequest';
 
 import type {
   SaveSchemeDeviceEvent,
@@ -36,6 +31,19 @@ export const ConnectedDeviceResolver = ({
   }, [info, status]);
 
   useEffect(() => {
+    const editorColorUpdateEvent: CustomEventCallback<UpdateColorDeviceEvent> = {
+      name: 'app:update:color',
+      callback: ({ detail }) => {
+        if (!detail) {
+          return;
+        }
+
+        // const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
+
+        // void send(jsonl);
+      },
+    };
+
     const editorSchemeUpdateEvent: CustomEventCallback<UpdateSchemeDeviceEvent> = {
       name: 'app:update:scheme',
       callback: ({ detail }) => {
@@ -52,18 +60,7 @@ export const ConnectedDeviceResolver = ({
         // void send(jsonl);
       },
     };
-    const editorColorUpdateEvent: CustomEventCallback<UpdateColorDeviceEvent> = {
-      name: 'app:update:color',
-      callback: ({ detail }) => {
-        if (!detail) {
-          return;
-        }
 
-        // const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
-
-        // void send(jsonl);
-      },
-    };
     const editorSchemeSaveEvent: CustomEventCallback<SaveSchemeDeviceEvent> = {
       name: 'app:save:scheme',
       callback: ({
@@ -82,14 +79,14 @@ export const ConnectedDeviceResolver = ({
     };
 
     if (selected) {
-      subscribeCustomEvent<UpdateSchemeDeviceEvent>(editorSchemeUpdateEvent);
       subscribeCustomEvent<UpdateColorDeviceEvent>(editorColorUpdateEvent);
+      subscribeCustomEvent<UpdateSchemeDeviceEvent>(editorSchemeUpdateEvent);
       subscribeCustomEvent<SaveSchemeDeviceEvent>(editorSchemeSaveEvent);
     }
 
     return () => {
-      unsubscribeCustomEvent<UpdateSchemeDeviceEvent>(editorSchemeUpdateEvent);
       unsubscribeCustomEvent<UpdateColorDeviceEvent>(editorColorUpdateEvent);
+      unsubscribeCustomEvent<UpdateSchemeDeviceEvent>(editorSchemeUpdateEvent);
       unsubscribeCustomEvent<SaveSchemeDeviceEvent>(editorSchemeSaveEvent);
     };
   }, [info, selected, send]);

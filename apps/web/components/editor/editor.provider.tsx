@@ -7,15 +7,27 @@ import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
 import {
   DEFAULT_LIGHTS_LAYOUT_OPTION,
   DEFAULT_LIGHTS_SCHEME,
+  LIGHTS_BACKGROUND_COLOR,
   LIGHTS_PALLETTE_HUE_MASK,
   LIGHTS_PALLETTE_HUE_MAX,
   LIGHTS_PALLETTE_LIGHTNESS_MASK,
 } from 'devices/lights.config';
 
+import { createLightColor } from '../../../../packages/devices/src/lights/lights.utils';
+
 import { EDITOR_INITIAL_RECENT_COLORS_INDEX_MODULO, EDITOR_MAX_HISTORY } from './editor.config';
 import { resolveBinaryColorStyle } from './editor.utils';
 
-import type { LightsLayoutOption, LightsScheme, LightsSchemeData } from 'devices/lights.types';
+import type {
+  UpdateColorDeviceEvent,
+  UpdateSchemeDeviceEvent,
+} from '../../../../packages/devices/src/devices/devices.events';
+import type {
+  LightColor,
+  LightsLayoutOption,
+  LightsScheme,
+  LightsSchemeData,
+} from 'devices/lights.types';
 import type { EditorColorPalette } from './editor.types';
 
 interface EditorContextProps {
@@ -24,8 +36,8 @@ interface EditorContextProps {
   setLightsLayout: Dispatch<SetStateAction<LightsLayoutOption>>;
   isColorDialogOpen: boolean;
   handleColorDialogOpenChange: (open: boolean) => void;
-  colorIndex: number;
-  selectColor: (index: number) => void;
+  color: LightColor;
+  selectColor: (index: LightColor) => void;
   colorPalette: EditorColorPalette[];
   recentColors: EditorColorPalette[];
   hueColors: EditorColorPalette[];
@@ -46,11 +58,11 @@ interface EditorContextProps {
 }
 
 const editorColorPalette: EditorColorPalette[] = Array.from(
-  { length: LIGHTS_PALLETTE_HUE_MASK + 1 + LIGHTS_PALLETTE_LIGHTNESS_MASK },
+  { length: LIGHTS_PALLETTE_HUE_MASK + LIGHTS_PALLETTE_LIGHTNESS_MASK + 1 },
   (_, index) => index,
 ).map((index) => ({
   index,
-  color: resolveBinaryColorStyle(index),
+  color: resolveBinaryColorStyle(createLightColor(index)),
 }));
 
 const initialRecentColors: EditorColorPalette[] = editorColorPalette
@@ -60,8 +72,8 @@ const initialRecentColors: EditorColorPalette[] = editorColorPalette
     3 * EDITOR_INITIAL_RECENT_COLORS_INDEX_MODULO,
   );
 
-const resolveHueColorPalette = (colorIndex: number): EditorColorPalette[] => {
-  const palletPart = Math.floor(colorIndex / LIGHTS_PALLETTE_HUE_MAX);
+const resolveHueColorPalette = (color: LightColor): EditorColorPalette[] => {
+  const palletPart = Math.floor(color / LIGHTS_PALLETTE_HUE_MAX);
 
   return editorColorPalette.slice(
     palletPart * LIGHTS_PALLETTE_HUE_MAX,
@@ -69,10 +81,12 @@ const resolveHueColorPalette = (colorIndex: number): EditorColorPalette[] => {
   );
 };
 
-const resolveLightnessColorPalette = (colorIndex: number): EditorColorPalette[] => {
-  const partIndex = colorIndex % LIGHTS_PALLETTE_HUE_MAX;
+const resolveLightnessColorPalette = (color: LightColor): EditorColorPalette[] => {
+  const partIndex = color % LIGHTS_PALLETTE_HUE_MAX;
 
-  return editorColorPalette.filter((color) => color.index % LIGHTS_PALLETTE_HUE_MAX === partIndex);
+  return editorColorPalette.filter(
+    (paletteColor) => paletteColor.index % LIGHTS_PALLETTE_HUE_MAX === partIndex,
+  );
 };
 
 const editorContextDefaultValues: EditorContextProps = {
@@ -89,7 +103,7 @@ const editorContextDefaultValues: EditorContextProps = {
   handleColorDialogOpenChange: () => {
     // void
   },
-  colorIndex: 0,
+  color: LIGHTS_BACKGROUND_COLOR,
   selectColor: () => {
     // void
   },
@@ -148,17 +162,19 @@ export const EditorProvider = ({
   const [lightsSchemeHistory, setLightsSchemeHistory] = useState<LightsScheme[]>([]);
   const [lightsSchemeHistoryIndex, setLightsSchemeHistoryIndex] = useState(0);
   const [frameIndex, setFrameIndex] = useState(0);
-  const [colorIndex, setColorIndex] = useState(0);
+  const [color, setColor] = useState<LightColor>(LIGHTS_BACKGROUND_COLOR);
   const [lastColorIndex, setLastColorIndex] = useState<number>(0);
   const [isColorDialogOpen, setIsColorDialogOpen] = useState(false);
   const [recentColors, setRecentColors] = useState<EditorColorPalette[]>(initialRecentColors);
-  const [hueColors, setHueColors] = useState<EditorColorPalette[]>(resolveHueColorPalette(0));
+  const [hueColors, setHueColors] = useState<EditorColorPalette[]>(
+    resolveHueColorPalette(LIGHTS_BACKGROUND_COLOR),
+  );
   const [lightnessColors, setLightnessColors] = useState<EditorColorPalette[]>(
-    resolveLightnessColorPalette(0),
+    resolveLightnessColorPalette(LIGHTS_BACKGROUND_COLOR),
   );
 
-  const selectColor = useCallback((index: number) => {
-    setColorIndex(index);
+  const selectColor = useCallback((index: LightColor) => {
+    setColor(index);
   }, []);
 
   const handleColorDialogOpenChange = useCallback(
@@ -166,17 +182,21 @@ export const EditorProvider = ({
       setIsColorDialogOpen(open);
 
       if (open) {
-        setLastColorIndex(colorIndex);
+        setLastColorIndex(color);
         return;
       }
 
-      if (lastColorIndex === colorIndex) {
+      if (lastColorIndex === color) {
         return;
       }
 
       setRecentColors((previousRecentColors) => {
-        const newRecentColors = previousRecentColors.filter((color) => color.index !== colorIndex);
-        const selectedColor = editorColorPalette.find((color) => color.index === colorIndex);
+        const newRecentColors = previousRecentColors.filter(
+          (recentColor) => recentColor.index !== color,
+        );
+        const selectedColor = editorColorPalette.find(
+          (paletteColor) => paletteColor.index === color,
+        );
 
         if (!selectedColor) {
           return previousRecentColors;
@@ -186,7 +206,7 @@ export const EditorProvider = ({
         return newRecentColors.slice(0, initialRecentColors.length);
       });
     },
-    [colorIndex, lastColorIndex],
+    [color, lastColorIndex],
   );
 
   const handleUpdate = useCallback(
@@ -256,7 +276,7 @@ export const EditorProvider = ({
 
   useEffect(() => {
     if (!isColorDialogOpen && lightsScheme.scheme.frames[frameIndex]) {
-      dispatchCustomEvent({
+      dispatchCustomEvent<UpdateSchemeDeviceEvent>({
         name: 'app:update:scheme',
         detail: {
           scheme: resolveLightsSchemeColorIndexes(lightsScheme.scheme, lightsLayout.value),
@@ -268,17 +288,17 @@ export const EditorProvider = ({
 
   useEffect(() => {
     if (isColorDialogOpen) {
-      dispatchCustomEvent({
+      dispatchCustomEvent<UpdateColorDeviceEvent>({
         name: 'app:update:color',
-        detail: { colorIndex },
+        detail: { color: color },
       });
     }
-  }, [isColorDialogOpen, colorIndex]);
+  }, [isColorDialogOpen, color]);
 
   useEffect(() => {
-    setHueColors(resolveHueColorPalette(colorIndex));
-    setLightnessColors(resolveLightnessColorPalette(colorIndex));
-  }, [colorIndex]);
+    setHueColors(resolveHueColorPalette(color));
+    setLightnessColors(resolveLightnessColorPalette(color));
+  }, [color]);
 
   const editorProviderValue = useMemo(
     () => ({
@@ -287,7 +307,7 @@ export const EditorProvider = ({
       setLightsLayout,
       isColorDialogOpen,
       handleColorDialogOpenChange,
-      colorIndex,
+      color,
       selectColor,
       colorPalette: editorColorPalette,
       recentColors,
@@ -312,7 +332,7 @@ export const EditorProvider = ({
       lightsLayout,
       isColorDialogOpen,
       handleColorDialogOpenChange,
-      colorIndex,
+      color,
       recentColors,
       hueColors,
       lightnessColors,
