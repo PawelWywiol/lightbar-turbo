@@ -1,7 +1,13 @@
 import { getStorageData, removeStorageData, setStorageData } from 'utils/storage';
 
 import { isConnectionResponseData } from '../connections/connections.utils';
-import { LIGHTS_BACKGROUND_COLOR } from '../lights/lights.config';
+import { DEFAULT_LIGHTS_FRAME_TEMPO, LIGHTS_BACKGROUND_COLOR } from '../lights/lights.config';
+import {
+  lightsFrameType,
+  type LightColor,
+  type LightsFrame,
+  type LightsScheme,
+} from '../lights/lights.types';
 
 import {
   CONNECTED_DEVICES_STORAGE_KEY,
@@ -14,8 +20,10 @@ import {
 } from './devices.schema';
 
 import type { ConnectedDevice } from './devices.types';
-import type { ConnectionResponseData } from '../connections/connections.types';
-import type { LightColor, LightsFrame, LightsScheme } from '../lights/lights.types';
+import type {
+  ConnectionRequestData,
+  ConnectionResponseData,
+} from '../connections/connections.types';
 
 export const isIPAddress = (value: string) => {
   const ipRegex = /^(?:\d{1,3}\.){3}\d{1,3}$/;
@@ -124,4 +132,20 @@ export const resolveLightsSchemeColorIndexes = (
 ): LightsScheme => ({
   ...scheme,
   frames: scheme.frames.map((frame) => resolveFrameColorIndexes(frame, size)),
+});
+
+export const convertColorToConnectionRequestData = (color: LightColor): ConnectionRequestData => ({
+  type: 'frame',
+  data: {
+    type: lightsFrameType.step,
+    tempo: DEFAULT_LIGHTS_FRAME_TEMPO,
+    colors: [color],
+  },
+});
+
+export const convertLightsFrameToConnectionRequestData = (
+  frame: LightsFrame,
+): ConnectionRequestData => ({
+  type: 'frame',
+  data: frame,
 });

@@ -3,6 +3,10 @@ import { useEffect } from 'react';
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 
 import { useConnectedDeviceData } from './devices.hooks';
+import {
+  convertColorToConnectionRequestData,
+  convertLightsFrameToConnectionRequestData,
+} from './devices.utils';
 
 import type {
   SaveSchemeDeviceEvent,
@@ -38,9 +42,7 @@ export const ConnectedDeviceResolver = ({
           return;
         }
 
-        // const jsonl = editorColorUpdatedToConnectionRequest(detail, info?.data.leds);
-
-        // void send(jsonl);
+        void send([convertColorToConnectionRequestData(detail.color)]);
       },
     };
 
@@ -52,29 +54,14 @@ export const ConnectedDeviceResolver = ({
           return;
         }
 
-        // const jsonl = [
-        //   lightsSchemeColorsToConnectionRequest(detail.scheme.colors),
-        //   lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
-        // ].join('\n');
-
-        // void send(jsonl);
+        void send([convertLightsFrameToConnectionRequestData(frame)]);
       },
     };
 
     const editorSchemeSaveEvent: CustomEventCallback<SaveSchemeDeviceEvent> = {
       name: 'app:save:scheme',
-      callback: ({
-        detail: {
-          // scheme
-        },
-      }) => {
-        // const jsonl = [
-        //   lightsSchemeColorsToConnectionRequest(scheme.colors),
-        //   ...scheme.frames.map((frame) =>
-        //     lightsSchemeFrameToConnectionRequest(frame, info?.data.leds),
-        //   ),
-        // ].join('\n');
-        // void send(jsonl);
+      callback: ({ detail: { scheme } }) => {
+        void send(scheme.frames.map((frame) => convertLightsFrameToConnectionRequestData(frame)));
       },
     };
 
