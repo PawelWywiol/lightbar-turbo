@@ -2,9 +2,10 @@ import { secureRandomNumber } from 'utils/uid';
 import {
   LIGHTS_BACKGROUND_COLOR,
   LIGHTS_PALLETTE_HUE_MASK,
-  LIGHTS_PALLETTE_LIGHTNESS_LEVELS,
+  LIGHTS_PALLETTE_HUE_MAX,
+  LIGHTS_PALLETTE_LIGHTNESS_BASE,
   LIGHTS_PALLETTE_LIGHTNESS_MASK,
-  LIGHTS_PALLETTE_LIGHTNESS_MAX,
+  LIGHTS_PALLETTE_LIGHTNESS_STEP,
 } from 'devices/lights.config';
 
 import type { LightColor, LightsLayoutOption, LightsScheme } from 'devices/lights.types';
@@ -93,24 +94,23 @@ export const shiftLightsFrameColorPixel = (
   };
 };
 
-const resolveColorHue = (index: number): number =>
-  ((index & LIGHTS_PALLETTE_HUE_MASK) * LIGHTS_PALLETTE_LIGHTNESS_MAX) /
-  ((LIGHTS_PALLETTE_HUE_MASK + LIGHTS_PALLETTE_LIGHTNESS_MASK) / 360);
+const resolveColorHue = (color: number): number =>
+  ((color & LIGHTS_PALLETTE_HUE_MASK) * 360) / LIGHTS_PALLETTE_HUE_MAX;
 
-const resolveColorLightness = (index: number): number =>
-  (LIGHTS_PALLETTE_LIGHTNESS_LEVELS[(index & LIGHTS_PALLETTE_LIGHTNESS_MASK) >> 6] ?? 0.5) * 100;
+const resolveColorSaturation = (color: number): number =>
+  color % LIGHTS_PALLETTE_HUE_MAX === LIGHTS_PALLETTE_HUE_MASK ? 0 : 50;
+
+const resolveColorLightness = (color: number): number =>
+  color === LIGHTS_PALLETTE_HUE_MASK
+    ? 0
+    : 0.5 *
+      (((color & LIGHTS_PALLETTE_LIGHTNESS_MASK) >> 6) * LIGHTS_PALLETTE_LIGHTNESS_STEP +
+        LIGHTS_PALLETTE_LIGHTNESS_BASE);
 
 export const resolveBinaryColorStyle = (color: LightColor): string => {
   const hue = resolveColorHue(color);
+  const saturation = resolveColorSaturation(color);
   const lightness = resolveColorLightness(color);
 
-  if (color === 0) {
-    return 'hsl(0deg 0% 0%)';
-  }
-
-  if (color >= LIGHTS_PALLETTE_LIGHTNESS_MASK + LIGHTS_PALLETTE_HUE_MASK) {
-    return 'hsl(0deg 0% 100%)';
-  }
-
-  return `hsl(${hue}deg 50% ${lightness}%)`;
+  return `hsl(${hue}deg ${saturation}% ${lightness}%)`;
 };

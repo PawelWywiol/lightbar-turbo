@@ -16,9 +16,10 @@ export const LIGHTS_PALLETTE_HUE_MASK = 0b0011_1111;
 export const LIGHTS_PALLETTE_HUE_MAX = LIGHTS_PALLETTE_HUE_MASK + 1;
 export const LIGHTS_PALLETTE_LIGHTNESS_MASK = 0b1100_0000;
 export const LIGHTS_PALLETTE_LIGHTNESS_MAX = (LIGHTS_PALLETTE_LIGHTNESS_MASK >> 6) + 1;
-export const LIGHTS_PALLETTE_LIGHTNESS_LEVELS = [0.3, 0.4, 0.5, 0.75];
+export const LIGHTS_PALLETTE_LIGHTNESS_STEP = 20;
+export const LIGHTS_PALLETTE_LIGHTNESS_BASE = 20;
 
-export const LIGHTS_COLOR_BLACK: LightColor = createLightColor(0);
+export const LIGHTS_COLOR_BLACK: LightColor = createLightColor(LIGHTS_PALLETTE_HUE_MASK);
 export const LIGHTS_COLOR_WHITE: LightColor = createLightColor(
   LIGHTS_PALLETTE_HUE_MASK + LIGHTS_PALLETTE_LIGHTNESS_MASK,
 );
@@ -231,9 +232,7 @@ export const DEFAULT_LIGHTS_SCHEME: LightsScheme = {
     },
     {
       ...DEFAULT_LIGHTS_FRAME,
-      colors: createLightColorsArray(
-        [0, 1, 2, 3, 4, 5, 6, 7].map((index) => index + 0b1000_0000),
-      ),
+      colors: createLightColorsArray([0, 1, 2, 3, 4, 5, 6, 7].map((index) => index + 0b1000_0000)),
     },
   ],
 };
