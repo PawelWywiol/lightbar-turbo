@@ -34,7 +34,9 @@ export interface ConnectionResponseData {
   data: {
     uid: string;
     leds: number;
-    space: number;
+    free: number;
+    used: number;
+    total: number;
     network: NetworkType;
     host?: string;
   };
