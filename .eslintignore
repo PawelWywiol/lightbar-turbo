@@ -1,5 +1,0 @@
-node_modules
-apps/**/dist
-**/*.js
-packages/ui/src/icons/CustomIcon/templates
-.eslintrc.cjs

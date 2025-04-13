@@ -1,15 +1,13 @@
 {
-  "extends": "tsconfig/remix.json",
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/.server/**/*.ts",
-    "**/.server/**/*.tsx",
-    "**/.client/**/*.ts",
-    "**/.client/**/*.tsx",
-    "tailwind.config.ts",
-    "vite.config.mjs",
-    ".eslintrc.cjs",
-    "postcss.config.cjs"
-  ]
+	"extends": "tsconfig/remix.json",
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/.server/**/*.ts",
+		"**/.server/**/*.tsx",
+		"**/.client/**/*.ts",
+		"**/.client/**/*.tsx",
+		".tailwind.config.ts",
+		"vite.config.mjs"
+	]
 }

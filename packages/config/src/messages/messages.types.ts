@@ -1,6 +1,6 @@
-export type MessageType = 'error' | 'info' | 'warning';
+export type MessageType = "error" | "info" | "warning";
 
 export interface Message {
-  type: MessageType;
-  message: string;
+	type: MessageType;
+	message: string;
 }

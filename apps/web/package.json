@@ -1,48 +1,47 @@
 {
-  "name": "web",
-  "version": "1.0.0",
-  "private": true,
-  "sideEffects": false,
-  "type": "module",
-  "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
-    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
-  },
-  "dependencies": {
-    "@remix-run/node": "^2.13.1",
-    "@remix-run/react": "^2.13.1",
-    "@remix-run/serve": "^2.13.1",
-    "config": "*",
-    "cva": "npm:class-variance-authority@^0.7.0",
-    "devices": "*",
-    "isbot": "^5.1.17",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "sanitize-html": "^2.13.1",
-    "ui": "*",
-    "utils": "*"
-  },
-  "devDependencies": {
-    "@remix-run/dev": "^2.13.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@types/sanitize-html": "^2.13.0",
-    "@typescript-eslint/eslint-plugin": "^8.11.0",
-    "@typescript-eslint/parser": "^8.11.0",
-    "autoprefixer": "^10.4.20",
-    "eslint-config-custom": "*",
-    "eslint-config-custom-remix": "*",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.14",
-    "tsconfig": "*",
-    "typescript": "~5.4.5",
-    "vite": "^5.4.10",
-    "vite-tsconfig-paths": "^4.3.2"
-  },
-  "engines": {
-    "node": ">=20.0.0"
-  }
+	"name": "web",
+	"version": "1.0.0",
+	"private": true,
+	"sideEffects": false,
+	"type": "module",
+	"scripts": {
+		"build": "remix vite:build",
+		"dev": "remix vite:dev",
+		"lint": "npx @biomejs/biome check --write .",
+		"format": "npx @biomejs/biome format",
+		"start": "remix-serve ./build/server/index.js",
+		"typecheck": "tsc"
+	},
+	"dependencies": {
+		"@remix-run/node": "^2.16.5",
+		"@remix-run/react": "^2.16.5",
+		"@remix-run/serve": "^2.16.5",
+		"config": "*",
+		"cva": "npm:class-variance-authority@^0.7.1",
+		"devices": "*",
+		"isbot": "^5.1.26",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"sanitize-html": "^2.15.0",
+		"ui": "*",
+		"utils": "*"
+	},
+	"devDependencies": {
+		"@remix-run/dev": "^2.16.5",
+		"@tailwindcss/postcss": "^4.1.3",
+		"@tailwindcss/vite": "^4.1.3",
+		"@types/react": "^18.3.20",
+		"@types/react-dom": "^18.3.6",
+		"@types/sanitize-html": "^2.15.0",
+		"autoprefixer": "^10.4.21",
+		"postcss": "^8.5.3",
+		"tailwindcss": "^4.1.3",
+		"tsconfig": "*",
+		"typescript": "~5.8.3",
+		"vite": "^6.2.6",
+		"vite-tsconfig-paths": "^5.1.4"
+	},
+	"engines": {
+		"node": ">=20.0.0"
+	}
 }

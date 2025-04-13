@@ -17,6 +17,10 @@
       "cache": true,
       "persistent": false
     },
+    "format": {
+      "cache": true,
+      "persistent": false
+    },
     "type-check": {
       "cache": false
     },
