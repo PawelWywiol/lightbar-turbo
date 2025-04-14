@@ -7,9 +7,9 @@
     "access": "public"
   },
   "devDependencies": {
-    "@remix-run/node": "^2.13.1"
+    "@remix-run/node": "^2.16.5"
   },
   "dependencies": {
-    "@remix-run/dev": "^2.13.1"
+    "@remix-run/dev": "^2.16.5"
   }
 }
