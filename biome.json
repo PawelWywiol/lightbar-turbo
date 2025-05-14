@@ -14,7 +14,9 @@
       "**/.git/**",
       "**/.vscode/**",
       "**/embedded/**",
-      "**/.DS_Store"
+      "**/.DS_Store",
+      "**/.turbo/**",
+      "**/.react-router/**"
     ]
   },
   "formatter": {
