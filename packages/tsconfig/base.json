@@ -33,7 +33,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
-    "allowJs": true,
+    "allowJs": true
   },
   "exclude": ["node_modules"]
 }

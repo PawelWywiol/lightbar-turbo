@@ -1,11 +1,11 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 export interface DropDownMenuOption {
-	label: string;
-	onClick?: () => void;
+  label: string;
+  onClick?: () => void;
 }
 
 export interface DropDownMenuProps {
-	trigger?: ReactNode;
-	options: DropDownMenuOption[];
+  trigger?: ReactNode;
+  options: DropDownMenuOption[];
 }

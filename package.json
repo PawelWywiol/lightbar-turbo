@@ -26,10 +26,7 @@
     "turbo": "^2.5.0"
   },
   "name": "lightbar-turbo",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "volta": {
     "node": "20.15.1",
     "npm": "10.8.3"

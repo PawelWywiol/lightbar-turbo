@@ -1,26 +1,19 @@
-import type { LightColor, LightsSchemeData } from "devices/lights.types";
+import type { LightColor, LightsSchemeData } from 'devices/lights.types';
 
-export type ShiftDirection =
-	| "up"
-	| "down"
-	| "left"
-	| "right"
-	| "prev"
-	| "next"
-	| "shuffle";
+export type ShiftDirection = 'up' | 'down' | 'left' | 'right' | 'prev' | 'next' | 'shuffle';
 
 export type ShiftColorsFrame = (
-	colors: LightColor[],
-	direction: ShiftDirection,
-	rowsCount: number,
-	columnsCount: number,
+  colors: LightColor[],
+  direction: ShiftDirection,
+  rowsCount: number,
+  columnsCount: number,
 ) => LightColor[];
 
 export interface EditorProps {
-	lightsSchemeData?: LightsSchemeData | undefined;
+  lightsSchemeData?: LightsSchemeData | undefined;
 }
 
 export interface EditorColorPalette {
-	color: string;
-	index: number;
+  color: string;
+  index: number;
 }

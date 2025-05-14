@@ -1,26 +1,26 @@
 {
-	"name": "config",
-	"version": "1.0.0",
-	"description": "general config",
-	"devDependencies": {},
-	"scripts": {
-		"lint": "npx @biomejs/biome check --write .",
-		"format": "npx @biomejs/biome format",
-		"type-check": "tsc --noEmit",
-		"madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
-	},
-	"author": "",
-	"license": "MIT",
-	"exports": {
-		"./app": "./src/app/app.ts",
-		"./devices": "./src/devices/devices.ts",
-		"./devices.types": "./src/devices/devices.types.ts",
-		"./lights": "./src/lights/lights.ts",
-		"./lights.scheme": "./src/lights/lights.scheme.ts",
-		"./lights.types": "./src/lights/lights.types.ts",
-		"./messages": "./src/messages/messages.ts",
-		"./messages.types": "./src/messages/messages.types.ts",
-		"./connections": "./src/connections/connections.ts",
-		"./connections.types": "./src/connections/connections.types.ts"
-	}
+  "name": "config",
+  "version": "1.0.0",
+  "description": "general config",
+  "devDependencies": {},
+  "scripts": {
+    "lint": "npx @biomejs/biome check --write .",
+    "format": "npx @biomejs/biome format",
+    "type-check": "tsc --noEmit",
+    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
+  },
+  "author": "",
+  "license": "MIT",
+  "exports": {
+    "./app": "./src/app/app.ts",
+    "./devices": "./src/devices/devices.ts",
+    "./devices.types": "./src/devices/devices.types.ts",
+    "./lights": "./src/lights/lights.ts",
+    "./lights.scheme": "./src/lights/lights.scheme.ts",
+    "./lights.types": "./src/lights/lights.types.ts",
+    "./messages": "./src/messages/messages.ts",
+    "./messages.types": "./src/messages/messages.types.ts",
+    "./connections": "./src/connections/connections.ts",
+    "./connections.types": "./src/connections/connections.types.ts"
+  }
 }

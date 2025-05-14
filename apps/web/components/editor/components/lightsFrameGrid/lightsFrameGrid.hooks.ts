@@ -1,204 +1,175 @@
-import { useCallback, useEffect, useRef } from "react";
-import type { RefObject } from "react";
+import { useCallback, useEffect, useRef } from 'react';
+import type { RefObject } from 'react';
 
-import { rafTimeout } from "utils/rafTimeout";
+import { rafTimeout } from 'utils/rafTimeout';
 
+import { DEFAULT_PAINTER_STATE, MINIMUM_DRAG_DISTANCE } from './lightsFrameGrid.config';
 import {
-	DEFAULT_PAINTER_STATE,
-	MINIMUM_DRAG_DISTANCE,
-} from "./lightsFrameGrid.config";
-import {
-	getChildElementFromPoint,
-	getPositionFromEvent,
-	setChildElementBackgroundColor,
-} from "./lightsFrameGrid.utils";
+  getChildElementFromPoint,
+  getPositionFromEvent,
+  setChildElementBackgroundColor,
+} from './lightsFrameGrid.utils';
 
-import type { GridPainterState } from "./lightsFrameGrid.types";
+import type { GridPainterState } from './lightsFrameGrid.types';
 
 export const useGridPainter = (
-	containerReference: RefObject<HTMLDivElement>,
-	color: string,
-	onComplete: (colors: number[]) => void,
+  containerReference: RefObject<HTMLDivElement>,
+  color: string,
+  onComplete: (colors: number[]) => void,
 ) => {
-	const colors = useRef<number[]>([]);
-	const stateObject = useRef<GridPainterState>(DEFAULT_PAINTER_STATE);
+  const colors = useRef<number[]>([]);
+  const stateObject = useRef<GridPainterState>(DEFAULT_PAINTER_STATE);
 
-	const onDragStart = useCallback(
-		(event: Event) => {
-			const currentReferenceContainer = containerReference.current;
+  const onDragStart = useCallback(
+    (event: Event) => {
+      const currentReferenceContainer = containerReference.current;
 
-			if (!currentReferenceContainer) {
-				return;
-			}
+      if (!currentReferenceContainer) {
+        return;
+      }
 
-			const state = stateObject.current;
-			const { offsetX, offsetY } = getPositionFromEvent(event);
+      const state = stateObject.current;
+      const { offsetX, offsetY } = getPositionFromEvent(event);
 
-			state.isDragStarted = true;
-			state.isDragging = false;
-			state.dragged = false;
-			state.dragStartOffsetX = offsetX;
-			state.dragLastOffsetX = offsetX;
-			state.dragStartOffsetY = offsetY;
-			state.dragLastOffsetY = offsetY;
-			state.offsetStart = state.offsetCurrent || 0;
-			state.animationTime = 0;
+      state.isDragStarted = true;
+      state.isDragging = false;
+      state.dragged = false;
+      state.dragStartOffsetX = offsetX;
+      state.dragLastOffsetX = offsetX;
+      state.dragStartOffsetY = offsetY;
+      state.dragLastOffsetY = offsetY;
+      state.offsetStart = state.offsetCurrent || 0;
+      state.animationTime = 0;
 
-			colors.current = [];
-			state.itemIndex = getChildElementFromPoint(
-				offsetX,
-				offsetY,
-				currentReferenceContainer,
-			);
+      colors.current = [];
+      state.itemIndex = getChildElementFromPoint(offsetX, offsetY, currentReferenceContainer);
 
-			if (state.itemIndex === -1) {
-				return;
-			}
+      if (state.itemIndex === -1) {
+        return;
+      }
 
-			colors.current = [state.itemIndex];
+      colors.current = [state.itemIndex];
 
-			rafTimeout(() => {
-				setChildElementBackgroundColor(
-					state.itemIndex,
-					color,
-					currentReferenceContainer,
-				);
-			});
-		},
-		[containerReference, color],
-	);
+      rafTimeout(() => {
+        setChildElementBackgroundColor(state.itemIndex, color, currentReferenceContainer);
+      });
+    },
+    [containerReference, color],
+  );
 
-	const onDragMove = useCallback(
-		(event: Event) => {
-			const currentReferenceContainer = containerReference.current;
+  const onDragMove = useCallback(
+    (event: Event) => {
+      const currentReferenceContainer = containerReference.current;
 
-			if (!currentReferenceContainer) {
-				return;
-			}
+      if (!currentReferenceContainer) {
+        return;
+      }
 
-			const state = stateObject.current;
-			const { offsetX, offsetY } = getPositionFromEvent(event);
+      const state = stateObject.current;
+      const { offsetX, offsetY } = getPositionFromEvent(event);
 
-			if (!state.isDragStarted) {
-				return;
-			}
+      if (!state.isDragStarted) {
+        return;
+      }
 
-			state.dragDistanceX = (state.dragStartOffsetX || offsetX) - offsetX;
-			state.dragDistanceY = (state.dragStartOffsetY || offsetY) - offsetY;
+      state.dragDistanceX = (state.dragStartOffsetX || offsetX) - offsetX;
+      state.dragDistanceY = (state.dragStartOffsetY || offsetY) - offsetY;
 
-			state.dragLastOffsetX = offsetX;
-			state.dragLastOffsetY = offsetY;
+      state.dragLastOffsetX = offsetX;
+      state.dragLastOffsetY = offsetY;
 
-			if (
-				!state.isDragging &&
-				Math.abs(state.dragDistanceX) < MINIMUM_DRAG_DISTANCE &&
-				Math.abs(state.dragDistanceY) < MINIMUM_DRAG_DISTANCE
-			) {
-				state.isDragStarted = false;
-				return;
-			}
+      if (
+        !state.isDragging &&
+        Math.abs(state.dragDistanceX) < MINIMUM_DRAG_DISTANCE &&
+        Math.abs(state.dragDistanceY) < MINIMUM_DRAG_DISTANCE
+      ) {
+        state.isDragStarted = false;
+        return;
+      }
 
-			state.isDragging = true;
-			state.dragged = !!state.dragDistanceX;
-			state.offsetCurrent = state.offsetStart + state.dragDistanceX;
-			state.offsetTarget = state.offsetCurrent;
+      state.isDragging = true;
+      state.dragged = !!state.dragDistanceX;
+      state.offsetCurrent = state.offsetStart + state.dragDistanceX;
+      state.offsetTarget = state.offsetCurrent;
 
-			state.itemIndex = getChildElementFromPoint(
-				offsetX,
-				offsetY,
-				currentReferenceContainer,
-			);
+      state.itemIndex = getChildElementFromPoint(offsetX, offsetY, currentReferenceContainer);
 
-			event.preventDefault();
+      event.preventDefault();
 
-			if (state.itemIndex === -1 || colors.current.includes(state.itemIndex)) {
-				return;
-			}
+      if (state.itemIndex === -1 || colors.current.includes(state.itemIndex)) {
+        return;
+      }
 
-			colors.current.push(state.itemIndex);
+      colors.current.push(state.itemIndex);
 
-			setChildElementBackgroundColor(
-				state.itemIndex,
-				color,
-				currentReferenceContainer,
-			);
-		},
-		[containerReference, color],
-	);
+      setChildElementBackgroundColor(state.itemIndex, color, currentReferenceContainer);
+    },
+    [containerReference, color],
+  );
 
-	const onDragEnd = useCallback(
-		(event: Event) => {
-			const state = stateObject.current;
+  const onDragEnd = useCallback(
+    (event: Event) => {
+      const state = stateObject.current;
 
-			if (!state.isDragStarted) {
-				return;
-			}
+      if (!state.isDragStarted) {
+        return;
+      }
 
-			state.isDragStarted = false;
-			state.animationTime = 0;
-			state.isDragging = false;
+      state.isDragStarted = false;
+      state.animationTime = 0;
+      state.isDragging = false;
 
-			event.preventDefault();
+      event.preventDefault();
 
-			onComplete(colors.current);
+      onComplete(colors.current);
 
-			rafTimeout(() => {
-				state.dragged = false;
-			});
-		},
-		[onComplete],
-	);
+      rafTimeout(() => {
+        state.dragged = false;
+      });
+    },
+    [onComplete],
+  );
 
-	const onClick = useCallback((event: Event) => {
-		const state = stateObject.current;
+  const onClick = useCallback((event: Event) => {
+    const state = stateObject.current;
 
-		if (state.dragged) {
-			state.dragged = false;
-			event.preventDefault();
-			event.stopImmediatePropagation();
-		}
-	}, []);
+    if (state.dragged) {
+      state.dragged = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  }, []);
 
-	const preventDragStart = useCallback(
-		(dragStartEvent: Event) => dragStartEvent.preventDefault(),
-		[],
-	);
+  const preventDragStart = useCallback(
+    (dragStartEvent: Event) => dragStartEvent.preventDefault(),
+    [],
+  );
 
-	useEffect(() => {
-		const currentReferenceContainer = containerReference.current;
+  useEffect(() => {
+    const currentReferenceContainer = containerReference.current;
 
-		globalThis?.addEventListener("mouseup", onDragEnd);
-		globalThis?.addEventListener("touchend", onDragEnd, { passive: false });
-		globalThis?.addEventListener("mousemove", onDragMove);
-		globalThis?.addEventListener("touchmove", onDragMove, { passive: false });
+    globalThis?.addEventListener('mouseup', onDragEnd);
+    globalThis?.addEventListener('touchend', onDragEnd, { passive: false });
+    globalThis?.addEventListener('mousemove', onDragMove);
+    globalThis?.addEventListener('touchmove', onDragMove, { passive: false });
 
-		currentReferenceContainer?.addEventListener("mousedown", onDragStart);
-		currentReferenceContainer?.addEventListener("touchstart", onDragStart);
-		currentReferenceContainer?.addEventListener("dragstart", preventDragStart);
-		currentReferenceContainer?.addEventListener("click", onClick, {
-			passive: false,
-		});
+    currentReferenceContainer?.addEventListener('mousedown', onDragStart);
+    currentReferenceContainer?.addEventListener('touchstart', onDragStart);
+    currentReferenceContainer?.addEventListener('dragstart', preventDragStart);
+    currentReferenceContainer?.addEventListener('click', onClick, {
+      passive: false,
+    });
 
-		return () => {
-			globalThis?.removeEventListener("mouseup", onDragEnd);
-			globalThis?.removeEventListener("touchend", onDragEnd);
-			globalThis?.removeEventListener("mousemove", onDragMove);
-			globalThis?.removeEventListener("touchmove", onDragMove);
+    return () => {
+      globalThis?.removeEventListener('mouseup', onDragEnd);
+      globalThis?.removeEventListener('touchend', onDragEnd);
+      globalThis?.removeEventListener('mousemove', onDragMove);
+      globalThis?.removeEventListener('touchmove', onDragMove);
 
-			currentReferenceContainer?.removeEventListener("mousedown", onDragStart);
-			currentReferenceContainer?.removeEventListener("touchstart", onDragStart);
-			currentReferenceContainer?.removeEventListener(
-				"dragstart",
-				preventDragStart,
-			);
-			currentReferenceContainer?.removeEventListener("click", onClick);
-		};
-	}, [
-		containerReference,
-		onDragStart,
-		onDragMove,
-		onDragEnd,
-		onClick,
-		preventDragStart,
-	]);
+      currentReferenceContainer?.removeEventListener('mousedown', onDragStart);
+      currentReferenceContainer?.removeEventListener('touchstart', onDragStart);
+      currentReferenceContainer?.removeEventListener('dragstart', preventDragStart);
+      currentReferenceContainer?.removeEventListener('click', onClick);
+    };
+  }, [containerReference, onDragStart, onDragMove, onDragEnd, onClick, preventDragStart]);
 };

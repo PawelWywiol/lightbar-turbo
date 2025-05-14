@@ -1,28 +1,28 @@
 {
-	"name": "utils",
-	"version": "1.0.0",
-	"description": "general utils",
-	"main": "./src/index.ts",
-	"scripts": {
-		"lint": "npx @biomejs/biome check --write .",
-		"format": "npx @biomejs/biome format",
-		"type-check": "tsc --noEmit",
-		"madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
-	},
-	"author": "",
-	"license": "MIT",
-	"dependencies": {
-		"zod": "^3.24.2"
-	},
-	"devDependencies": {},
-	"exports": {
-		"./customEvent.types": "./src/customEvent/customEvent.types.ts",
-		"./customEvent": "./src/customEvent/customEvent.ts",
-		"./formatBytes": "./src/formatBytes/formatBytes.ts",
-		"./hexToRGB": "./src/hexToRGB/hexToRGB.ts",
-		"./rafTimeout": "./src/rafTimeout/rafTimeout.ts",
-		"./storage.types": "./src/storage/storage.types.ts",
-		"./storage": "./src/storage/storage.ts",
-		"./uid": "./src/uid/uid.ts"
-	}
+  "name": "utils",
+  "version": "1.0.0",
+  "description": "general utils",
+  "main": "./src/index.ts",
+  "scripts": {
+    "lint": "npx @biomejs/biome check --write .",
+    "format": "npx @biomejs/biome format",
+    "type-check": "tsc --noEmit",
+    "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {},
+  "exports": {
+    "./customEvent.types": "./src/customEvent/customEvent.types.ts",
+    "./customEvent": "./src/customEvent/customEvent.ts",
+    "./formatBytes": "./src/formatBytes/formatBytes.ts",
+    "./hexToRGB": "./src/hexToRGB/hexToRGB.ts",
+    "./rafTimeout": "./src/rafTimeout/rafTimeout.ts",
+    "./storage.types": "./src/storage/storage.types.ts",
+    "./storage": "./src/storage/storage.ts",
+    "./uid": "./src/uid/uid.ts"
+  }
 }
