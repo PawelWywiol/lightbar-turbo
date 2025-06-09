@@ -32,7 +32,7 @@ export const ConnectedDeviceInfo = ({ device }: { device: ConnectedDevice }) => 
   const deviceSpaceSeparator = formattedFreeDeviceSpace && formattedTotalDeviceSpace ? ' / ' : '';
 
   return (
-    <div className="text-left h-10 grid grid-cols-[auto,1fr,auto] w-full gap-x-4 items-center">
+    <div className="text-left h-10 grid grid-cols-[auto_1fr_auto] w-full gap-x-4 items-center">
       <span className={connectedDeviceInfoStatus({ status: device.status })} />
       <span className="truncate">{deviceLabel}</span>
       <span className="text-right text-xs">{formattedDeviceLeds}</span>
