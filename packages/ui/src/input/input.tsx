@@ -19,6 +19,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ className, type, ...pr
         ),
         className,
       )}
+      aria-label={props['aria-label'] ?? props.name ?? props.placeholder}
       ref={ref}
       {...props}
     />

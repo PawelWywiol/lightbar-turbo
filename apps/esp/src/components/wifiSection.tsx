@@ -33,6 +33,7 @@ export const WifiSection = ({
       <Input
         type="text"
         placeholder="ssid"
+        aria-label="ssid"
         value={wifiCredentials.ssid}
         onChange={(event) =>
           setWiFiCredentials({
@@ -44,6 +45,7 @@ export const WifiSection = ({
       <Input
         type="password"
         placeholder="password"
+        aria-label="password"
         value={wifiCredentials.password}
         onChange={(event) =>
           setWiFiCredentials({
