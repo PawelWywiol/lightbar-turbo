@@ -24,6 +24,18 @@
     "type-check": {
       "cache": false
     },
+    "test": {
+      "cache": true,
+      "persistent": false
+    },
+    "test:cov": {
+      "cache": true,
+      "persistent": true
+    },
+    "test:changed": {
+      "cache": true,
+      "persistent": false
+    },
     "madge": {
       "cache": true,
       "persistent": false

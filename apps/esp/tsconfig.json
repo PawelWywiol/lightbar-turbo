@@ -1,8 +1,10 @@
 {
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "module": "esnext",
+    "moduleResolution": "bundler"
   },
-  "include": ["src", "vite.config.mjs", "**/*.ts", "**/*.tsx", "env.mjs"],
+  "include": ["src", "vite.config.mjs", "setupTest.ts", "**/*.ts", "**/*.tsx", "env.mjs"],
   "exclude": ["node_modules", "dist"]
 }
