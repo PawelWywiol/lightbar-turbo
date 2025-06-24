@@ -1,5 +1,9 @@
 module.exports = {
-  'apps/esp/**/*': () => ['turbo run lint --filter esp', 'turbo run type-check --filter esp'],
+  'apps/esp/**/*': () => [
+    'turbo run lint --filter esp',
+    'turbo run type-check --filter esp',
+    'turbo run test --filter esp',
+  ],
   'apps/web/**/*': () => ['turbo run lint --filter web', 'turbo run type-check --filter web'],
   'packages/config/**/*': () => [
     'turbo run lint --filter config',
