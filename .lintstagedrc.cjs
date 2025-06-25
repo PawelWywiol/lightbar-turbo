@@ -4,7 +4,11 @@ module.exports = {
     'turbo run type-check --filter esp',
     'turbo run test --filter esp',
   ],
-  'apps/web/**/*': () => ['turbo run lint --filter web', 'turbo run type-check --filter web'],
+  'apps/web/**/*': () => [
+    'turbo run lint --filter web',
+    'turbo run type-check --filter web',
+    'turbo run test --filter web',
+  ],
   'packages/config/**/*': () => [
     'turbo run lint --filter config',
     'turbo run type-check --filter config',
