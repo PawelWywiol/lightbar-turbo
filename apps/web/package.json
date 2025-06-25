@@ -10,7 +10,10 @@
     "lint": "npx @biomejs/biome check --write .",
     "format": "npx @biomejs/biome format",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "test": "vitest",
+    "test:changed": "vitest related --run",
+    "test:cov": "vitest run --coverage"
   },
   "dependencies": {
     "@react-router/fs-routes": "^7.6.0",
