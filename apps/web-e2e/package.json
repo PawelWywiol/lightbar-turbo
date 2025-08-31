@@ -1,0 +1,32 @@
+{
+  "private": true,
+  "name": "web-e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "npx @biomejs/biome check --write .",
+    "format": "npx @biomejs/biome format",
+    "type-check": "tsc --noEmit",
+    "madge": "madge --circular --extensions js,jsx,ts,tsx src",
+    "test": "playwright test --config=playwright.config.ts",
+    "test:local-dev": "playwright test --config=playwright.config.local.ts",
+    "test:local-build": "playwright test --config=playwright.config.ci.ts",
+    "test:regression": "playwright test --config=playwright.config.ts --grep '@regression|@core'",
+    "test:regression:local-dev": "playwright test --config=playwright.config.local.ts --grep '@regression|@core'",
+    "test:regression:local-build": "playwright test --config=playwright.config.ci.ts --grep '@regression|@core'",
+    "debug": "PWDEBUG=1 playwright test --config=playwright.config.ts --project=Desktop\\ Chrome\\ FullHD --timeout=0 --trace=on",
+    "debug:local-dev": "PWDEBUG=1 playwright test --config=playwright.config.local.ts --project=Desktop\\ Chrome\\ FullHD --timeout=0 --trace=on",
+    "debug:local-build": "PWDEBUG=1 playwright test --config=playwright.config.ci.ts --project=Desktop\\ Chrome\\ FullHD --timeout=0 --trace=on",
+    "update-snapshots": "PWTEST_SKIP_TEST_OUTPUT=1 playwright test --config=playwright.config.ts --update-snapshots --timeout=120000 --reporter=line --grep @snapshot",
+    "update-snapshots:local-dev": "PWTEST_SKIP_TEST_OUTPUT=1 playwright test --config=playwright.config.local.ts --update-snapshots --timeout=120000 --reporter=line --grep @snapshot",
+    "update-snapshots:local-build": "PWTEST_SKIP_TEST_OUTPUT=1 playwright test --config=playwright.config.ci.ts --update-snapshots --timeout=120000 --reporter=line --grep @snapshot",
+    "show-report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "~1.49.1",
+    "@types/node": "^22.13.1",
+    "tsconfig": "*",
+    "typescript": "~5.7.2"
+  }
+}

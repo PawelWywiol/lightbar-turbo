@@ -11,9 +11,15 @@
     "lint": "turbo run lint",
     "format": "turbo run format",
     "type-check": "turbo run type-check",
-    "test": "turbo run test",
-    "test:changed": "turbo run test:changed",
+    "test": "turbo run test --filter=!web-e2e",
+    "test:changed": "turbo run test:changed --filter=!web-e2e",
     "test:cov": "turbo run test:cov",
+    "test:e2e": "turbo run test --filter=web-e2e",
+    "test:e2e:local-build": "turbo run test:local-build --filter=web-e2e",
+    "test:e2e:local-dev": "turbo run test:local-dev --filter=web-e2e",
+    "test:e2e:regression": "turbo run test:regression --filter=web-e2e",
+    "test:e2e:regression:local-build": "turbo run test:regression:local-build --filter=web-e2e",
+    "test:e2e:regression:local-dev": "turbo run test:regression:local-dev --filter=web-e2e",
     "madge": "turbo run madge",
     "deploy:apps:esp": "npm run build:esp && node scripts/deployAppsEsp.js",
     "prepare": "husky"
@@ -35,10 +41,7 @@
     "vitest": "^3.2.4"
   },
   "name": "lightbar-turbo",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "volta": {
     "node": "20.15.1",
     "npm": "10.8.3"
