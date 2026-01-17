@@ -4,7 +4,6 @@ import { lightsFrameType } from './lights.types';
 
 export const LightsSchemeValidationSchema = z.object({
   name: z.string(),
-  colors: z.array(z.string()),
   frames: z.array(
     z.object({
       type: z.nativeEnum(lightsFrameType),

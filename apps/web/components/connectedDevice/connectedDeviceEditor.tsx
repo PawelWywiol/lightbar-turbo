@@ -1,5 +1,5 @@
 import { MESSAGES } from 'config/messages';
-import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
+import type { ConnectedDeviceInput } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
 import { Button } from 'ui/button';
 import { Input } from 'ui/input';
@@ -9,8 +9,8 @@ export const ConnectedDeviceEditor = ({
   setDeviceInfo,
   updateDevice,
 }: {
-  deviceInfo: ConnectedDeviceValidationSchema;
-  setDeviceInfo: (deviceInfo: ConnectedDeviceValidationSchema) => void;
+  deviceInfo: ConnectedDeviceInput;
+  setDeviceInfo: (deviceInfo: ConnectedDeviceInput) => void;
   updateDevice: (device: ConnectedDevice) => void;
 }) => (
   <div className="flex justify-center align-middle gap-2 pt-3 mt-2 border-t">

@@ -1,5 +1,5 @@
 import { MESSAGES } from 'config/messages';
-import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
+import type { ConnectedDeviceInput } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
 import { Button } from 'ui/button';
 import { DropDownMenuWrapper } from 'ui/dropdownMenu';
@@ -9,7 +9,7 @@ interface ConnectedDeviceItemProps {
   device: ConnectedDevice;
   isSelected: boolean;
   onSelect: (url: string) => void;
-  onEdit: (device: ConnectedDeviceValidationSchema) => void;
+  onEdit: (device: ConnectedDeviceInput) => void;
   onDelete: (device: ConnectedDevice) => void;
 }
 

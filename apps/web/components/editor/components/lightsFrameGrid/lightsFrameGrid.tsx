@@ -4,7 +4,7 @@ import {
   LIGHTS_BACKGROUND_COLOR,
 } from 'devices/lights.config';
 import type { LightsFrame } from 'devices/lights.types';
-import { useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { useEditor } from '../../editor.provider';
 import { resolveBinaryColorStyle } from '../../editor.utils';
 import { useGridPainter } from './lightsFrameGrid.hooks';
@@ -14,27 +14,37 @@ export const LightsFrameGrid = () => {
   const ref = useRef<HTMLDivElement>(null);
   const currentFrame = lightsScheme.scheme.frames[frameIndex];
 
-  useGridPainter(ref, resolveBinaryColorStyle(color), (updatedColorIndexes) => {
-    const updatedFrame: LightsFrame = {
-      ...currentFrame,
-      type: currentFrame?.type ?? DEFAULT_LIGHTS_FRAME_TYPE,
-      tempo: currentFrame?.tempo ?? DEFAULT_LIGHTS_FRAME_TEMPO,
-      colors: Array.from({
-        length: lightsLayout.value,
-      }).map((_, index) => {
-        return updatedColorIndexes.includes(index)
-          ? color
-          : (currentFrame?.colors[index] ?? LIGHTS_BACKGROUND_COLOR);
-      }),
-    };
+  const handleColorUpdate = useCallback(
+    (updatedColorIndexes: number[]) => {
+      const updatedFrame: LightsFrame = {
+        ...currentFrame,
+        type: currentFrame?.type ?? DEFAULT_LIGHTS_FRAME_TYPE,
+        tempo: currentFrame?.tempo ?? DEFAULT_LIGHTS_FRAME_TEMPO,
+        colors: Array.from({
+          length: lightsLayout.value,
+        }).map((_, index) => {
+          return updatedColorIndexes.includes(index)
+            ? color
+            : (currentFrame?.colors[index] ?? LIGHTS_BACKGROUND_COLOR);
+        }),
+      };
 
-    handleUpdate({
-      ...lightsScheme.scheme,
-      frames: lightsScheme.scheme.frames.map((frame, index) =>
-        index === frameIndex ? updatedFrame : frame,
-      ),
-    });
-  });
+      handleUpdate({
+        ...lightsScheme.scheme,
+        frames: lightsScheme.scheme.frames.map((frame, index) =>
+          index === frameIndex ? updatedFrame : frame,
+        ),
+      });
+    },
+    [currentFrame, lightsLayout.value, color, handleUpdate, lightsScheme.scheme, frameIndex],
+  );
+
+  const pixelIndexes = useMemo(
+    () => Array.from({ length: lightsLayout.value }, (_, i) => i),
+    [lightsLayout.value],
+  );
+
+  useGridPainter(ref, resolveBinaryColorStyle(color), handleColorUpdate);
 
   return (
     currentFrame && (
@@ -45,16 +55,15 @@ export const LightsFrameGrid = () => {
           gridTemplateColumns: `repeat(${lightsLayout.grid.columns},minmax(0,1fr))`,
         }}
       >
-        {Array.from({ length: lightsLayout.value }).map((_, index) => {
+        {pixelIndexes.map((index) => {
           const binaryColorStyle = resolveBinaryColorStyle(
             currentFrame.colors[index] ?? LIGHTS_BACKGROUND_COLOR,
           );
-          const key = `color-${binaryColorStyle}-${index}`;
           return (
             <div
-              key={key}
+              key={`pixel-${index}`}
               className="w-full h-full rounded aspect-square"
-              style={{ background: `${binaryColorStyle}` }}
+              style={{ background: binaryColorStyle }}
             />
           );
         })}

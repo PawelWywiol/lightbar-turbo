@@ -1,6 +1,6 @@
 import { MESSAGES } from 'config/messages';
 import { useConnectedDevices } from 'devices/devices.provider';
-import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
+import type { ConnectedDeviceInput } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
 import { useCallback, useState } from 'react';
 import { DialogWrapper } from 'ui/dialog';
@@ -19,7 +19,7 @@ export const ConnectedDevicesDialog = () => {
     selectDevice,
   } = useConnectedDevices();
 
-  const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceValidationSchema>({
+  const [deviceInfo, setDeviceInfo] = useState<ConnectedDeviceInput>({
     url: '',
     label: '',
   });
@@ -31,7 +31,7 @@ export const ConnectedDevicesDialog = () => {
     [selectDevice],
   );
 
-  const handleEdit = useCallback((device: ConnectedDeviceValidationSchema) => {
+  const handleEdit = useCallback((device: ConnectedDeviceInput) => {
     setDeviceInfo(device);
   }, []);
 

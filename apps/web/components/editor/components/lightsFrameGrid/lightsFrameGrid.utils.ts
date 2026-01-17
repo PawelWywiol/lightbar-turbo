@@ -1,15 +1,24 @@
+const isTouchEvent = (event: Event): event is TouchEvent => 'touches' in event;
+
+const isMouseEvent = (event: Event): event is MouseEvent => 'clientX' in event;
+
 export const getPositionFromEvent = (event: Event): { offsetX: number; offsetY: number } => {
-  const mouseEvent = event as MouseEvent;
-  const touchEvent = event as TouchEvent;
+  if (isTouchEvent(event)) {
+    const touch = event.touches[0];
+    return {
+      offsetX: touch?.clientX ?? 0,
+      offsetY: touch?.clientY ?? 0,
+    };
+  }
 
-  const offsetX = touchEvent.touches?.length
-    ? (touchEvent.touches[0]?.clientX ?? 0)
-    : mouseEvent.clientX || 0;
-  const offsetY = touchEvent.touches?.length
-    ? (touchEvent.touches[0]?.clientY ?? 0)
-    : mouseEvent.clientY || 0;
+  if (isMouseEvent(event)) {
+    return {
+      offsetX: event.clientX,
+      offsetY: event.clientY,
+    };
+  }
 
-  return { offsetX, offsetY };
+  return { offsetX: 0, offsetY: 0 };
 };
 
 export const getChildElementFromPoint = (x: number, y: number, parent: HTMLDivElement): number => {
