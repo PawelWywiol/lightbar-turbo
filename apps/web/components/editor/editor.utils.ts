@@ -44,18 +44,21 @@ export const shiftColorsFrame: ShiftColorsFrame = (frame, direction, rowsCount, 
       break;
     }
     case 'prev': {
-      frame.push(frame.shift() ?? LIGHTS_BACKGROUND_COLOR);
-      newFrame.push(...frame);
+      const frameCopy = [...frame];
+      frameCopy.push(frameCopy.shift() ?? LIGHTS_BACKGROUND_COLOR);
+      newFrame.push(...frameCopy);
       break;
     }
     case 'next': {
-      frame.unshift(frame.pop() ?? LIGHTS_BACKGROUND_COLOR);
-      newFrame.push(...frame);
+      const frameCopy = [...frame];
+      frameCopy.unshift(frameCopy.pop() ?? LIGHTS_BACKGROUND_COLOR);
+      newFrame.push(...frameCopy);
       break;
     }
     case 'shuffle': {
-      frame.sort(() => secureRandomNumber(10) - 5);
-      newFrame.push(...frame);
+      const frameCopy = [...frame];
+      frameCopy.sort(() => secureRandomNumber(10) - 5);
+      newFrame.push(...frameCopy);
       break;
     }
     default: {
