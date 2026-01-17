@@ -12,7 +12,7 @@ import {
 } from './lightsFrameGrid.utils';
 
 export const useGridPainter = (
-  containerReference: RefObject<HTMLDivElement>,
+  containerReference: RefObject<HTMLDivElement | null>,
   color: string,
   onComplete: (colors: number[]) => void,
 ) => {
