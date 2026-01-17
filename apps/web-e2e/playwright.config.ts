@@ -1,8 +1,7 @@
+import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
 
-import type { PlaywrightTestConfig } from '@playwright/test';
-
-// biome-ignore lint/complexity/useLiteralKeys: <explanation>
+// biome-ignore lint/complexity/useLiteralKeys: env var access
 const isCI = !!process.env['CI'];
 
 export const baseConfig: PlaywrightTestConfig = {

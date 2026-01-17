@@ -1,22 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
-
-import {
-  connectionRequestDataToBinaryData,
-  isConnectionResponseData,
-} from '../connections/connections.utils';
-
-import { CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
-import { getConnectedDeviceData, resolveConnectedDeviceApiUrl } from './devices.utils';
-
 import type { CustomEventCallback } from 'utils/customEvent.types';
 import type {
   ConnectionRequestData,
   ConnectionResponseData,
   ConnectionType,
 } from '../connections/connections.types';
+import {
+  connectionRequestDataToBinaryData,
+  isConnectionResponseData,
+} from '../connections/connections.utils';
+import { CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
 import type { DeviceCustomEventDispatch } from './devices.types';
+import { getConnectedDeviceData, resolveConnectedDeviceApiUrl } from './devices.utils';
 
 export const useConnectedDeviceData = ({
   url,

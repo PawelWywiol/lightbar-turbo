@@ -1,5 +1,8 @@
 import { getStorageData, removeStorageData, setStorageData } from 'utils/storage';
-
+import type {
+  ConnectionRequestData,
+  ConnectionResponseData,
+} from '../connections/connections.types';
 import { isConnectionResponseData } from '../connections/connections.utils';
 import { DEFAULT_LIGHTS_FRAME_TEMPO, LIGHTS_BACKGROUND_COLOR } from '../lights/lights.config';
 import {
@@ -8,21 +11,15 @@ import {
   type LightsScheme,
   lightsFrameType,
 } from '../lights/lights.types';
-
 import {
-  CONNECTED_DEVICES_STORAGE_KEY,
   CONNECTED_DEVICE_API_DEFAULT_PATH,
   CONNECTED_DEVICE_API_DEFAULT_SCHEMA,
+  CONNECTED_DEVICES_STORAGE_KEY,
 } from './devices.config';
 import {
-  ConnectedDeviceUrlValidationSchema,
   ConnectedDevicesValidationSchema,
+  ConnectedDeviceUrlValidationSchema,
 } from './devices.schema';
-
-import type {
-  ConnectionRequestData,
-  ConnectionResponseData,
-} from '../connections/connections.types';
 import type { ConnectedDevice } from './devices.types';
 
 export const isIPAddress = (value: string) => {
@@ -50,7 +47,7 @@ export const loadConnectedDevices = (): ConnectedDevice[] => {
   const devices: ConnectedDevice[] = getStorageData(
     CONNECTED_DEVICES_STORAGE_KEY('devices'),
     ConnectedDevicesValidationSchema,
-    [],
+    [] as ConnectedDevice[],
   );
 
   return devices;

@@ -3,9 +3,8 @@ import { PassThrough } from 'node:stream';
 import { createReadableStreamFromReadable } from '@react-router/node';
 import { isbot } from 'isbot';
 import { renderToPipeableStream } from 'react-dom/server';
-import { ServerRouter } from 'react-router';
-
 import type { AppLoadContext, EntryContext } from 'react-router';
+import { ServerRouter } from 'react-router';
 
 const ABORT_DELAY = 5000;
 

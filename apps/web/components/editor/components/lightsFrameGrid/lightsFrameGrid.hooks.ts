@@ -1,16 +1,15 @@
-import { useCallback, useEffect, useRef } from 'react';
 import type { RefObject } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { rafTimeout } from 'utils/rafTimeout';
 
 import { DEFAULT_PAINTER_STATE, MINIMUM_DRAG_DISTANCE } from './lightsFrameGrid.config';
+import type { GridPainterState } from './lightsFrameGrid.types';
 import {
   getChildElementFromPoint,
   getPositionFromEvent,
   setChildElementBackgroundColor,
 } from './lightsFrameGrid.utils';
-
-import type { GridPainterState } from './lightsFrameGrid.types';
 
 export const useGridPainter = (
   containerReference: RefObject<HTMLDivElement>,

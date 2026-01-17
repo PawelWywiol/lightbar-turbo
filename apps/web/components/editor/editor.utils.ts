@@ -6,9 +6,8 @@ import {
   LIGHTS_PALLETTE_LIGHTNESS_MASK,
   LIGHTS_PALLETTE_LIGHTNESS_STEP,
 } from 'devices/lights.config';
-import { secureRandomNumber } from 'utils/uid';
-
 import type { LightColor, LightsLayoutOption, LightsScheme } from 'devices/lights.types';
+import { secureRandomNumber } from 'utils/uid';
 import type { ShiftColorsFrame, ShiftDirection } from './editor.types';
 
 const transposeLightsMatrix = (matrix: LightColor[][]) =>

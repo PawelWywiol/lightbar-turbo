@@ -1,11 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import { dispatchCustomEvent } from 'utils/customEvent';
 
 import { ConnectedDeviceResolver } from './devices';
 import { CONNECTED_DEVICES_MAX_COUNT } from './devices.config';
 import { findLocalNetworkConnectedDevices } from './devices.scan';
+import type { ConnectedDevice, DeviceCustomEventDispatch } from './devices.types';
 import {
   loadConnectedDevices,
   loadLastSelectedDeviceUrl,
@@ -13,8 +14,6 @@ import {
   saveLastSelectedDeviceUrl,
   updateConnectedDevicesList,
 } from './devices.utils';
-
-import type { ConnectedDevice, DeviceCustomEventDispatch } from './devices.types';
 
 interface ConnectedDevicesContextProps {
   devices: ConnectedDevice[];
@@ -93,7 +92,7 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     [devices],
   );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional - callback deps cause infinite loop
   useEffect(() => {
     const lastSelectedDeviceUrl = loadLastSelectedDeviceUrl();
     const lastSelectedDevice = devices.find((device) => device.url === lastSelectedDeviceUrl);
@@ -102,7 +101,7 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     setSelectedDevice(lastSelectedDevice);
   }, []);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional - callback deps cause infinite loop
   useEffect(() => {
     const firstDevice = devices[0];
 

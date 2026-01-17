@@ -1,14 +1,11 @@
 import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'devices/lights.config';
+import type { LightsScheme } from 'devices/lights.types';
 import { CopyPlus, StepBack, StepForward } from 'lucide-react';
 import { Button } from 'ui/button';
 import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 import { SelectWrapper } from 'ui/select';
-
 import { useEditor } from '../editor.provider';
-
 import { ColorPickerTools } from './colorPickerTools';
-
-import type { LightsScheme } from 'devices/lights.types';
 
 export const LightsFrameStateTools = () => {
   const {

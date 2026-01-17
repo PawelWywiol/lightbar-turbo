@@ -1,5 +1,3 @@
-import { createLightColor, createLightColorsArray } from './lights.utils';
-
 import type {
   LightColor,
   LightsFrame,
@@ -9,6 +7,7 @@ import type {
   LightsLayoutOptions,
   LightsScheme,
 } from './lights.types';
+import { createLightColor, createLightColorsArray } from './lights.utils';
 
 export const LIGHTS_SCHEME_NAME_MAX_LENGTH = 16;
 

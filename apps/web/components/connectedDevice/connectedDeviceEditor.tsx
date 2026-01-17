@@ -1,9 +1,8 @@
 import { MESSAGES } from 'config/messages';
-import { Button } from 'ui/button';
-import { Input } from 'ui/input';
-
 import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
+import { Button } from 'ui/button';
+import { Input } from 'ui/input';
 
 export const ConnectedDeviceEditor = ({
   deviceInfo,

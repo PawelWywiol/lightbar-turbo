@@ -24,9 +24,9 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.0",
-    "@playwright/test": "~1.49.1",
-    "@types/node": "^22.13.1",
+    "@playwright/test": "~1.57.0",
+    "@types/node": "^25.0.9",
     "tsconfig": "workspace:*",
-    "typescript": "~5.7.2"
+    "typescript": "~5.9.3"
   }
 }

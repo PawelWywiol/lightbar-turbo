@@ -1,6 +1,5 @@
-import { getStorage, parseStorageValue, validateData } from './storage.utils';
-
 import type { GetStorageData, SetStorageData } from './storage.types';
+import { getStorage, parseStorageValue, validateData } from './storage.utils';
 
 export const setStorageData: SetStorageData = (key, data) => {
   const storage = getStorage();

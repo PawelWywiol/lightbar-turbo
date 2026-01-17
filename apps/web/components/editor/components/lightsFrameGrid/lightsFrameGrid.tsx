@@ -1,17 +1,13 @@
-import { useRef } from 'react';
-
 import {
   DEFAULT_LIGHTS_FRAME_TEMPO,
   DEFAULT_LIGHTS_FRAME_TYPE,
   LIGHTS_BACKGROUND_COLOR,
 } from 'devices/lights.config';
-
+import type { LightsFrame } from 'devices/lights.types';
+import { useRef } from 'react';
 import { useEditor } from '../../editor.provider';
 import { resolveBinaryColorStyle } from '../../editor.utils';
-
 import { useGridPainter } from './lightsFrameGrid.hooks';
-
-import type { LightsFrame } from 'devices/lights.types';
 
 export const LightsFrameGrid = () => {
   const { lightsScheme, lightsLayout, frameIndex, color, handleUpdate } = useEditor();

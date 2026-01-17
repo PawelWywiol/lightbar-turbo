@@ -10,9 +10,8 @@ import {
 import { Button } from 'ui/button';
 
 import { useEditor } from '../editor.provider';
-import { shiftLightsFrameColorPixel } from '../editor.utils';
-
 import type { ShiftDirection } from '../editor.types';
+import { shiftLightsFrameColorPixel } from '../editor.utils';
 
 const buttonClassName = 'flex-1 min-w-min';
 

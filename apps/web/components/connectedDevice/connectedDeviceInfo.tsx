@@ -1,9 +1,7 @@
 import { MESSAGES } from 'config/messages';
-import { formatBytes } from 'utils/formatBytes';
-
-import { connectedDeviceInfoStatus } from './connectedDeviceInfoStatus.styled';
-
 import type { ConnectedDevice } from 'devices/devices.types';
+import { formatBytes } from 'utils/formatBytes';
+import { connectedDeviceInfoStatus } from './connectedDeviceInfoStatus.styled';
 
 const getDeviceLabel = (device: ConnectedDevice): string =>
   device.label?.length ? device.label : (device.info?.data.uid ?? device.url);

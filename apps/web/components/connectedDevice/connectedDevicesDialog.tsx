@@ -1,15 +1,12 @@
-import { useCallback, useState } from 'react';
-
 import { MESSAGES } from 'config/messages';
 import { useConnectedDevices } from 'devices/devices.provider';
+import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
+import type { ConnectedDevice } from 'devices/devices.types';
+import { useCallback, useState } from 'react';
 import { DialogWrapper } from 'ui/dialog';
-
 import { ConnectedDeviceEditor } from './connectedDeviceEditor';
 import { ConnectedDeviceItem } from './connectedDeviceItem';
 import { ConnectedDevicesEmptyListInfo } from './connectedDevicesEmptyListInfo';
-
-import type { ConnectedDeviceValidationSchema } from 'devices/devices.schema';
-import type { ConnectedDevice } from 'devices/devices.types';
 
 export const ConnectedDevicesDialog = () => {
   const {

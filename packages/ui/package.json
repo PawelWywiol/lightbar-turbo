@@ -12,7 +12,7 @@
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "@turbo/gen": "^2.7.5",
-    "@types/node": "^22.15.18",
+    "@types/node": "^25.0.9",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.23",
@@ -21,7 +21,7 @@
     "sass": "^1.97.2",
     "tailwindcss": "^4.1.18",
     "tsconfig": "workspace:*",
-    "typescript": "~5.8.3",
+    "typescript": "~5.9.3",
     "utils": "workspace:*"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "clsx": "^2.1.1",
     "cva": "npm:class-variance-authority@^0.7.1",
     "install": "^0.13.0",
-    "lucide-react": "^0.510.0",
+    "lucide-react": "^0.562.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },

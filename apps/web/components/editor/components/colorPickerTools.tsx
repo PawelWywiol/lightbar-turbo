@@ -1,14 +1,12 @@
 import { MESSAGES } from 'config/messages';
+import type { LightColor } from 'devices/lights.types';
 import { Button } from 'ui/button';
 import { cn } from 'ui/cn';
 import { DialogWrapper } from 'ui/dialog';
-
 import { createLightColor } from '../../../../../packages/devices/src/lights/lights.utils';
 import { useEditor } from '../editor.provider';
-import { resolveBinaryColorStyle } from '../editor.utils';
-
-import type { LightColor } from 'devices/lights.types';
 import type { EditorColorPalette } from '../editor.types';
+import { resolveBinaryColorStyle } from '../editor.utils';
 
 const ColorPickerGrid = ({
   className,

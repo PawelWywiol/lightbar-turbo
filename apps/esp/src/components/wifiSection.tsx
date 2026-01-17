@@ -1,8 +1,7 @@
+import type { ConnectionRequestData } from 'devices/connections.types';
 import { useState } from 'preact/hooks';
 import { Button } from 'ui/button';
 import { Input } from 'ui/input';
-
-import type { ConnectionRequestData } from 'devices/connections.types';
 
 const MAX_SSID_LENGTH = 32;
 const MAX_PASSWORD_LENGTH = 64;

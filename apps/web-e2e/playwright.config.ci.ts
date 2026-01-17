@@ -1,7 +1,7 @@
 /* eslint-disable import/no-default-export */
-import { baseConfig } from './playwright.config';
 
 import type { PlaywrightTestConfig } from '@playwright/test';
+import { baseConfig } from './playwright.config';
 
 const config: PlaywrightTestConfig = {
   ...baseConfig,

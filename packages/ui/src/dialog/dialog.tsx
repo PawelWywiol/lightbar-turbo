@@ -1,8 +1,7 @@
-import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, ReactNode } from 'react';
-import { forwardRef } from 'react';
-
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { SquareMenuIcon, XIcon } from 'lucide-react';
+import type { ComponentPropsWithoutRef, ElementRef, HTMLAttributes, ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 import { Button } from '../button/button';
 import { cn } from '../utils/cn';

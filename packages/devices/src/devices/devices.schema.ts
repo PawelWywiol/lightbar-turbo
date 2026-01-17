@@ -9,4 +9,4 @@ export const ConnectedDevicesValidationSchema = z.array(ConnectedDeviceValidatio
 
 export type ConnectedDeviceValidationSchema = z.infer<typeof ConnectedDeviceValidationSchema>;
 
-export const ConnectedDeviceUrlValidationSchema = z.string();
+export const ConnectedDeviceUrlValidationSchema = z.string().optional();

@@ -18,7 +18,7 @@
     "config": "workspace:*",
     "cva": "npm:class-variance-authority@^0.7.1",
     "devices": "workspace:*",
-    "@preact/compat": "^17.1.2",
+    "@preact/compat": "^18.3.1",
     "preact": "^10.28.2",
     "ui": "workspace:*",
     "utils": "workspace:*"
@@ -31,8 +31,8 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "tsconfig": "workspace:*",
-    "typescript": "~5.8.3",
-    "vite": "^6.3.5"
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1"
   },
   "type": "module"
 }

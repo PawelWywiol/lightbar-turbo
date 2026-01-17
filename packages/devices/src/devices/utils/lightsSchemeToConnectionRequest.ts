@@ -1,6 +1,5 @@
-import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
-
 import type { ConnectionRequestData } from '../../connections/connections.types';
+import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
 import type { LightColor, LightsScheme } from '../../lights/lights.types';
 
 export const lightsSchemeFrameToConnectionRequest = (
