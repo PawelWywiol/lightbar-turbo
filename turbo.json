@@ -21,7 +21,7 @@
       "cache": true,
       "persistent": false
     },
-    "type-check": {
+    "tsc": {
       "cache": false
     },
     "test": {

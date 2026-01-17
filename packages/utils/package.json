@@ -4,9 +4,9 @@
   "description": "general utils",
   "main": "./src/index.ts",
   "scripts": {
-    "lint": "npx @biomejs/biome check --write .",
-    "format": "npx @biomejs/biome format",
-    "type-check": "tsc --noEmit",
+    "lint": "biome check --write",
+    "format": "biome format",
+    "tsc": "tsc --noEmit",
     "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
   },
   "author": "",
@@ -14,7 +14,9 @@
   "dependencies": {
     "zod": "^3.24.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  },
   "exports": {
     "./customEvent.types": "./src/customEvent/customEvent.types.ts",
     "./customEvent": "./src/customEvent/customEvent.ts",

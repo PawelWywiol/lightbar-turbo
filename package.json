@@ -10,7 +10,7 @@
     "dev:web": "turbo run dev --filter web",
     "lint": "turbo run lint",
     "format": "turbo run format",
-    "type-check": "turbo run type-check",
+    "tsc": "turbo run tsc",
     "test": "turbo run test --filter=!web-e2e",
     "test:changed": "turbo run test:changed --filter=!web-e2e",
     "test:cov": "turbo run test:cov",
@@ -21,7 +21,7 @@
     "test:e2e:regression:local-build": "turbo run test:regression:local-build --filter=web-e2e",
     "test:e2e:regression:local-dev": "turbo run test:regression:local-dev --filter=web-e2e",
     "madge": "turbo run madge",
-    "deploy:apps:esp": "npm run build:esp && node scripts/deployAppsEsp.js",
+    "deploy:apps:esp": "pnpm run build:esp && node scripts/deployAppsEsp.js",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -38,13 +38,22 @@
     "lint-staged": "^15.5.1",
     "madge": "^8.0.0",
     "turbo": "^2.5.0",
+    "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },
   "name": "lightbar-turbo",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "volta": {
-    "node": "20.15.1",
-    "npm": "10.8.3"
+    "node": "22.20.0",
+    "pnpm": "10.17.1"
   },
-  "packageManager": "npm@10.8.3"
+  "packageManager": "pnpm@10.17.1",
+  "pnpm": {
+    "overrides": {
+      "preact": "^10.26.6"
+    }
+  }
 }

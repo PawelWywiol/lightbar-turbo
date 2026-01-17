@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "npx @biomejs/biome check --write .",
-    "format": "npx @biomejs/biome format",
-    "type-check": "tsc --noEmit",
+    "lint": "biome check --write",
+    "format": "biome format",
+    "tsc": "tsc --noEmit",
     "madge": "madge --circular --extensions js,jsx,ts,tsx src",
     "test": "playwright test --config=playwright.config.ts",
     "test:local-dev": "playwright test --config=playwright.config.local.ts",
@@ -26,7 +26,7 @@
     "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "~1.49.1",
     "@types/node": "^22.13.1",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "~5.7.2"
   }
 }

@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "lint": "npx @biomejs/biome check --write .",
-    "format": "npx @biomejs/biome format",
-    "type-check": "tsc --noEmit",
+    "lint": "biome check --write",
+    "format": "biome format",
+    "tsc": "tsc --noEmit",
     "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
   },
   "devDependencies": {
@@ -20,9 +20,9 @@
     "react": "^19.1.0",
     "sass": "^1.88.0",
     "tailwindcss": "^4.1.6",
-    "tsconfig": "*",
+    "tsconfig": "workspace:*",
     "typescript": "~5.8.3",
-    "utils": "*"
+    "utils": "workspace:*"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.1",

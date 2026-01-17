@@ -3,14 +3,20 @@
   "version": "1.0.0",
   "description": "devices",
   "dependencies": {
-    "ui": "*",
-    "utils": "*"
+    "config": "workspace:*",
+    "ui": "workspace:*",
+    "utils": "workspace:*",
+    "zod": "^3.24.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/react": "^19.1.4",
+    "react": "^19.1.0",
+    "tsconfig": "workspace:*"
+  },
   "scripts": {
-    "lint": "npx @biomejs/biome check --write .",
-    "format": "npx @biomejs/biome format",
-    "type-check": "tsc --noEmit",
+    "lint": "biome check --write",
+    "format": "biome format",
+    "tsc": "tsc --noEmit",
     "madge": "madge --circular --extensions js,jsx,ts,tsx --exclude '(.turbo|node_modules)/.*' ."
   },
   "author": "",

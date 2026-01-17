@@ -3,7 +3,9 @@
   "compilerOptions": {
     "types": ["vite/client"],
     "module": "esnext",
-    "moduleResolution": "bundler"
+    "moduleResolution": "bundler",
+    "jsx": "preserve",
+    "skipLibCheck": true
   },
   "include": ["src", "vite.config.mjs", "setupTest.ts", "**/*.ts", "**/*.tsx", "env.mjs"],
   "exclude": ["node_modules", "dist"]
