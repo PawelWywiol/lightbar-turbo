@@ -1,5 +1,6 @@
+import * as Sentry from '@sentry/react';
 import { ConnectedDevicesProvider } from 'devices/devices.provider';
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from 'react-router';
 
 import { PageHeader } from '../components/pageHeader/pageHeader';
 
@@ -27,5 +28,20 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 const App = () => <Outlet />;
+
+export const ErrorBoundary = () => {
+  const error = useRouteError();
+  Sentry.captureException(error);
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+      <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+      <p className="text-gray-400 mb-4">An unexpected error occurred. Please try again.</p>
+      <a href="/" className="text-blue-400 hover:underline">
+        Go back home
+      </a>
+    </div>
+  );
+};
 
 export default App;

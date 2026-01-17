@@ -58,7 +58,9 @@ export const useConnectedDeviceData = ({
 
         return;
       }
-    } catch {}
+    } catch (error) {
+      console.warn('Device send error:', error);
+    }
 
     setStatus('CLOSED');
     setInfo(undefined);

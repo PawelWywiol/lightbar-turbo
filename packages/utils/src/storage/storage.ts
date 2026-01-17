@@ -5,7 +5,9 @@ export const setStorageData: SetStorageData = (key, data) => {
   const storage = getStorage();
   try {
     storage?.setItem(key, JSON.stringify(data));
-  } catch {}
+  } catch (error) {
+    console.warn('Storage setItem error:', error);
+  }
 };
 
 export const getStorageData: GetStorageData = (key, validationSchema, defaultValue) => {
@@ -21,7 +23,8 @@ export const getStorageData: GetStorageData = (key, validationSchema, defaultVal
     const validatedData = validateData(data, validationSchema);
 
     return validatedData ?? defaultValue;
-  } catch {
+  } catch (error) {
+    console.warn('Storage getItem error:', error);
     return defaultValue;
   }
 };
@@ -30,5 +33,7 @@ export const removeStorageData = (key: string) => {
   const storage = getStorage();
   try {
     storage?.removeItem(key);
-  } catch {}
+  } catch (error) {
+    console.warn('Storage removeItem error:', error);
+  }
 };
