@@ -1,3 +1,4 @@
+import type { UpdateColorDeviceEvent, UpdateSchemeDeviceEvent } from 'devices/devices.events';
 import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
 import {
   DEFAULT_LIGHTS_LAYOUT_OPTION,
@@ -13,15 +14,11 @@ import type {
   LightsScheme,
   LightsSchemeData,
 } from 'devices/lights.types';
+import { createLightColor } from 'devices/lights.utils';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { dispatchCustomEvent } from 'utils/customEvent';
 import { generateUid } from 'utils/uid';
-import type {
-  UpdateColorDeviceEvent,
-  UpdateSchemeDeviceEvent,
-} from '../../../../packages/devices/src/devices/devices.events';
-import { createLightColor } from '../../../../packages/devices/src/lights/lights.utils';
 import { EDITOR_INITIAL_RECENT_COLORS_INDEX_MODULO, EDITOR_MAX_HISTORY } from './editor.config';
 import type { EditorColorPalette } from './editor.types';
 import { resolveBinaryColorStyle } from './editor.utils';

@@ -101,14 +101,21 @@ export const getConnectedDeviceData = async (
   url: string,
 ): Promise<ConnectionResponseData | undefined> => {
   try {
-    const responseData = await fetch(resolveConnectedDeviceApiUrl(url), {
+    const response = await fetch(resolveConnectedDeviceApiUrl(url), {
       method: 'GET',
     });
 
-    const responsJson = (await responseData.json()) as unknown;
+    if (!response.ok) {
+      console.warn(`Device request failed: ${response.status} ${response.statusText}`);
+      return undefined;
+    }
 
-    return isConnectionResponseData(responsJson) ? responsJson : undefined;
-  } catch {}
+    const responseJson = (await response.json()) as unknown;
+
+    return isConnectionResponseData(responseJson) ? responseJson : undefined;
+  } catch (error) {
+    console.warn('Device connection error:', error);
+  }
 
   return undefined;
 };
