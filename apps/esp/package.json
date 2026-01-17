@@ -19,17 +19,17 @@
     "cva": "npm:class-variance-authority@^0.7.1",
     "devices": "workspace:*",
     "@preact/compat": "^17.1.2",
-    "preact": "^10.26.6",
+    "preact": "^10.28.2",
     "ui": "workspace:*",
     "utils": "workspace:*"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.6",
-    "@tailwindcss/vite": "^4.1.6",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
     "@testing-library/preact": "^3.2.4",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.6",
+    "autoprefixer": "^10.4.23",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
     "tsconfig": "workspace:*",
     "typescript": "~5.8.3",
     "vite": "^6.3.5"

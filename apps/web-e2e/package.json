@@ -23,7 +23,7 @@
     "show-report": "playwright show-report"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.10.1",
+    "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "~1.49.1",
     "@types/node": "^22.13.1",
     "tsconfig": "workspace:*",

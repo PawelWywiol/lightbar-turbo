@@ -50,7 +50,7 @@ export const useConnectedDeviceData = ({
       const response = await fetch(resolveConnectedDeviceApiUrl(url), {
         method: 'POST',
         signal: sendAbortControllerReference.current.signal,
-        body: binaryData,
+        body: new Blob([binaryData as BlobPart]),
       });
 
       const responseJson = (await response.json()) as unknown;
