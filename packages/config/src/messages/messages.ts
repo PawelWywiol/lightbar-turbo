@@ -30,6 +30,6 @@ export const MESSAGES = {
     scanning: 'Scanning...',
   },
   editor: {
-    choseColor: 'Chose a color',
+    choseColor: 'Choose a color',
   },
 } as const;

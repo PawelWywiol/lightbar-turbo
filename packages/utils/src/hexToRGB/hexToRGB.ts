@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { COLOR_MASK, GREEN_SHIFT, HEX_BASE, RED_SHIFT } from './hexToRGB.config';
 
 export const hexToRGB = (hex: string): [number, number, number] => {
