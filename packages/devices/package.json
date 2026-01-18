@@ -4,7 +4,6 @@
   "description": "devices",
   "dependencies": {
     "config": "workspace:*",
-    "ui": "workspace:*",
     "utils": "workspace:*",
     "zod": "^4.3.5"
   },
