@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import type { LightsFrame } from 'devices/lights.types';
 import { useCallback } from 'react';
 import { useEditor } from './editor.provider';
@@ -9,7 +10,13 @@ export const useFrameUpdater = () => {
     (updater: (frame: LightsFrame) => void): boolean => {
       const updated = structuredClone(lightsScheme.scheme);
       const frame = updated.frames[frameIndex];
-      if (!frame) return false;
+      if (!frame) {
+        Sentry.captureMessage('Frame update failed: frame not found', {
+          level: 'warning',
+          extra: { frameIndex, framesCount: lightsScheme.scheme.frames.length },
+        });
+        return false;
+      }
       updater(frame);
       handleUpdate(updated);
       return true;

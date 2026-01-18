@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
@@ -71,11 +72,16 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
   }, []);
 
   const findDevices = useCallback(() => {
-    void findLocalNetworkConnectedDevices(setScanProgress).then((urls) => {
-      for (const url of urls) {
-        updateDevice({ url });
-      }
-    });
+    void findLocalNetworkConnectedDevices(setScanProgress)
+      .then((urls) => {
+        for (const url of urls) {
+          updateDevice({ url });
+        }
+      })
+      .catch((error) => {
+        Sentry.captureException(error, { tags: { feature: 'device-scan' } });
+        setScanProgress(100);
+      });
   }, [updateDevice]);
 
   const selectDevice = useCallback(

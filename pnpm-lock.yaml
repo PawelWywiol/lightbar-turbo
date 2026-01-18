@@ -229,9 +229,6 @@ importers:
       config:
         specifier: workspace:*
         version: link:../config
-      ui:
-        specifier: workspace:*
-        version: link:../ui
       utils:
         specifier: workspace:*
         version: link:../utils
@@ -239,6 +236,9 @@ importers:
         specifier: ^4.3.5
         version: 4.3.5
     devDependencies:
+      '@sentry/react':
+        specifier: ^9.29.0
+        version: 9.47.1(react@19.2.3)
       '@types/react':
         specifier: ^19.2.8
         version: 19.2.8
