@@ -98,23 +98,23 @@ export const ConnectedDevicesProvider = ({ children }: { children: ReactNode }) 
     [devices],
   );
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional - callback deps cause infinite loop
   useEffect(() => {
+    const loadedDevices = loadConnectedDevices();
     const lastSelectedDeviceUrl = loadLastSelectedDeviceUrl();
-    const lastSelectedDevice = devices.find((device) => device.url === lastSelectedDeviceUrl);
+    const lastSelectedDevice = loadedDevices.find((device) => device.url === lastSelectedDeviceUrl);
 
-    setDevices(loadConnectedDevices());
+    setDevices(loadedDevices);
     setSelectedDevice(lastSelectedDevice);
   }, []);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional - callback deps cause infinite loop
-  useEffect(() => {
-    const firstDevice = devices[0];
+  const firstDeviceUrl = devices[0]?.url;
 
-    if (!selectedDevice?.url.length && !!firstDevice?.url.length) {
+  useEffect(() => {
+    if (!selectedDevice?.url && firstDeviceUrl) {
+      const firstDevice = devices.find((device) => device.url === firstDeviceUrl);
       setSelectedDevice(firstDevice);
     }
-  }, [selectedDevice?.url]);
+  }, [selectedDevice?.url, firstDeviceUrl, devices]);
 
   const connectedDevicesProviderValue = useMemo(
     () => ({
