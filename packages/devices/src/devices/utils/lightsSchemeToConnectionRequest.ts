@@ -1,6 +1,5 @@
 import type { ConnectionRequestData } from '../../connections/connections.types';
-import { DEFAULT_LIGHTS_FRAME_TEMPO, DEFAULT_LIGHTS_FRAME_TYPE } from '../../lights/lights.config';
-import type { LightColor, LightsScheme } from '../../lights/lights.types';
+import type { LightsScheme } from '../../lights/lights.types';
 
 export const lightsSchemeFrameToConnectionRequest = (
   frame: LightsScheme['frames'][0],
@@ -19,17 +18,4 @@ export const lightsSchemeFrameToConnectionRequest = (
   };
 
   return JSON.stringify(request);
-};
-
-export const editorColorUpdatedToConnectionRequest = (color: string, deviceLedsCount?: number) => {
-  return [
-    lightsSchemeFrameToConnectionRequest(
-      {
-        type: DEFAULT_LIGHTS_FRAME_TYPE,
-        tempo: DEFAULT_LIGHTS_FRAME_TEMPO,
-        colors: [0 as LightColor],
-      },
-      deviceLedsCount,
-    ),
-  ].join('\n');
 };

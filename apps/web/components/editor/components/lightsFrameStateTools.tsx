@@ -4,6 +4,7 @@ import { CopyPlus, StepBack, StepForward } from 'lucide-react';
 import { Button } from 'ui/button';
 import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 import { SelectWrapper } from 'ui/select';
+import { useFrameUpdater } from '../editor.hooks';
 import { useEditor } from '../editor.provider';
 import { ColorPickerTools } from './colorPickerTools';
 
@@ -18,6 +19,7 @@ export const LightsFrameStateTools = () => {
     previousFrameAvailable,
     handleUpdate,
   } = useEditor();
+  const updateFrame = useFrameUpdater();
   const frame = lightsScheme.scheme.frames[frameIndex];
 
   if (!frame) {
@@ -34,34 +36,22 @@ export const LightsFrameStateTools = () => {
           }))}
           value={`${frame.type}`}
           onChange={(value) => {
-            const updatedScheme: LightsScheme = { ...lightsScheme.scheme };
-            const updatedSchemeFrame = updatedScheme.frames[frameIndex];
             const type = LIGHTS_FRAME_TYPES.find((option) => `${option.value}` === value);
-
-            if (!type || !updatedSchemeFrame) {
-              return;
-            }
-
-            updatedSchemeFrame.type = type.value;
-
-            handleUpdate(updatedScheme);
+            if (!type) return;
+            updateFrame((f) => {
+              f.type = type.value;
+            });
           }}
         />
         <SelectWrapper
           options={LIGHTS_FRAME_TEMPO_OPTIONS}
           value={`${frame.tempo}`}
           onChange={(value) => {
-            const updatedScheme: LightsScheme = { ...lightsScheme.scheme };
-            const updatedSchemeFrame = updatedScheme.frames[frameIndex];
-            const temporary = Number.parseInt(value, 10);
-
-            if (!temporary || !updatedSchemeFrame) {
-              return;
-            }
-
-            updatedSchemeFrame.tempo = temporary;
-
-            handleUpdate(updatedScheme);
+            const tempo = Number.parseInt(value, 10);
+            if (!tempo) return;
+            updateFrame((f) => {
+              f.tempo = tempo;
+            });
           }}
         />
         <ColorPickerTools />
