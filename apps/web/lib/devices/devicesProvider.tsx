@@ -1,13 +1,9 @@
 import * as Sentry from '@sentry/react';
+import type { ConnectedDevice, DeviceCustomEventDispatch } from 'devices/devices.types';
 import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-
 import { dispatchCustomEvent } from 'utils/customEvent';
-
-import { ConnectedDeviceResolver } from './devices';
-import { CONNECTED_DEVICES_MAX_COUNT } from './devices.config';
-import { findLocalNetworkConnectedDevices } from './devices.scan';
-import type { ConnectedDevice, DeviceCustomEventDispatch } from './devices.types';
+import { ConnectedDeviceResolver } from './connectedDeviceResolver';
 import {
   loadConnectedDevices,
   loadLastSelectedDeviceUrl,
@@ -15,6 +11,9 @@ import {
   saveLastSelectedDeviceUrl,
   updateConnectedDevicesList,
 } from './devices.utils';
+import { findLocalNetworkConnectedDevices } from './devicesScan';
+
+const CONNECTED_DEVICES_MAX_COUNT = 255;
 
 interface ConnectedDevicesContextProps {
   devices: ConnectedDevice[];

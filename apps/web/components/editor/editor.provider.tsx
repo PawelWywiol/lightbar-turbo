@@ -2,9 +2,10 @@
  * Backward-compatible EditorProvider
  * Wraps the new split providers and composes useEditor hook
  */
-import type { LightsSchemeData } from 'devices/lights.types';
+
 import type { ReactNode } from 'react';
 import { useMemo } from 'react';
+import type { LightsSchemeData } from '../../lib/lights/lights.types';
 import { EditorProviders, useEditorColor, useEditorFrame, useEditorScheme } from './providers';
 
 // Re-export split provider hooks for direct access
@@ -62,5 +63,5 @@ export const EditorProvider = ({
   initialSchemeData,
 }: {
   children: ReactNode;
-  initialSchemeData?: LightsSchemeData;
+  initialSchemeData?: LightsSchemeData | undefined;
 }) => <EditorProviders initialSchemeData={initialSchemeData}>{children}</EditorProviders>;

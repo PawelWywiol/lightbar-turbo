@@ -1,7 +1,7 @@
-import { DEFAULT_LIGHTS_LAYOUT_OPTION } from 'devices/lights.config';
-import type { LightsLayoutOption } from 'devices/lights.types';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { DEFAULT_LIGHTS_LAYOUT_OPTION } from '../../../lib/lights/lights.config';
+import type { LightsLayoutOption } from '../../../lib/lights/lights.types';
 import { useEditorScheme } from './editorScheme.provider';
 
 interface EditorFrameContextValue {

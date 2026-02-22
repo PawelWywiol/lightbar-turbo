@@ -1,7 +1,7 @@
-import type { UpdateSchemeDeviceEvent } from 'devices/devices.events';
-import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
 import { useEffect } from 'react';
 import { dispatchCustomEvent } from 'utils/customEvent';
+import { resolveLightsSchemeColorIndexes } from '../../../lib/devices/devices.utils';
+import type { UpdateSchemeDeviceEvent } from '../../../lib/devices/devicesEvents';
 import { useEditorColor } from './editorColor.provider';
 import { useEditorFrame } from './editorFrame.provider';
 import { useEditorScheme } from './editorScheme.provider';

@@ -1,10 +1,29 @@
-import { CONNECTED_DEVICE_API_DEFAULT_PATH, SUBNETS_IPS } from './devices.config';
-import { isIPAddress, progressPercentage } from './devices.utils';
+import { CONNECTED_DEVICE_API_DEFAULT_PATH } from 'devices/devices.config';
+import { isIPAddress } from 'devices/devices.utils';
+import { progressPercentage } from './devices.utils';
 
 const DEVICE_SCAN_DEFAULT_SCHEMA = 'http';
 const DEVICE_SCAN_DEFAULT_PATH = '/';
 const DEVICE_SCAN_DEFAULT_TIMEOUT = 120;
 const DEVICE_SCAN_DEFAULT_METHOD = 'GET';
+
+const SUBNETS_IPS = Object.entries({
+  '10.0.0': ['1', '138', '2'],
+  '10.1.1': ['1'],
+  '10.1.10': ['1'],
+  '10.10.1': ['1'],
+  '10.90.90': ['90'],
+  '192.168.0': ['1', '10', '100', '101', '227', '254', '3', '30', '50'],
+  '192.168.1': ['10', '100', '20', '200', '210', '254', '99'],
+  '192.168.10': ['10', '100', '50'],
+  '192.168.100': ['100'],
+  '192.168.123': ['254'],
+  '192.168.168': ['168'],
+  '192.168.2': ['254'],
+  '192.168.223': ['100'],
+  '192.168.254': ['254'],
+  '200.200.200': ['5'],
+}).flatMap(([ip, parts]) => parts.map((part) => `${ip}.${part}`));
 
 const checkIPConnection = async (
   ip: string,

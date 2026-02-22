@@ -15,17 +15,6 @@ export type LightColor = number & {
   __lightness: ColorLightness;
 };
 
-export interface LightsLayoutOption {
-  value: number;
-  label: string;
-  grid: {
-    rows: number;
-    columns: number;
-  };
-}
-
-export type LightsLayoutOptions = [LightsLayoutOption, ...LightsLayoutOption[]];
-
 export const lightsFrameType = {
   step: 0,
   fade: 1,
@@ -33,31 +22,8 @@ export const lightsFrameType = {
 
 export type LightsFrameType = (typeof lightsFrameType)[keyof typeof lightsFrameType];
 
-export interface LightsFrameTypeOption {
-  value: LightsFrameType;
-  label: string;
-}
-
-export interface LightsFrameTempoOption {
-  value: string;
-  label: string;
-}
-
 export interface LightsFrame {
   type: LightsFrameType;
   tempo: number;
   colors: LightColor[];
 }
-
-export interface LightsScheme {
-  name: string;
-  frames: LightsFrame[];
-}
-
-export interface LightsSchemeData {
-  uid: string;
-  scheme: LightsScheme;
-  updatedAt: string;
-}
-
-export type LightsSchemeDataArray = LightsSchemeData[];

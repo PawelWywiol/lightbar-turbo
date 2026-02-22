@@ -1,18 +1,17 @@
+import { useConnectedDeviceData } from 'devices/devices.hooks';
+import type { ConnectedDevice } from 'devices/devices.types';
 import { useEffect } from 'react';
-
 import { subscribeCustomEvent, unsubscribeCustomEvent } from 'utils/customEvent';
 import type { CustomEventCallback } from 'utils/customEvent.types';
-import type {
-  SaveSchemeDeviceEvent,
-  UpdateColorDeviceEvent,
-  UpdateSchemeDeviceEvent,
-} from './devices.events';
-import { useConnectedDeviceData } from './devices.hooks';
-import type { ConnectedDevice } from './devices.types';
 import {
   convertColorToConnectionRequestData,
   convertLightsFrameToConnectionRequestData,
 } from './devices.utils';
+import type {
+  SaveSchemeDeviceEvent,
+  UpdateColorDeviceEvent,
+  UpdateSchemeDeviceEvent,
+} from './devicesEvents';
 
 export const ConnectedDeviceResolver = ({
   device,

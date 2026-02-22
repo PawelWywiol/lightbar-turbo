@@ -1,5 +1,4 @@
 import type { ConnectionResponseData, ConnectionType } from '../connections/connections.types';
-import type { LightsScheme } from '../lights/lights.types';
 
 export interface DeviceSizeOption {
   value: number;
@@ -31,25 +30,4 @@ export interface ConnectedDevice {
   label?: string | undefined;
   status?: ConnectionType | undefined;
   info?: ConnectionResponseData | undefined;
-}
-
-export interface EditorSchemeUpdateEvent {
-  name: 'app:editor:scheme:update';
-  detail: {
-    scheme: LightsScheme;
-    frameIndex: number;
-  };
-}
-
-export interface EditorColorUpdateEvent {
-  name: 'app:editor:color:update';
-  detail: string | undefined;
-}
-
-export interface EditorSchemeSaveEvent {
-  name: 'app:editor:scheme:save';
-  detail: {
-    uid: string;
-    scheme: LightsScheme;
-  };
 }

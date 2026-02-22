@@ -1,8 +1,7 @@
 import * as Sentry from '@sentry/react';
-import { ConnectedDevicesProvider } from 'devices/devices.provider';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from 'react-router';
-
 import { PageHeader } from '../components/pageHeader/pageHeader';
+import { ConnectedDevicesProvider } from '../lib/devices/devicesProvider';
 
 import 'ui/theme/styles/tailwindTheme.ts';
 

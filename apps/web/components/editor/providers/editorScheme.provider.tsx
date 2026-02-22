@@ -1,10 +1,10 @@
-import { resolveLightsSchemeColorIndexes } from 'devices/devices.utils';
-import { DEFAULT_LIGHTS_SCHEME } from 'devices/lights.config';
-import type { LightsScheme, LightsSchemeData } from 'devices/lights.types';
 import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { dispatchCustomEvent } from 'utils/customEvent';
 import { generateUid } from 'utils/uid';
+import { resolveLightsSchemeColorIndexes } from '../../../lib/devices/devices.utils';
+import { DEFAULT_LIGHTS_SCHEME } from '../../../lib/lights/lights.config';
+import type { LightsScheme, LightsSchemeData } from '../../../lib/lights/lights.types';
 import { EDITOR_MAX_HISTORY } from '../editor.config';
 
 interface EditorSchemeContextValue {
@@ -30,7 +30,7 @@ export const EditorSchemeProvider = ({
   initialSchemeData,
 }: {
   children: ReactNode;
-  initialSchemeData?: LightsSchemeData;
+  initialSchemeData?: LightsSchemeData | undefined;
 }) => {
   const [lightsScheme, setLightsScheme] = useState<LightsSchemeData>(
     initialSchemeData ?? {

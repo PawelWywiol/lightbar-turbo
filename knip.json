@@ -1,0 +1,29 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "workspaces": {
+    "apps/web": {
+      "entry": ["app/routes/**/*.tsx", "lib/**/*.{ts,tsx}"],
+      "project": ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}"],
+      "ignoreDependencies": ["@tailwindcss/postcss", "autoprefixer", "postcss", "tailwindcss"]
+    },
+    "apps/esp": {
+      "ignoreDependencies": [
+        "@preact/compat",
+        "@tailwindcss/postcss",
+        "autoprefixer",
+        "postcss",
+        "tailwindcss"
+      ]
+    },
+    "apps/web-e2e": {
+      "ignoreDependencies": ["@axe-core/playwright"]
+    },
+    "packages/ui": {
+      "ignoreDependencies": ["@tailwindcss/vite", "autoprefixer", "sass"]
+    },
+    "packages/tsconfig": {
+      "entry": [],
+      "project": []
+    }
+  }
+}

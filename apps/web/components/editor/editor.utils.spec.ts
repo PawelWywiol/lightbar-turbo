@@ -1,6 +1,6 @@
-import { LIGHTS_BACKGROUND_COLOR } from 'devices/lights.config';
-import type { LightColor } from 'devices/lights.types';
 import { describe, expect, it } from 'vitest';
+import { LIGHTS_BACKGROUND_COLOR } from '../../lib/lights/lights.config';
+import type { LightColor } from '../../lib/lights/lights.types';
 import { resolveBinaryColorStyle, shiftColorsFrame } from './editor.utils';
 
 const createTestFrame = (length: number): LightColor[] =>

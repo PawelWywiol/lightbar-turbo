@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react';
-import type { LightsFrame } from 'devices/lights.types';
 import { useCallback } from 'react';
+import type { LightsFrame } from '../../lib/lights/lights.types';
 import { useEditor } from './editor.provider';
 
 export const useFrameUpdater = () => {

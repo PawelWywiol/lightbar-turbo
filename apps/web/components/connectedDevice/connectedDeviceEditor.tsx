@@ -1,9 +1,9 @@
-import { MESSAGES } from 'config/messages';
-import { type ConnectedDeviceInput, validateDeviceUrl } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
 import { useMemo } from 'react';
 import { Button } from 'ui/button';
 import { Input } from 'ui/input';
+import { MESSAGES } from '../../lib/config/messages';
+import { type ConnectedDeviceInput, validateDeviceUrl } from '../../lib/devices/devicesSchema';
 
 export const ConnectedDeviceEditor = ({
   deviceInfo,

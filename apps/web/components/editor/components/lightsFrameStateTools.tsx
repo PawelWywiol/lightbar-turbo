@@ -1,9 +1,9 @@
-import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from 'devices/lights.config';
-import type { LightsScheme } from 'devices/lights.types';
 import { CopyPlus, StepBack, StepForward } from 'lucide-react';
 import { Button } from 'ui/button';
 import { DropDownMenuWrapper } from 'ui/dropdownMenu';
 import { SelectWrapper } from 'ui/select';
+import { LIGHTS_FRAME_TEMPO_OPTIONS, LIGHTS_FRAME_TYPES } from '../../../lib/lights/lights.config';
+import type { LightsScheme } from '../../../lib/lights/lights.types';
 import { useFrameUpdater } from '../editor.hooks';
 import { useEditor } from '../editor.provider';
 import { ColorPickerTools } from './colorPickerTools';

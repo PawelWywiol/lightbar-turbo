@@ -1,9 +1,9 @@
-import { MESSAGES } from 'config/messages';
-import type { LightColor } from 'devices/lights.types';
-import { createLightColor } from 'devices/lights.utils';
 import { Button } from 'ui/button';
 import { cn } from 'ui/cn';
 import { DialogWrapper } from 'ui/dialog';
+import { MESSAGES } from '../../../lib/config/messages';
+import type { LightColor } from '../../../lib/lights/lights.types';
+import { createLightColor } from '../../../lib/lights/lights.utils';
 import { useEditor } from '../editor.provider';
 import type { EditorColorPalette } from '../editor.types';
 import { resolveBinaryColorStyle } from '../editor.utils';

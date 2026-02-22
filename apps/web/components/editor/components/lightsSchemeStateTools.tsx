@@ -1,8 +1,8 @@
-import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from 'devices/lights.config';
 import { RedoDotIcon, UndoDotIcon } from 'lucide-react';
 import sanitizeHtml from 'sanitize-html';
 import { Button } from 'ui/button';
 import { Input } from 'ui/input';
+import { LIGHTS_SCHEME_NAME_MAX_LENGTH } from '../../../lib/lights/lights.config';
 
 import { useEditor } from '../editor.provider';
 

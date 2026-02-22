@@ -20,6 +20,7 @@
     "test:e2e:regression": "turbo run test:regression --filter=web-e2e",
     "test:e2e:regression:local-build": "turbo run test:regression:local-build --filter=web-e2e",
     "test:e2e:regression:local-dev": "turbo run test:regression:local-dev --filter=web-e2e",
+    "knip": "knip",
     "madge": "turbo run madge",
     "deploy:apps:esp": "pnpm run build:esp && node scripts/deployAppsEsp.js",
     "prepare": "husky"
@@ -35,6 +36,7 @@
     "@vitest/coverage-v8": "^4.0.17",
     "husky": "^9.1.7",
     "jsdom": "^27.4.0",
+    "knip": "^5.85.0",
     "lint-staged": "^16.2.7",
     "madge": "^8.0.0",
     "turbo": "^2.5.0",

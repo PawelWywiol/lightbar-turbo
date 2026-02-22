@@ -1,8 +1,8 @@
-import { MESSAGES } from 'config/messages';
-import type { ConnectedDeviceInput } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
 import { Button } from 'ui/button';
 import { DropDownMenuWrapper } from 'ui/dropdownMenu';
+import { MESSAGES } from '../../lib/config/messages';
+import type { ConnectedDeviceInput } from '../../lib/devices/devicesSchema';
 import { ConnectedDeviceInfo } from './connectedDeviceInfo';
 
 interface ConnectedDeviceItemProps {

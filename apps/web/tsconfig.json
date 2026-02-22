@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/remix.json",
+  "extends": "tsconfig/web-app.json",
   "include": [
     "**/*.ts",
     "**/*.tsx",

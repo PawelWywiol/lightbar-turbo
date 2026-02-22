@@ -1,9 +1,9 @@
-import { MESSAGES } from 'config/messages';
-import { useConnectedDevices } from 'devices/devices.provider';
-import type { ConnectedDeviceInput } from 'devices/devices.schema';
 import type { ConnectedDevice } from 'devices/devices.types';
 import { useCallback, useState } from 'react';
 import { DialogWrapper } from 'ui/dialog';
+import { MESSAGES } from '../../lib/config/messages';
+import { useConnectedDevices } from '../../lib/devices/devicesProvider';
+import type { ConnectedDeviceInput } from '../../lib/devices/devicesSchema';
 import { ConnectedDeviceEditor } from './connectedDeviceEditor';
 import { ConnectedDeviceItem } from './connectedDeviceItem';
 import { ConnectedDevicesEmptyListInfo } from './connectedDevicesEmptyListInfo';

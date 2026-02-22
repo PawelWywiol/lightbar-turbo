@@ -1,3 +1,4 @@
+import { secureRandomNumber } from 'utils/uid';
 import {
   LIGHTS_BACKGROUND_COLOR,
   LIGHTS_PALLETTE_HUE_MASK,
@@ -5,9 +6,8 @@ import {
   LIGHTS_PALLETTE_LIGHTNESS_BASE,
   LIGHTS_PALLETTE_LIGHTNESS_MASK,
   LIGHTS_PALLETTE_LIGHTNESS_STEP,
-} from 'devices/lights.config';
-import type { LightColor, LightsLayoutOption, LightsScheme } from 'devices/lights.types';
-import { secureRandomNumber } from 'utils/uid';
+} from '../../lib/lights/lights.config';
+import type { LightColor, LightsLayoutOption, LightsScheme } from '../../lib/lights/lights.types';
 import type { ShiftColorsFrame, ShiftDirection } from './editor.types';
 
 const transposeLightsMatrix = (matrix: LightColor[][]) =>

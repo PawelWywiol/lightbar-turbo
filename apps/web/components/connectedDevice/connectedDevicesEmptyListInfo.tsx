@@ -1,5 +1,5 @@
-import { MESSAGES } from 'config/messages';
 import { Button } from 'ui/button';
+import { MESSAGES } from '../../lib/config/messages';
 
 export const ConnectedDevicesEmptyListInfo = ({
   findDevices,

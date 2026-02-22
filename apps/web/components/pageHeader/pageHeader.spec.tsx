@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { ConnectedDevicesProvider } from 'devices/devices.provider';
 import { createRoutesStub } from 'react-router';
 import { describe, expect, it } from 'vitest';
+import { ConnectedDevicesProvider } from '../../lib/devices/devicesProvider';
 import { PageHeader } from './pageHeader';
 
 describe('PageHeader', () => {

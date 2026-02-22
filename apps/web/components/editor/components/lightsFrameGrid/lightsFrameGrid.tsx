@@ -1,10 +1,10 @@
+import { useCallback, useMemo, useRef } from 'react';
 import {
   DEFAULT_LIGHTS_FRAME_TEMPO,
   DEFAULT_LIGHTS_FRAME_TYPE,
   LIGHTS_BACKGROUND_COLOR,
-} from 'devices/lights.config';
-import type { LightsFrame } from 'devices/lights.types';
-import { useCallback, useMemo, useRef } from 'react';
+} from '../../../../lib/lights/lights.config';
+import type { LightsFrame } from '../../../../lib/lights/lights.types';
 import { useEditor } from '../../editor.provider';
 import { resolveBinaryColorStyle } from '../../editor.utils';
 import { useGridPainter } from './lightsFrameGrid.hooks';

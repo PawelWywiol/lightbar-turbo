@@ -15,7 +15,6 @@
   "license": "MIT",
   "exports": {
     "./app": "./src/app/app.ts",
-    "./messages": "./src/messages/messages.ts",
     "./messages.types": "./src/messages/messages.types.ts"
   }
 }

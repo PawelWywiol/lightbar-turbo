@@ -1,15 +1,15 @@
-import type { UpdateColorDeviceEvent } from 'devices/devices.events';
+import type { ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { dispatchCustomEvent } from 'utils/customEvent';
+import type { UpdateColorDeviceEvent } from '../../../lib/devices/devicesEvents';
 import {
   LIGHTS_BACKGROUND_COLOR,
   LIGHTS_PALLETTE_HUE_MASK,
   LIGHTS_PALLETTE_HUE_MAX,
   LIGHTS_PALLETTE_LIGHTNESS_MASK,
-} from 'devices/lights.config';
-import type { LightColor } from 'devices/lights.types';
-import { createLightColor } from 'devices/lights.utils';
-import type { ReactNode } from 'react';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { dispatchCustomEvent } from 'utils/customEvent';
+} from '../../../lib/lights/lights.config';
+import type { LightColor } from '../../../lib/lights/lights.types';
+import { createLightColor } from '../../../lib/lights/lights.utils';
 import { EDITOR_INITIAL_RECENT_COLORS_INDEX_MODULO } from '../editor.config';
 import type { EditorColorPalette } from '../editor.types';
 import { resolveBinaryColorStyle } from '../editor.utils';

@@ -1,5 +1,5 @@
-import type { LightsSchemeData } from 'devices/lights.types';
 import type { ReactNode } from 'react';
+import type { LightsSchemeData } from '../../../lib/lights/lights.types';
 import { EditorColorProvider } from './editorColor.provider';
 import { EditorFrameProvider } from './editorFrame.provider';
 import { EditorSchemeProvider } from './editorScheme.provider';
@@ -20,7 +20,7 @@ export const EditorProviders = ({
   initialSchemeData,
 }: {
   children: ReactNode;
-  initialSchemeData?: LightsSchemeData;
+  initialSchemeData?: LightsSchemeData | undefined;
 }) => (
   <EditorSchemeProvider initialSchemeData={initialSchemeData}>
     <EditorColorProvider>
