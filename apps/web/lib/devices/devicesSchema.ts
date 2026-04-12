@@ -1,19 +1,12 @@
+import { isIPAddress, isUrl } from 'devices/devices.utils';
 import { z } from 'zod';
 
 export const DeviceUrlSchema = z
   .string()
   .min(1, 'URL is required')
-  .refine(
-    (url) => {
-      try {
-        const parsed = new URL(url);
-        return parsed.protocol === 'http:' || parsed.protocol === 'https:';
-      } catch {
-        return false;
-      }
-    },
-    { message: 'Must be a valid HTTP/HTTPS URL' },
-  );
+  .refine((value) => isIPAddress(value) || isUrl(value), {
+    message: 'Must be a valid IP address or HTTP/HTTPS URL',
+  });
 
 export const ConnectedDeviceValidationSchema = z.object({
   url: z.string(),

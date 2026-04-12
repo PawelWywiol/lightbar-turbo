@@ -18,15 +18,10 @@ describe('App', () => {
       updateStatus: vi.fn(),
       info: {
         type: 'info',
-        message: 'Connected to device',
         data: {
           uid: 'test',
           leds: 1,
-          free: 2048,
-          used: 1024,
-          total: 3072,
           network: 0,
-          host: 'test.local',
         },
       },
       send: vi.fn(),
@@ -44,15 +39,10 @@ describe('App', () => {
       updateStatus: vi.fn(),
       info: {
         type: 'info',
-        message: 'Connected to device',
         data: {
           uid: 'test',
           leds: 1,
-          free: 2048,
-          used: 1024,
-          total: 3072,
           network: 1,
-          host: 'test.local',
         },
       },
       send: vi.fn(),
@@ -70,15 +60,10 @@ describe('App', () => {
       updateStatus: vi.fn(),
       info: {
         type: 'info',
-        message: 'Connected to device',
         data: {
           uid: 'test',
           leds: 1,
-          free: 2048,
-          used: 1024,
-          total: 3072,
           network: 2,
-          host: 'test.local',
         },
       },
       send: vi.fn(),

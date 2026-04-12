@@ -10,11 +10,10 @@ describe('TitleSection', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Lightbar');
   });
 
-  it('should render section with message', () => {
-    render(<TitleSection message="Test message" />);
+  it('should render section without message', () => {
+    render(<TitleSection />);
 
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Lightbar');
-    expect(screen.getByRole('heading', { level: 1 }).nextSibling?.textContent).toBe('Test message');
   });
 });

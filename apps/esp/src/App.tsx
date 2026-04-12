@@ -15,7 +15,7 @@ export const App = () => {
 
   return (
     <main className={'relative flex flex-col gap-4 text-center'}>
-      <TitleSection message={info?.message} />
+      <TitleSection />
       {status === 'CONNECTED' && (info?.data.network ?? NetworkType.Unknown) === NetworkType.AP && (
         <WifiSection send={send} />
       )}

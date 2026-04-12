@@ -15,15 +15,10 @@ describe('InfoSection', () => {
   it('should render section with info', () => {
     const info: ConnectionResponseData = {
       type: 'info',
-      message: 'Test message',
       data: {
         uid: 'test',
         leds: 1,
-        free: 2048,
-        used: 1024,
-        total: 3072,
         network: 0,
-        host: 'test.local',
       },
     };
 
@@ -34,11 +29,5 @@ describe('InfoSection', () => {
 
     expect(screen.getByText('leds :')).toBeInTheDocument();
     expect(screen.getByText('leds :').nextSibling?.textContent?.trim()).toBe('1');
-
-    expect(screen.getByText('space :')).toBeInTheDocument();
-    expect(screen.getByText('space :').nextSibling?.textContent?.trim()).toBe('2.00 KB / 3.00 KB');
-
-    expect(screen.getByText('host :')).toBeInTheDocument();
-    expect(screen.getByText('host :').nextSibling?.textContent?.trim()).toBe('test.local');
   });
 });

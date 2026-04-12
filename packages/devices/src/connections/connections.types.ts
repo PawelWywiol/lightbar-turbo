@@ -30,15 +30,10 @@ export type ConnectionCustomEventDispatch =
 
 export interface ConnectionResponseData {
   type: 'info';
-  message: string;
   data: {
     uid: string;
     leds: number;
-    free: number;
-    used: number;
-    total: number;
     network: NetworkType;
-    host?: string;
   };
 }
 

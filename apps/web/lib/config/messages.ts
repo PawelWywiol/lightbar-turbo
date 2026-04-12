@@ -21,7 +21,7 @@ export const MESSAGES = {
   device: {
     triggerDialogLabel: 'Devices',
     dialogHeader: 'Connected devices',
-    urlInputPlaceholder: 'Device url',
+    urlInputPlaceholder: 'IP or URL (e.g. 192.168.1.100)',
     labelInputPlaceholder: 'Device label',
     leds: 'leds',
     colors: 'colors',

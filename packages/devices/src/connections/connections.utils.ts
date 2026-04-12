@@ -26,9 +26,9 @@ export const isConnectionResponseData = (
     return false;
   }
 
-  const { leds, uid, free } = data;
+  const { leds, uid, network } = data;
 
-  return !!(typeof uid === 'string' && typeof leds === 'number' && typeof free === 'number');
+  return !!(typeof uid === 'string' && typeof leds === 'number' && typeof network === 'number');
 };
 
 export const resolveConnectionRequestWifiBinaryData = (
