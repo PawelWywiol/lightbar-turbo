@@ -188,7 +188,7 @@ const DropDownMenuWrapper = ({
     </DropdownMenuTrigger>
     <DropdownMenuContent>
       {options.map((option, optionIndex) => (
-        <DropdownMenuItem key={`${optionIndex}${option.label}`} onClick={option.onClick}>
+        <DropdownMenuItem key={option.label} onClick={option.onClick}>
           {option.label}
         </DropdownMenuItem>
       ))}
@@ -197,20 +197,20 @@ const DropDownMenuWrapper = ({
 );
 
 export {
+  DropDownMenuWrapper,
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuCheckboxItem,
-  DropdownMenuRadioItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuGroup,
-  DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuRadioGroup,
-  DropDownMenuWrapper,
+  DropdownMenuTrigger,
 };

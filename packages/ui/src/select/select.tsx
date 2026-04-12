@@ -148,16 +148,16 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectIcon,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
+  SelectIcon,
   SelectItem,
-  SelectSeparator,
-  SelectScrollUpButton,
+  SelectLabel,
   SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 };
 
 export const SelectWrapper = ({
