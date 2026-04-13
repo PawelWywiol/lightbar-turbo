@@ -7,10 +7,7 @@ import type {
   ConnectionResponseData,
   ConnectionType,
 } from '../connections/connections.types';
-import {
-  connectionRequestDataToBinaryData,
-  isConnectionResponseData,
-} from '../connections/connections.utils';
+import { connectionRequestDataToBinaryData } from '../connections/connections.utils';
 import { CONNECTED_DEVICE_GET_STATE_INTERVAL } from './devices.config';
 import type { DeviceCustomEventDispatch } from './devices.types';
 import { getConnectedDeviceData, resolveConnectedDeviceApiUrl } from './devices.utils';
@@ -44,20 +41,14 @@ export const useConnectedDeviceData = ({
     try {
       const binaryData = connectionRequestDataToBinaryData(requests);
 
-      const response = await fetch(resolveConnectedDeviceApiUrl(url), {
+      await fetch(resolveConnectedDeviceApiUrl(url), {
         method: 'POST',
         signal: sendAbortControllerReference.current.signal,
         body: new Blob([binaryData as BlobPart]),
       });
 
-      const responseJson = (await response.json()) as unknown;
-
-      if (isConnectionResponseData(responseJson)) {
-        setStatus('CONNECTED');
-        setInfo(responseJson);
-
-        return;
-      }
+      setStatus('CONNECTED');
+      return;
     } catch (error) {
       console.warn('Device send error:', error);
     }
