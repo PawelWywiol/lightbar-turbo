@@ -84,7 +84,7 @@ export const EditorSchemeProvider = ({
   const handleSave = useCallback(
     (layoutValue: number) => {
       dispatchCustomEvent({
-        name: 'app:scheme:save',
+        name: 'app:save:scheme',
         detail: {
           uid: lightsScheme.uid,
           scheme: resolveLightsSchemeColorIndexes(lightsScheme.scheme, layoutValue),
